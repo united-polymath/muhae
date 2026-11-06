@@ -50,6 +50,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 header.hd{position:sticky;top:calc(env(safe-area-inset-top,0px) + 36px);z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:transform .4s cubic-bezier(.2,.7,.2,1),background-color .3s,color .3s}
 /* 스크롤 내리면 공지바 뒤로 숨고, 올리면 다시 등장 */
 header.hd.hide{transform:translateY(-100%)}
+header.hd.nomega .mega{opacity:0!important;visibility:hidden!important}
 /* 홈 맨 위: 사진 위에 투명 헤더 + 흰 글씨 (마우스를 올리면 흰 배경으로) */
 header.hd.over:not(:hover):not(:focus-within){background:transparent;color:#fff}
 header.hd.over:not(:hover):not(:focus-within) .logo .sub{color:rgba(255,255,255,.75)}
@@ -1229,9 +1230,8 @@ let cleanup=[];
 function render(){
   cleanup.forEach(f=>f());cleanup=[];clearInterval(heroTimer);mbar.classList.remove('on');mbar.innerHTML='';
   const h=(location.hash||'#home').slice(1), v=document.getElementById('view');
-  if(h.startsWith('product-')&&byId[h.slice(8)]){const p=byId[h.slice(8)];v.innerHTML=vPdp(p);initPdp(p)}
   subSel='all';
-  if(false){}
+  if(h.startsWith('product-')&&byId[h.slice(8)]){const p=byId[h.slice(8)];v.innerHTML=vPdp(p);initPdp(p)}
   else if(h==='shop'){v.innerHTML=vShop(['all']);initShop(['all'])}
   else if(h.startsWith('shop-')){v.innerHTML=vShop(['cat',h.slice(5)]);initShop(['cat',h.slice(5)])}
   else if(h.startsWith('scent-')){v.innerHTML=vShop(['scent',h.slice(6)]);initShop(['scent',h.slice(6)])}
@@ -1261,6 +1261,8 @@ function hdUpdate(reset){
   if(reset||Math.abs(y-lastY)>4) lastY=y;
 }
 addEventListener('scroll',()=>hdUpdate(),{passive:true});
+hd.addEventListener('click',e=>{if(e.target.closest('nav.main a')){hd.classList.add('nomega');document.activeElement?.blur()}});
+hd.addEventListener('mouseleave',()=>hd.classList.remove('nomega'));
 addEventListener('resize',()=>{hdMeasure();hdUpdate()});
 hdMeasure();
 addEventListener('hashchange',()=>{closeAll();render()});
