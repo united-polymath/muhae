@@ -94,6 +94,7 @@ nav.main>.it:hover .mega,nav.main>.it:focus-within .mega{opacity:1;visibility:vi
 .m-cols{grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);text-align:center}
 .mcol{display:grid;align-content:start;justify-items:center;gap:0}
 .mcol .mimg{display:block;width:100%;aspect-ratio:3/2;overflow:hidden;margin-bottom:22px}
+[data-mega="cat"] .mcol .mimg{aspect-ratio:1}
 .mcol .mimg img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .mcol .mimg:hover img{transform:scale(1.04)}
 /* 시트러스: 배 사진에서 레몬 껍질 부분만 확대 */
@@ -666,10 +667,13 @@ const byId=Object.fromEntries(P.map(p=>[p.id,p]));
   const list=ps=>`<ul>${ps.map(p=>`<li><a href="#product-${p.id}">${nm(p)}</a></li>`).join('')}</ul>`;
   const IMG={citrus:['menu-green','crop-citrus','레몬 껍질'],floral:['menu-floral','','흰 꽃 한 송이'],woody:['menu-woody','','결이 깊은 나무 조각'],green:['menu-green','','반으로 자른 배와 잎사귀'],musk:['menu-perfume','','손목에 향수를 뿌리는 모습']};
   const cat=document.querySelector('[data-mega="cat"]'), sc=document.querySelector('[data-mega="scent"]');
-  // [카테고리, 메뉴 이름, 대표 상품(이미지), 배경색, 함께 보여줄 타입]
-  const CAT_MENU=[['perfume','퍼퓸','soft-linen','#E9C6CB',['perfume','gift']],['discovery','디스커버리','discovery','#E9C6CB',['discovery']],
-    ['body','바디 케어','fig-body','#BFCDB3',['body']],['hand','핸드 케어','linen-hand','#BFCDB3',['hand']],['home','방향제','wood-diffuser','#B9D3DD',['home']]];
-  cat.innerHTML=CAT_MENU.map(([k,n,id,bg,types])=>`<div class="mcol"><a class="mimg" href="#shop-${k}" style="background:${bg}"><div data-art="${id}"></div></a><a class="mt" href="#shop-${k}">${n}</a>${list(P.filter(p=>types.includes(p.type)))}</div>`).join('');
+  // [카테고리, 메뉴 이름, 사진, 사진 초점(object-position), 대체 텍스트, 함께 보여줄 타입]
+  const CAT_MENU=[['perfume','퍼퓸','cat-perfume','50% 50%','실크 위의 소프트 리넨 오 드 퍼퓸',['perfume','gift']],
+    ['discovery','디스커버리','cat-discovery','50% 72%','홀리데이 오 드 퍼퓸 세 병과 선물 상자',['discovery']],
+    ['body','바디 케어','cat-body','50% 50%','초록 병의 바디 로션',['body']],
+    ['hand','핸드 케어','cat-hand','50% 52%','돌 위에 놓인 핸드크림',['hand']],
+    ['home','방향제','cat-home','50% 42%','트래버틴 디퓨저 600ml',['home']]];
+  cat.innerHTML=CAT_MENU.map(([k,n,f,pos,alt,types])=>`<div class="mcol"><a class="mimg" href="#shop-${k}"><img src="assets/${f}.jpg" alt="${alt}" loading="lazy" decoding="async" style="object-position:${pos}"></a><a class="mt" href="#shop-${k}">${n}</a>${list(P.filter(p=>types.includes(p.type)))}</div>`).join('');
   sc.innerHTML=Object.entries(SCENTS).map(([k,[n]])=>{const [f,c,alt]=IMG[k];
     return `<div class="mcol"><a class="mimg ${c}" href="#scent-${k}"><img src="assets/${f}.jpg" width="1536" height="1024" alt="${alt}" loading="lazy" decoding="async"></a><a class="mt" href="#scent-${k}">${n}</a>${list(P.filter(p=>p.scent===k))}</div>`}).join('');
 })();
