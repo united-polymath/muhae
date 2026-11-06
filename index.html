@@ -297,6 +297,31 @@ a:hover .art .obj,.card:hover .art .obj{transform:translateY(-3%)}
 .scent-row a{font-size:12px;padding:5px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
 .scent-row a.on{border-color:var(--ink);color:var(--ink);background:var(--white)}
 .count{font-size:12px;color:var(--mute);padding-block:8px 20px}
+/* 브랜드 스토리 */
+.st-hero{margin:0}
+.st-hero img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;object-position:50% 45%}
+@media (max-width:759px){.st-hero img{aspect-ratio:4/5}}
+.story h3{margin:0;font-family:var(--f-kr);font-size:15px;font-weight:500}
+.story p{margin:0;font-size:14px;line-height:1.95;color:#2c2a26}
+.story p.en{font-family:var(--f-ui);font-size:13px;color:var(--mute);margin:4px 0 22px;letter-spacing:.02em}
+.st-lbl{font-family:var(--f-logo);font-size:clamp(20px,1.9vw,26px);font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin:0}
+.st-intro{display:grid;gap:24px;padding-block:72px 112px}
+@media (min-width:860px){.st-intro{grid-template-columns:1fr 1fr}}
+.st-txt p+p{margin-top:18px}
+.st-pair{display:grid;gap:64px 16px}
+@media (min-width:860px){.st-pair{grid-template-columns:1fr 1fr}}
+.st-col figure{margin:20px 0 26px}
+.st-col img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.st-col p:not(.en){max-width:36em}
+.st-promise{padding-block:120px 40px}
+.st-promise ol{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.st-promise li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 20px;padding:28px 0;border-bottom:1px solid var(--line)}
+@media (min-width:860px){.st-promise li{grid-template-columns:120px 280px minmax(0,1fr);align-items:baseline}}
+.st-promise li b{font-family:var(--f-logo);font-weight:400;font-size:22px}
+@media (max-width:859px){.st-promise li p{grid-column:2}}
+.st-end{text-align:center;padding-block:96px 120px;display:grid;justify-items:center;gap:24px}
+.st-end p{font-family:var(--f-kr);font-size:16px;line-height:1.8}
+
 /* 홈: 논픽션식 혜택 안내 + 컬러 배경 3열 그리드 */
 .h-bar{display:flex;justify-content:space-between;font-size:12px;padding-block:20px 0}
 .benefits{position:relative;text-align:center;padding-block:56px 72px;display:grid;gap:18px;justify-items:center}
@@ -485,9 +510,9 @@ footer.ft .logo .lm{height:22px}
         </div>
         <div class="it"><a href="#shop">By Category</a><div class="mega"><div class="wrap in m-cols" data-mega="cat"></div></div></div>
         <div class="it"><a href="#scent-woody">By Scent</a><div class="mega"><div class="wrap in m-cols" data-mega="scent"></div></div></div>
-        <div class="it"><a href="#home">About</a>
+        <div class="it"><a href="#about">About</a>
           <div class="mega"><div class="wrap in m-about">
-            <a class="mcard" href="#home"><span class="seal-ph"><img src="assets/menu-perfume.jpg" width="1536" height="1024" alt="손목에 향수를 뿌리는 모습" loading="lazy" decoding="async">
+            <a class="mcard" href="#about"><span class="seal-ph"><img src="assets/menu-perfume.jpg" width="1536" height="1024" alt="손목에 향수를 뿌리는 모습" loading="lazy" decoding="async">
               <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="sealC" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-width="1.6"/><text font-family="Cormorant Garamond,serif" font-size="20" fill="#fff"><textPath href="#sealC" textLength="448" lengthAdjust="spacing">HARMLESS · PARFUMS · SEOUL · </textPath></text></svg></span><span>브랜드 스토리</span></a>
           </div></div>
         </div>
@@ -511,7 +536,7 @@ footer.ft .logo .lm{height:22px}
     </div>
     <div><h5>Shop</h5><ul><li><a href="#shop-perfume">오 드 퍼퓸</a></li><li><a href="#shop-discovery">디스커버리 세트</a></li><li><a href="#shop-gift">기프트</a></li></ul></div>
     <div><h5>Customer Care</h5><ul><li><a href="#home">자주 묻는 질문</a></li><li><a href="#home">배송 · 교환 · 반품</a></li><li><a href="#home">1:1 문의</a></li></ul></div>
-    <div><h5>About</h5><ul><li><a href="#home">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li><li><a href="#home">이용약관</a></li><li><a href="#home"><b style="font-weight:500">개인정보처리방침</b></a></li></ul></div>
+    <div><h5>About</h5><ul><li><a href="#about">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li><li><a href="#home">이용약관</a></li><li><a href="#home"><b style="font-weight:500">개인정보처리방침</b></a></li></ul></div>
   </div>
   <div class="wrap biz">
     상호 무해한 마을 · 대표 문선우 · 사업자등록번호 853-54-01008 · 통신판매업신고 신고 후 기재<br>
@@ -533,7 +558,7 @@ footer.ft .logo .lm{height:22px}
     <details open><summary>Shop</summary><ul><li><a href="#shop">전체 상품</a></li><li><a href="#shop-best">베스트셀러</a></li><li><a href="#shop-new">신제품</a></li><li><a href="#shop-gift">기프트 세트</a></li></ul></details>
     <details><summary>By Category</summary><ul><li><a href="#shop-perfume">오 드 퍼퓸</a></li><li><a href="#shop-discovery">디스커버리</a></li><li><a href="#shop-body">바디 케어</a></li><li><a href="#shop-hand">핸드 케어</a></li><li><a href="#shop-home">홈 프래그런스</a></li></ul></details>
     <details><summary>By Scent</summary><ul><li><a href="#scent-citrus">시트러스</a></li><li><a href="#scent-floral">플로럴</a></li><li><a href="#scent-woody">우디</a></li><li><a href="#scent-green">그린</a></li><li><a href="#scent-musk">머스크</a></li></ul></details>
-    <details><summary>About</summary><ul><li><a href="#home">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li></ul></details>
+    <details><summary>About</summary><ul><li><a href="#about">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li></ul></details>
     <div style="padding-top:20px;display:grid;gap:10px;font-size:13px"><button style="text-align:left" data-act="account">로그인 / 회원가입</button><a href="#home">고객센터</a></div>
   </div>
 </aside>
@@ -689,6 +714,62 @@ function vHome(){
 }
 function initHome(){
   document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();toast('구독 완료 · WELCOME15 코드를 보내드렸어요 (시안)');e.target.reset()});
+}
+
+/* 브랜드 스토리 */
+function vAbout(){
+  const img=(f,alt,cls='')=>`<img class="${cls}" src="assets/${f}.jpg" width="1536" height="1024" alt="${alt}" decoding="async">`;
+  return `<article class="story">
+  <figure class="st-hero">${img('menu-floral','빛을 받은 흰 꽃 한 송이')}</figure>
+
+  <section class="wrap st-intro">
+    <h2 class="st-lbl">Near, Not Loud</h2>
+    <div class="st-txt">
+      <h3>무해함 : 곁에 머물러도 괜찮은 향</h3>
+      <p class="en">Close to you, never louder than you</p>
+      <p>언제부턴가 향은 나를 증명하는 수단이 되었습니다. 더 멀리, 더 오래, 더 강하게.<br>
+      방에 들어서기도 전에 먼저 도착하는 향들 사이에서, 우리는 거꾸로 묻기로 했습니다.<br>
+      곁에 있는 사람에게 부담이 되지 않는 향은 어떤 향일까.</p>
+      <p>무해한 마을은 그 질문에서 시작했습니다. 가까이 다가왔을 때에만 알 수 있고,<br>
+      오래 곁에 머물러도 괜찮은 향. 우리는 그것을 '무해한 향'이라고 부릅니다.</p>
+    </div>
+  </section>
+
+  <section class="wrap st-pair">
+    <div class="st-col">
+      <h2 class="st-lbl">Our Village</h2>
+      <figure>${img('menu-green','햇살 아래 놓인 배와 꽃가지')}</figure>
+      <h3>마을 : 서로에게 해가 되지 않는 거리</h3>
+      <p class="en">A village of gentle things</p>
+      <p>마을은 크지 않습니다. 이웃의 얼굴을 알고, 창문을 열어 두어도 서로를 해치지 않는 거리.
+      우리는 그 다정한 거리감을 향으로 옮기고 싶었습니다.
+      무해한 마을은 하나의 브랜드이기 전에, 우리가 지키고 싶은 생활의 방식입니다.</p>
+    </div>
+    <div class="st-col">
+      <h2 class="st-lbl">Our Scent</h2>
+      <figure>${img('menu-woody','결이 깊은 나무 조각')}</figure>
+      <h3>향 : 매일 지나치는 장면에서</h3>
+      <p class="en">Scents from ordinary moments</p>
+      <p>갓 빨아 말린 옷, 오래된 나무 서랍, 비 온 뒤의 잎사귀.
+      우리의 향은 먼 곳의 특별한 풍경이 아니라 매일 지나치는 장면에서 시작합니다.
+      멀리 퍼지기보다 살결 가까이 낮게 머물도록, 한 방울의 농도까지 다시 고릅니다.</p>
+    </div>
+  </section>
+
+  <section class="wrap st-promise">
+    <h2 class="st-lbl">Three Kinds of Harmless</h2>
+    <ol>
+      <li><b>01</b><h3>피부에 무해하게</h3><p>자극이 될 수 있는 성분은 덜어내고 꼭 필요한 것만 남깁니다. 매일 손목에 닿아도 편안하도록.</p></li>
+      <li><b>02</b><h3>곁에 무해하게</h3><p>확산은 낮추고 잔향은 부드럽게. 사무실에서도, 지하철에서도, 아이 곁에서도 부담 없도록.</p></li>
+      <li><b>03</b><h3>지구에 무해하게</h3><p>동물 실험을 하지 않고, 다시 쓰일 수 있는 유리병과 종이로 포장합니다.</p></li>
+    </ol>
+  </section>
+
+  <section class="wrap st-end">
+    <p>어떤 향이 나에게 맞을지 모르겠다면,<br>여섯 가지 향을 먼저 만나 보세요.</p>
+    <a class="btn line" href="#product-discovery">디스커버리 세트 보기</a>
+  </section>
+  </article>`;
 }
 
 let sortBy='rec';
@@ -969,6 +1050,7 @@ function render(){
   else if(h==='checkout'){v.innerHTML=vCheckout();initCheckout()}
   else if(h==='complete'){v.innerHTML=vComplete()}
   else if(h==='reviews'){return}
+  else if(h==='about'){v.innerHTML=vAbout()}
   else {v.innerHTML=vHome();initHome()}
   document.body.classList.toggle('is-home',!v.querySelector('.shop-hd,.pdp,.summary,.done')&&!!v.querySelector('.hero.photo'));
   hydrateArt(document);
