@@ -568,7 +568,7 @@ footer.ft .in{display:grid;gap:36px;padding-block:40px 36px}
 footer.ft h5{margin:0 0 16px;font-family:var(--f-kr);font-weight:500;font-size:12.5px;color:var(--ink)}
 footer.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .biz p{margin:0 0 10px}.biz-links{display:flex;gap:16px;color:var(--ink)}.biz-links b{font-weight:600}
-.biz-chk{margin-left:6px;padding:1px 6px;border:1px solid var(--line);font-size:11px}.biz-note{color:#7a2a2f}
+.biz-chk{margin-left:4px;text-decoration:underline;text-underline-offset:3px}
 footer.ft .biz{border-top:1px solid var(--line);padding-block:22px 36px;font-size:11.5px;line-height:1.9;color:var(--mute)}
 footer.ft .logo{justify-items:start}
 footer.ft .logo .lm{height:22px}
@@ -630,11 +630,9 @@ footer.ft .logo .lm{height:22px}
   </div>
   <div class="wrap biz">
     <p class="biz-links"><a href="#terms">이용약관</a><a href="#privacy"><b>개인정보처리방침</b></a></p>
-    <p>상호 무해한 마을 · 대표자 문선우 · 사업자등록번호 853-54-01008 <a class="biz-chk" href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8535401008" target="_blank" rel="noopener">사업자정보확인</a><br>
-    통신판매업 신고번호 신고 진행 중 · 주소 서울특별시 강남구 영동대로 602, 6층 E46 (삼성동, 삼성동 미켈란 107)<br>
-    고객센터 전화 준비 중 · 이메일 준비 중 · 개인정보 보호책임자 문선우 · 호스팅 서비스 제공자 GitHub, Inc.</p>
-    <p class="biz-note">현재 이 사이트는 정식 오픈을 준비 중인 시안으로, 실제 주문·결제는 이루어지지 않습니다.</p>
-    <p>© muhae village. All rights reserved.</p>
+    <p>무해한 마을 | 대표 문선우 | 사업자등록번호 853-54-01008 <a class="biz-chk" href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8535401008" target="_blank" rel="noopener">사업자정보확인</a><br>
+    서울특별시 강남구 영동대로 602, 6층 E46 | 개인정보 보호책임자 문선우 | 호스팅 GitHub</p>
+    <p>© muhae village</p>
   </div>
 </footer>
 
@@ -1240,8 +1238,8 @@ function doSearch(q){
   q=q.trim().toLowerCase();
   const kw=document.getElementById('kw'), res=document.getElementById('res');
   kw.innerHTML=q?'':`<span class="lbl" style="width:100%">추천 검색어</span>${['머스크','디스커버리','선물','우디','한정판'].map(k=>`<button data-kw="${k}">${k}</button>`).join('')}`;
-  const list=(q?P.filter(p=>(p.name+p.kr+p.tags.join()+(p.notes?p.notes.map(n=>n[0]).join():'')+(SCENTS[p.scent]?.[0]||'')+(p.ltd?'한정판':'')+(p.type==='gift'?'선물':'')).toLowerCase().includes(q)):P.filter(p=>p.best));
-  res.innerHTML=list.length?list.map(p=>`<a href="#product-${p.id}" data-act="close">${art(p.id)}<p>${p.name.toUpperCase()}</p><span style="font-size:12px;color:var(--mute)">${won(minP(p))}~</span></a>`).join(''):`<p style="grid-column:1/-1;color:var(--mute)">'${q}'에 맞는 제품이 없어요. 다른 향이나 노트로 검색해 보세요.</p>`;
+  const list=(q?P.filter(p=>(p.name+p.kr+p.tags.join()+(p.notes?p.notes.map(n=>n[0]).join():'')+(SCENTS[p.scent]?.[0]||'')+(p.ltd?'한정판':'')+(p.type==='gift'||p.hol?'선물':'')).toLowerCase().includes(q)):[]);
+  res.innerHTML=!q?'':list.length?list.map(p=>`<a href="#product-${p.id}" data-act="close">${art(p.id)}<p>${p.name.toUpperCase()}</p><span style="font-size:12px;color:var(--mute)">${won(minP(p))}~</span></a>`).join(''):`<p style="grid-column:1/-1;color:var(--mute)">'${q}'에 맞는 제품이 없어요. 다른 향이나 노트로 검색해 보세요.</p>`;
 }
 document.getElementById('q').addEventListener('input',e=>doSearch(e.target.value));
 
