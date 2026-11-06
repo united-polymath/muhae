@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HARMLESS Parfums</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<style>
+/* Layout: 상품 중심 커머스 — 혜택 띠 / 중앙 로고 헤더 + 메가메뉴 / 배너 슬라이드 / 카테고리 타일 / 상품 캐러셀 / 브랜드 스플릿 / 상세(갤러리+고정 정보) / 장바구니 드로어 / 결제 */
+:root{
+  --bg:#FFFFFF;        /* 순백 배경 */
+  --sand:#EEEBE5;      /* 이미지 자리 기본 톤 */
+  --sand-2:#E4E0D8;
+  --ink:#1F1E1B;
+  --mute:#8A867F;
+  --line:#ECEBE8;
+  --pine:#14281D;      /* 딥 포레스트 그린: 공지바·배지·밴드 */
+  --white:#FFFFFF;
+  --f-logo:"Cormorant Garamond","Nanum Myeongjo",Didot,serif;
+  --f-ui:"Jost","Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --f-kr:"Noto Sans KR","Jost",-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --gl:max(16px, env(safe-area-inset-left,0px));
+  --gr:max(16px, env(safe-area-inset-right,0px));
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-kr);font-weight:300;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.wrap{padding-left:var(--gl);padding-right:var(--gr);max-width:1440px;margin-inline:auto}
+@media (min-width:1000px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+.en{font-family:var(--f-ui);letter-spacing:.14em;text-transform:uppercase}
+.lbl{font-family:var(--f-ui);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+h1,h2,h3{font-weight:400;margin:0;text-wrap:balance}
+.serif{font-family:var(--f-logo)}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.2;display:block}
+
+/* ---------- Announcement + header ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--pine)}
+.ann{background:var(--pine);color:#F4F3EF;font-size:12.5px;letter-spacing:.02em;text-align:center;height:36px;overflow:hidden;position:sticky;top:env(safe-area-inset-top,0px);z-index:55}
+.ann div{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .6s,transform .6s;padding-inline:16px}
+.ann div.off{opacity:0;transform:translateY(8px)}
+header.hd{position:sticky;top:calc(env(safe-area-inset-top,0px) + 36px);z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:transform .4s cubic-bezier(.2,.7,.2,1),background-color .3s,color .3s}
+/* 스크롤 내리면 공지바 뒤로 숨고, 올리면 다시 등장 */
+header.hd.hide{transform:translateY(-100%)}
+/* 홈 맨 위: 사진 위에 투명 헤더 + 흰 글씨 (마우스를 올리면 흰 배경으로) */
+header.hd.over:not(:hover):not(:focus-within){background:transparent;color:#fff}
+header.hd.over:not(:hover):not(:focus-within) .logo .sub{color:rgba(255,255,255,.75)}
+header.hd.over:not(:hover):not(:focus-within) .cart-btn b{background:#fff;color:var(--ink)}
+body.is-home .hero.photo{margin-top:calc(-1 * var(--hdH,108px))}
+.hero.photo::before{content:"";position:absolute;inset:0 0 auto;height:min(260px,40%);z-index:1;pointer-events:none;background:linear-gradient(rgba(20,14,10,.42),rgba(20,14,10,0))}
+.hd-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px}
+.hd-left,.hd-right{display:flex;align-items:center;gap:18px}
+.hd-right{justify-content:flex-end}
+.logo{display:grid;justify-items:center;line-height:1}
+/* 로고: 투명 PNG를 마스크로 써서 글자색(currentColor)을 따라감 → 사진 위에선 흰색, 평소엔 먹색 */
+.logo .lm{display:block;height:21px;aspect-ratio:2035/417;background:currentColor;opacity:.92;-webkit-mask:url(assets/logo-muhae-village.png) center/contain no-repeat;mask:url(assets/logo-muhae-village.png) center/contain no-repeat}
+.logo .sub{font-family:var(--f-ui);font-size:7.5px;letter-spacing:.42em;margin-top:5px;margin-right:-.42em;color:var(--mute)}
+.cart-btn{position:relative}
+.cart-btn b{position:absolute;right:-8px;top:-6px;min-width:16px;height:16px;border-radius:8px;background:var(--ink);color:var(--bg);font-size:9.5px;font-weight:400;display:grid;place-items:center;font-family:var(--f-ui);padding-inline:4px}
+.cart-btn b[data-n="0"]{display:none}
+.desk{display:none}
+@media (min-width:1000px){.desk{display:flex}.mob{display:none!important}}
+nav.main{height:100%;align-items:center;justify-content:center;gap:clamp(28px,3.4vw,56px);font-family:var(--f-logo);font-size:19px;font-weight:400;letter-spacing:.04em;text-transform:uppercase}
+@media (min-width:1000px){
+  .hd-row{display:flex;height:88px;gap:24px}
+  .hd-left{display:none}
+  .hd-row .logo{flex:0 0 220px;justify-items:start}
+  .hd-row .logo .lm{height:25px}
+  .hd-row .logo .sub{margin-right:0}
+  nav.main{flex:1}
+  .hd-right{flex:0 0 220px}
+}
+nav.main>.it{height:100%;display:flex;align-items:center;position:static}
+nav.main>.it>a{padding-block:12px;border-bottom:1px solid transparent}
+.mega{position:absolute;left:0;right:0;top:100%;background:#F6F6F5;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;text-transform:none;letter-spacing:0;color:var(--ink);font-family:var(--f-kr);font-size:14px;
+  /* 메뉴 아래 페이지를 어둡게 (아래쪽으로만 그림자 확장) */
+  box-shadow:0 0 0 100vmax rgba(20,16,12,.38);clip-path:inset(0 -100vmax -100vmax -100vmax)}
+/* 한 메뉴에 올리면 나머지 메뉴는 흐리게 */
+nav.main:hover>.it>a{color:#A9A7A2;transition:color .2s}
+nav.main>.it:hover>a{color:inherit}
+nav.main>.it:hover .mega,nav.main>.it:focus-within .mega{opacity:1;visibility:visible}
+.mega .in{display:grid;gap:8px;padding-block:48px 56px;max-width:1240px}
+.m-shop{grid-template-columns:repeat(3,minmax(0,300px));justify-content:center}
+.m-shop .mcard>span{font-family:var(--f-kr);font-size:13.5px;letter-spacing:0}
+.m-shop .art{aspect-ratio:3/2;background:#B9D3DD}.m-shop .art::after{display:none}.m-shop .art .obj{width:28%}
+.m-cols{grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);text-align:center}
+.mcol{display:grid;align-content:start;justify-items:center;gap:0}
+.mcol .mimg{display:block;width:100%;aspect-ratio:3/2;overflow:hidden;margin-bottom:22px}
+.mcol .mimg img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mcol .mimg:hover img{transform:scale(1.04)}
+/* 시트러스: 배 사진에서 레몬 껍질 부분만 확대 */
+.mcol .mimg.crop-citrus img{transform:scale(2.1);transform-origin:66% 74%}
+.mcol .mimg.crop-citrus:hover img{transform:scale(2.18)}
+.mcol .mt{font-family:var(--f-kr);font-size:13.5px;font-weight:500;margin-bottom:16px}
+.mcol ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:13px}
+.mcol ul a:hover,.m-about a:hover{text-decoration:underline;text-underline-offset:4px}
+.mcol .mimg .art{width:100%;height:100%;background:none}.mcol .mimg .art::after{display:none}.mcol .mimg .art .obj{width:30%}
+.mcol .mimg:hover .art .obj{transform:translateY(-4%)}
+.mega .m-about{display:flex;justify-content:center}
+.m-about .mcard{width:min(300px,100%)}
+.m-about .mcard>span:last-child{font-family:var(--f-kr);font-size:13.5px;letter-spacing:0}
+.seal-ph{position:relative;display:block}
+.seal-ph img{filter:grayscale(1) contrast(1.05)}
+.seal{position:absolute;left:50%;top:50%;width:52%;transform:translate(-50%,-50%);pointer-events:none}
+.mcard{display:grid;gap:22px;text-align:center}
+.mcard img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:opacity .3s}
+.mcard .art{transition:opacity .3s}.mcard:hover .art{opacity:.88}
+.mcard:hover img{opacity:.88}
+.mcard span{font-family:var(--f-ui);font-size:13px;font-weight:500;letter-spacing:.06em}
+
+/* ---------- Drawers ---------- */
+.scrim{position:fixed;inset:0;background:rgba(20,19,17,.36);z-index:70;opacity:0;visibility:hidden;transition:opacity .3s}
+.scrim.on{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;bottom:0;z-index:80;background:var(--bg);width:min(420px,100%);display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.2,.7,.2,1);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.right{right:0;transform:translateX(100%);padding-right:env(safe-area-inset-right,0px)}
+.drawer.left{left:0;transform:translateX(-100%);padding-left:env(safe-area-inset-left,0px)}
+.drawer.on{transform:none}
+.dr-hd{display:flex;justify-content:space-between;align-items:center;height:60px;padding-inline:20px;border-bottom:1px solid var(--line);font-family:var(--f-ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.dr-body{flex:1;overflow:auto;padding:20px}
+.dr-ft{border-top:1px solid var(--line);padding:18px 20px 20px;display:grid;gap:12px}
+.mnav details{border-bottom:1px solid var(--line)}
+.mnav summary{list-style:none;display:flex;justify-content:space-between;padding-block:16px;font-family:var(--f-ui);font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.mnav summary::-webkit-details-marker{display:none}
+.mnav summary::after{content:"+";font-weight:300}
+.mnav details[open] summary::after{content:"–"}
+.mnav ul{list-style:none;margin:0;padding:0 0 16px;display:grid;gap:12px;font-size:14px}
+
+/* free ship */
+.ship{font-size:12.5px}
+.ship .bar{height:2px;background:var(--line);margin-top:8px;position:relative;overflow:hidden}
+.ship .bar i{position:absolute;inset:0 auto 0 0;background:var(--pine);transition:width .5s}
+.citem{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:14px;padding-block:16px;border-bottom:1px solid var(--line)}
+.citem .art{aspect-ratio:4/5}
+.citem h5{margin:0;font-family:var(--f-ui);font-weight:400;font-size:12.5px;letter-spacing:.12em}
+.citem .meta{font-size:12px;color:var(--mute);margin-top:2px}
+.citem .rm{font-size:11.5px;color:var(--mute);text-decoration:underline;text-underline-offset:3px;margin-top:10px}
+.citem .pr{font-size:13px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);height:32px;margin-top:10px}
+.step button{width:30px;height:100%;display:grid;place-items:center}
+.step span{min-width:26px;text-align:center;font-family:var(--f-ui);font-size:13px}
+.step.lg{height:46px}.step.lg button{width:42px}.step.lg span{min-width:34px}
+.sumrow{display:flex;justify-content:space-between;font-size:13.5px;font-variant-numeric:tabular-nums}
+.sumrow.tot{font-size:15px;font-weight:400}
+.upsell{margin-top:22px;background:var(--sand);padding:14px;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center}
+.upsell .art{aspect-ratio:1}
+.upsell p{margin:0;font-size:12.5px}
+.upsell p b{display:block;font-weight:400;font-family:var(--f-ui);letter-spacing:.12em;font-size:11.5px}
+
+/* buttons */
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;height:50px;padding-inline:26px;font-family:var(--f-ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--ink);transition:background .25s,color .25s;white-space:nowrap}
+.btn.solid{background:var(--ink);color:var(--bg)}
+.btn.solid:hover{background:#3a3833}
+.btn.line:hover{background:var(--ink);color:var(--bg)}
+.btn.light{border-color:var(--bg);color:var(--bg)}
+.btn.light:hover{background:var(--bg);color:var(--ink)}
+.btn.sm{height:38px;padding-inline:16px;font-size:11px}
+.btn.full{width:100%}
+.txtlink{font-family:var(--f-ui);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:2px}
+
+/* ---------- Art placeholders (사진 자리) ---------- */
+.art{position:relative;background:linear-gradient(168deg,var(--a,#EEEBE5),var(--b,#E2DED6));overflow:hidden;max-width:100%;display:grid;place-items:center}
+.art::after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .48  0 0 0 0 .45  0 0 0 .18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.art .obj{width:44%;max-width:260px;transition:transform .9s cubic-bezier(.2,.7,.2,1);position:relative;z-index:1}
+.art .obj svg{width:100%;height:auto;display:block}
+.art.zoom .obj{width:78%;max-width:none;transform:translateY(12%)}
+.art.mood::before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;left:-12%;top:-18%;background:radial-gradient(closest-side,rgba(255,255,255,.75),rgba(255,255,255,0));}
+.art.mood .obj{width:30%}
+.art.tex{background:radial-gradient(60% 50% at 30% 30%,var(--a),transparent),radial-gradient(70% 60% at 75% 70%,var(--b),transparent),var(--sand)}
+.art.tex .note{position:relative;z-index:1;font-family:var(--f-logo);font-style:italic;font-size:clamp(22px,3vw,34px);color:rgba(31,30,27,.65);text-align:center;padding:16px}
+a:hover .art .obj,.card:hover .art .obj{transform:translateY(-3%)}
+
+/* ---------- Cards ---------- */
+.card{min-width:0;display:flex;flex-direction:column}
+.card .ph{position:relative}
+.card .art{aspect-ratio:4/5}
+.badge{position:absolute;left:10px;top:10px;z-index:2;font-family:var(--f-ui);font-size:9.5px;letter-spacing:.16em;background:var(--bg);padding:4px 8px;text-transform:uppercase}
+.badge.ltd{background:var(--pine);color:var(--bg)}
+.wish{position:absolute;right:6px;top:6px;z-index:2;width:34px;height:34px;display:grid;place-items:center}
+.wish[aria-pressed="true"] svg{fill:var(--ink)}
+.card .info{padding:12px 2px 0;display:grid;gap:1px;flex:1;align-content:start}
+.card .nm{font-size:13px;font-weight:500;letter-spacing:0}
+.card .kr{font-size:12px;color:var(--mute)}
+.card .sz{font-size:12px;margin-top:12px;font-variant-numeric:tabular-nums}
+.card .pr{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums}
+.card .add{margin-top:12px}
+.quick{position:absolute;left:10px;right:10px;bottom:10px;z-index:2;opacity:0;transform:translateY(6px);transition:all .3s;background:rgba(250,249,246,.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media (hover:hover){.card:hover .quick{opacity:1;transform:none}.card .add{display:none}}
+@media (hover:none){.quick{display:none}}
+
+/* ---------- Home ---------- */
+.hero{position:relative;overflow:hidden;background:var(--sand)}
+.hero .slides{position:relative;aspect-ratio:4/5;max-height:78svh;width:100%}
+@media (min-width:760px){.hero .slides{aspect-ratio:16/7;max-height:none}}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
+.slide.on{opacity:1}
+.slide .art{position:absolute;inset:0}
+.slide .art .grp{position:relative;z-index:1;display:flex;align-items:flex-end;gap:2%;width:min(62%,560px);transform:translateX(18%)}
+@media (max-width:759px){.slide .art .grp{width:78%;transform:translateY(-14%)}}
+.slide .grp>div{flex:1}
+.slide .grp>div:nth-child(2){flex:1.3}
+.slide .grp svg{width:100%;height:auto;display:block}
+.hero .copy{position:absolute;left:0;right:0;bottom:0;z-index:3;padding-block:36px}
+.hero .copy .lbl{color:var(--ink);opacity:.7}
+.hero h1{font-family:var(--f-logo);font-weight:400;font-size:clamp(38px,5.6vw,76px);line-height:1.02;margin-top:10px;letter-spacing:-.005em}
+.hero h1 em{font-style:italic}
+.hero .copy p{margin:10px 0 22px;font-size:14.5px;max-width:28em}
+.dots{display:flex;gap:8px;margin-top:22px}
+.dots button{width:28px;height:2px;background:rgba(31,30,27,.22)}
+.dots button.on{background:var(--ink)}
+.hero.photo{background:#2a1d14}
+.hero.photo img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:cover;object-position:50% 40%}
+@media (max-width:759px){.hero.photo img{aspect-ratio:4/5;object-position:48% 30%}}
+.hero.photo .copy{background:linear-gradient(to top,rgba(20,14,10,.45),rgba(20,14,10,0));color:#fff;padding-block:80px 32px}
+.hero.photo h1{text-align:right;font-style:italic;font-size:clamp(40px,6vw,88px);text-shadow:0 2px 24px rgba(0,0,0,.25)}
+.hero.photo .sub{display:flex;justify-content:space-between;gap:16px;margin-top:14px;font-family:var(--f-ui);font-size:12px;letter-spacing:.08em}
+.hero.photo .sub a{border-bottom:1px solid rgba(255,255,255,.7);padding-bottom:2px}
+.sec{padding-block:64px 0}
+@media (min-width:1000px){.sec{padding-block:96px 0}}
+.sec-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px}
+.sec-hd h2{font-family:var(--f-logo);font-size:clamp(28px,3.4vw,42px);line-height:1.1}
+.sec-hd h2 small{display:block;font-family:var(--f-kr);font-size:13px;color:var(--mute);margin-top:6px;letter-spacing:0}
+.arrows{display:flex;gap:6px}
+.arrows button{width:40px;height:40px;border:1px solid var(--line);display:grid;place-items:center}
+.arrows button:hover{border-color:var(--ink)}
+.cats{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(132px,38%);gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
+.cats::-webkit-scrollbar{display:none}
+@media (min-width:1000px){.cats{grid-auto-flow:row;grid-template-columns:repeat(6,1fr)}}
+.cats a{scroll-snap-align:start;display:grid;gap:12px;text-align:center}
+.cats .art{aspect-ratio:1}
+.cats span{font-size:13px}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 10px)/2);gap:28px 10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-behavior:smooth}
+.rail::-webkit-scrollbar{display:none}
+.rail>.card{scroll-snap-align:start}
+@media (min-width:760px){.rail{grid-auto-columns:calc((100% - 40px)/3);gap:20px}}
+@media (min-width:1000px){.rail{grid-auto-columns:calc((100% - 60px)/4)}}
+.split{display:grid;gap:0;background:var(--sand)}
+@media (min-width:860px){.split{grid-template-columns:1fr 1fr}}
+.split .art{aspect-ratio:1;min-height:100%}
+.split .txt{padding:48px var(--gr) 56px var(--gl);display:grid;align-content:center;gap:18px}
+@media (min-width:860px){.split .txt{padding:64px clamp(40px,7vw,120px)}}
+.split h2{font-family:var(--f-logo);font-size:clamp(32px,4vw,56px);line-height:1.08}
+.split h2 em{font-style:italic}
+.split p{margin:0;max-width:30em}
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--sand-2);margin-top:8px}
+.promise div{padding:16px 10px 0 0;font-size:12.5px}
+.promise b{display:block;font-family:var(--f-logo);font-weight:500;font-size:22px;margin-bottom:2px}
+.scents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:760px){.scents{grid-template-columns:repeat(5,1fr)}}
+.scents a{position:relative;display:block}
+.scents .art{aspect-ratio:3/4}
+.scents .cap{position:absolute;left:14px;bottom:14px;right:14px;z-index:2}
+.scents .cap b{display:block;font-family:var(--f-logo);font-weight:400;font-size:26px;line-height:1}
+.scents .cap span{font-size:12px;color:#4a4842}
+.scents a:last-child:nth-child(odd){grid-column:span 2}
+@media (min-width:760px){.scents a:last-child:nth-child(odd){grid-column:auto}}
+.band{position:relative;background:var(--pine);color:#EEEBE5;overflow:hidden}
+.band .in{display:grid;gap:28px;align-items:center;padding-block:56px}
+@media (min-width:860px){.band .in{grid-template-columns:1.1fr 1fr;padding-block:80px}}
+.band .art{aspect-ratio:16/10;--a:#2E4436;--b:#16291E}
+.band h2{font-family:var(--f-logo);font-size:clamp(32px,4vw,54px);line-height:1.05}
+.band h2 em{font-style:italic}
+.band p{margin:14px 0 24px;color:#cfcbc3;max-width:28em}
+.band .price{font-family:var(--f-ui);letter-spacing:.08em;margin-bottom:20px}
+.revs{display:grid;gap:10px}
+@media (min-width:860px){.revs{grid-template-columns:repeat(3,1fr)}}
+.rev{border:1px solid var(--line);padding:24px;display:grid;gap:12px;background:var(--white)}
+.rev q{font-family:var(--f-logo);font-size:20px;line-height:1.4;quotes:none}
+.rev .by{font-size:12px;color:var(--mute);display:flex;justify-content:space-between}
+.stars{letter-spacing:2px;font-size:11px}
+.news{border-top:1px solid var(--line);margin-top:96px}
+.news .in{display:grid;gap:20px;padding-block:56px;align-items:center}
+@media (min-width:860px){.news .in{grid-template-columns:1fr 1fr}}
+.news h3{font-family:var(--f-logo);font-size:30px}
+.news form{display:flex;border-bottom:1px solid var(--ink)}
+.news input{flex:1;min-width:0;border:0;background:none;height:48px;outline:none}
+
+/* ---------- Shop ---------- */
+.crumb{font-size:12px;color:var(--mute);padding-block:20px 0;display:flex;gap:8px;flex-wrap:wrap}
+.crumb a:hover{color:var(--ink)}
+.shop-hd{padding-block:18px 22px;display:grid;gap:8px}
+.shop-hd h1{font-family:var(--f-logo);font-size:clamp(26px,3vw,36px);line-height:1}
+.shop-hd p{margin:0;color:var(--mute);max-width:40em}
+.filters{position:sticky;top:calc(env(safe-area-inset-top,0px) + 36px + var(--hdShow,64px));transition:top .4s cubic-bezier(.2,.7,.2,1);z-index:20;background:var(--bg);border-block:0;display:flex;gap:16px;justify-content:space-between;align-items:center;padding-block:10px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{white-space:nowrap;font-size:13px;padding:7px 14px;border:1px solid transparent;color:var(--mute)}
+.tabs a.on{border-color:var(--ink);color:var(--ink)}
+.filters select{border:0;background:none;font-size:13px;padding:6px 2px;flex-shrink:0}
+.scent-row{display:flex;gap:6px;flex-wrap:wrap;padding-block:16px 8px}
+.scent-row a{font-size:12px;padding:5px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
+.scent-row a.on{border-color:var(--ink);color:var(--ink);background:var(--white)}
+.count{font-size:12px;color:var(--mute);padding-block:8px 20px}
+/* 홈: 논픽션식 혜택 안내 + 컬러 배경 3열 그리드 */
+.h-bar{display:flex;justify-content:space-between;font-size:12px;padding-block:20px 0}
+.benefits{position:relative;text-align:center;padding-block:56px 72px;display:grid;gap:18px;justify-items:center}
+.benefits h2{font-family:var(--f-ui);font-size:15px;letter-spacing:.06em}
+.benefits p{margin:0;font-size:12.5px;line-height:1.9}
+.benefits ul{list-style:none;margin:6px 0 0;padding:0;font-size:12px;line-height:2;color:#4b4944}
+.orn{position:absolute;width:56px}.orn svg{width:100%;height:auto;display:block}
+.orn.o1{left:14%;top:44px;transform:rotate(-8deg)}.orn.o2{right:16%;top:28px;width:64px;transform:rotate(10deg)}.orn.o3{right:24%;bottom:40px;width:72px}
+@media (max-width:759px){.orn{display:none}}
+.grid.hol .card .art{background:#B9D3DD}
+.grid.hol .card[data-type="perfume"] .art,.grid.hol .card[data-type="discovery"] .art{background:#E9C6CB}
+.grid.hol .card[data-type="body"] .art,.grid.hol .card[data-type="hand"] .art{background:#BFCDB3}
+.grid.hol .card .art .obj{width:40%}
+.grid.hol{padding-bottom:96px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 6px}
+@media (min-width:760px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 8px}}
+.grid .card .art{aspect-ratio:1;background:#F4F4F2}
+.grid .card .art::after{display:none}
+.grid .card .art .obj{width:34%}
+.grid .wish{color:#B9B7B2}
+
+/* ---------- PDP ---------- */
+.pdp{display:grid;gap:28px;padding-top:12px}
+@media (min-width:1000px){.pdp{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:64px;padding-top:20px}}
+.gal{display:grid;gap:10px;min-width:0}
+.gal-main{display:grid;grid-auto-flow:column;grid-auto-columns:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gal-main::-webkit-scrollbar{display:none}
+.gal-main .art{aspect-ratio:4/5;scroll-snap-align:start}
+.gal-dots{display:flex;gap:6px;justify-content:center}
+.gal-dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.gal-dots i.on{background:var(--ink)}
+@media (min-width:1000px){
+  .gal-main{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;overflow:visible;gap:10px}
+  .gal-main .art:first-child{grid-column:span 2}
+  .gal-dots{display:none}
+}
+.buy{display:grid;gap:18px;align-content:start;min-width:0}
+@media (min-width:1000px){.buy{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px + var(--hdShow,108px));transition:top .4s}}
+.buy .top{display:grid;gap:6px}
+.buy h1{font-family:var(--f-ui);font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:.16em;text-transform:uppercase;line-height:1.2}
+.buy .kr{color:var(--mute)}
+.rate{display:flex;gap:8px;align-items:center;font-size:12px}
+.rate a{color:var(--mute);text-decoration:underline;text-underline-offset:3px}
+.buy .price{font-size:20px;font-variant-numeric:tabular-nums;font-weight:400}
+.buy .desc{margin:0;font-size:14px;line-height:1.8;color:#3d3b37}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;padding:4px 10px;background:var(--sand)}
+.opt-lbl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
+.opt-lbl span:first-child{font-family:var(--f-ui);letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+.sizes{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}
+.sizes button{border:1px solid var(--line);padding:12px 8px;display:grid;gap:2px;text-align:center;background:var(--white)}
+.sizes button b{font-family:var(--f-ui);font-weight:400;font-size:13px;letter-spacing:.06em}
+.sizes button small{font-size:11.5px;color:var(--mute);font-variant-numeric:tabular-nums}
+.sizes button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.row-buy{display:grid;grid-template-columns:auto 1fr;gap:8px}
+.row-buy .step{margin:0}
+.cta2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chk{display:flex;gap:10px;align-items:center;font-size:13px;cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--ink)}
+.perks{list-style:none;margin:0;padding:14px 16px;background:var(--sand);display:grid;gap:6px;font-size:12.5px}
+.perks li{display:flex;gap:10px}
+.perks li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--ink);margin-top:9px;flex-shrink:0}
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;display:flex;justify-content:space-between;padding-block:16px;cursor:pointer;font-family:var(--f-ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:16px;line-height:1}
+.acc details[open] summary::after{content:"–"}
+.acc .ct{padding-bottom:18px;font-size:13.5px;color:#3d3b37;line-height:1.85}
+.acc .ct p{margin:0 0 8px}
+.notes-sec{background:var(--sand);margin-top:80px}
+.notes-sec .in{display:grid;gap:36px;padding-block:64px}
+@media (min-width:1000px){.notes-sec .in{grid-template-columns:1fr 1.4fr;gap:80px;padding-block:96px}}
+.notes-sec h2{font-family:var(--f-logo);font-size:clamp(32px,4vw,52px);line-height:1.05}
+.notes-sec h2 em{font-style:italic}
+.pyr{display:grid}
+.pyr>div{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:16px;padding-block:20px;border-top:1px solid var(--sand-2);align-items:baseline}
+.pyr>div:last-child{border-bottom:1px solid var(--sand-2)}
+@media (max-width:599px){.pyr>div{grid-template-columns:72px minmax(0,1fr)}.pyr small{grid-column:2}.pyr span{font-size:20px}.meter{grid-template-columns:90px minmax(0,1fr) 48px}}
+.pyr b{font-family:var(--f-ui);font-weight:400;font-size:11px;letter-spacing:.16em}
+.pyr span{font-family:var(--f-logo);font-size:22px;line-height:1.3}
+.pyr small{font-size:12px;color:var(--mute);white-space:nowrap}
+.meter{display:grid;grid-template-columns:110px minmax(0,1fr) 54px;gap:16px;align-items:center;margin-top:16px;font-size:12px}
+.meter b{font-family:var(--f-ui);font-weight:400;font-size:11px;letter-spacing:.16em}
+.meter .t{height:2px;background:var(--sand-2);position:relative}
+.meter .t i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.meter em{font-style:normal;text-align:right;color:var(--mute)}
+.rv-sum{display:grid;gap:28px;border-top:1px solid var(--ink);padding-top:28px}
+@media (min-width:860px){.rv-sum{grid-template-columns:260px 1fr}}
+.rv-avg b{display:block;font-family:var(--f-logo);font-weight:400;font-size:64px;line-height:1}
+.dist{display:grid;gap:6px;font-size:12px}
+.dist div{display:grid;grid-template-columns:24px minmax(0,1fr) 40px;gap:10px;align-items:center}
+.dist .t{height:4px;background:var(--line);position:relative}
+.dist .t i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.rv-list{display:grid}
+.rv-item{display:grid;gap:8px;padding-block:22px;border-bottom:1px solid var(--line)}
+@media (min-width:860px){.rv-item{grid-template-columns:200px 1fr}}
+.rv-item .who{font-size:12px;color:var(--mute)}
+.rv-item h4{margin:0 0 4px;font-weight:400;font-size:14px}
+.rv-item p{margin:0;font-size:13.5px;color:#3d3b37}
+.sample-note{font-size:11.5px;color:var(--mute)}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--bg);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px var(--gr) calc(10px + env(safe-area-inset-bottom,0px)) var(--gl);transform:translateY(100%);transition:transform .35s}
+.mbar.on{transform:none}
+@media (min-width:1000px){.mbar{display:none}}
+
+/* ---------- Checkout ---------- */
+.co{display:grid;gap:36px;padding-block:28px 80px}
+@media (min-width:1000px){.co{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:64px}}
+.co h1{font-family:var(--f-logo);font-size:40px;line-height:1}
+.co h2{font-family:var(--f-ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:32px 0 14px}
+.fgrid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.fgrid .full{grid-column:1/-1}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:12px;color:var(--mute)}
+.field input,.field select{height:48px;border:1px solid var(--line);background:var(--white);padding-inline:14px;border-radius:0;width:100%;min-width:0}
+.field input:focus,.field select:focus{outline:none;border-color:var(--ink)}
+.field input.err{border-color:#9a3b2f}
+.pay{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:600px){.pay{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pay label{position:relative}
+.pay input{position:absolute;opacity:0}
+.pay span{display:grid;place-items:center;height:52px;border:1px solid var(--line);background:var(--white);font-size:13px;cursor:pointer}
+.pay input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.pay input:focus-visible+span{outline:1px solid var(--ink);outline-offset:2px}
+.summary{background:var(--white);border:1px solid var(--line);padding:24px;display:grid;gap:14px;align-content:start}
+@media (min-width:1000px){.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px + var(--hdShow,108px));transition:top .4s}}
+.sitem{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:12px;align-items:center;font-size:13px}
+.sitem .art{aspect-ratio:4/5}
+.sitem small{display:block;color:var(--mute);font-size:12px}
+.coupon{display:flex;gap:8px}
+.coupon input{flex:1;min-width:0;height:42px;border:1px solid var(--line);padding-inline:12px;background:var(--bg)}
+.hint{font-size:12px;color:var(--mute)}
+.done{text-align:center;padding-block:80px 100px;display:grid;justify-items:center;gap:14px}
+.done h1{font-family:var(--f-logo);font-size:clamp(36px,5vw,56px);line-height:1.05}
+.done .box{border:1px solid var(--line);background:var(--white);padding:24px;width:min(480px,100%);text-align:left;display:grid;gap:10px;margin-block:16px}
+
+/* Search */
+.search{position:fixed;inset:0 0 auto;z-index:90;background:var(--bg);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .35s;padding-top:env(safe-area-inset-top,0px);max-height:100%;overflow:auto}
+.search.on{transform:none}
+.search .row{display:flex;align-items:center;gap:12px;height:72px;border-bottom:1px solid var(--line)}
+.search input{flex:1;min-width:0;border:0;background:none;font-size:18px;outline:none;font-family:var(--f-kr)}
+.search .res{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px;padding-block:24px}
+@media (min-width:760px){.search .res{grid-template-columns:repeat(6,1fr)}}
+.search .res a .art{aspect-ratio:4/5}
+.search .res a p{margin:8px 0 0;font-family:var(--f-ui);font-size:11.5px;letter-spacing:.12em}
+.search .kw{display:flex;gap:6px;flex-wrap:wrap;padding-top:18px}
+.search .kw button{font-size:12px;padding:5px 12px;border:1px solid var(--line);border-radius:99px}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 18px;font-size:13px;z-index:100;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+footer.ft{background:var(--bg);border-top:1px solid var(--line);margin-top:0;font-size:12.5px;color:#55534d}
+footer.ft .in{display:grid;gap:36px;padding-block:40px 36px}
+@media (min-width:860px){footer.ft .in{grid-template-columns:repeat(4,1fr);gap:0}footer.ft .in>div{padding:0 24px;border-left:1px solid var(--line);min-height:160px}footer.ft .in>div:first-child{border-left:0;padding-left:0}}
+footer.ft h5{margin:0 0 16px;font-family:var(--f-kr);font-weight:500;font-size:12.5px;color:var(--ink)}
+footer.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer.ft .biz{border-top:1px solid var(--line);padding-block:22px 36px;font-size:11.5px;line-height:1.9;color:var(--mute)}
+footer.ft .logo{justify-items:start}
+footer.ft .logo .lm{height:22px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="ann" aria-live="polite">
+  <div>첫 구매 시 15% 할인 · 코드 WELCOME15</div>
+  <div class="off">50,000원 이상 구매 시 무료배송</div>
+  <div class="off">모든 주문에 시향 샘플 2종 증정</div>
+</div>
+
+<header class="hd">
+  <div class="wrap">
+    <div class="hd-row">
+      <div class="hd-left">
+        <button class="mob" data-act="menu" aria-label="메뉴 열기"><svg class="i" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+      </div>
+      <a class="logo" href="#home" aria-label="muhae village 홈"><span class="lm" role="img" aria-label="muhae village"></span><span class="sub">PARFUMS · SEOUL</span></a>
+      <nav class="main desk" aria-label="주요 메뉴">
+        <div class="it"><a href="#shop">Shop</a>
+          <div class="mega"><div class="wrap in m-shop">
+            <a class="mcard" href="#shop-new"><img src="assets/hero-winter.jpg" width="1672" height="941" alt="홀리데이 컬렉션 · 선물 상자 사이의 모델" loading="lazy" decoding="async" style="object-position:50% 30%"><span>홀리데이 컬렉션</span></a>
+            <a class="mcard" href="#shop-best"><div data-art="soft-linen"></div><span>베스트 셀러</span></a>
+            <a class="mcard" href="#shop-gift"><div data-art="gift-duo"></div><span>기프트 세트</span></a>
+          </div></div>
+        </div>
+        <div class="it"><a href="#shop">By Category</a><div class="mega"><div class="wrap in m-cols" data-mega="cat"></div></div></div>
+        <div class="it"><a href="#scent-woody">By Scent</a><div class="mega"><div class="wrap in m-cols" data-mega="scent"></div></div></div>
+        <div class="it"><a href="#home">About</a>
+          <div class="mega"><div class="wrap in m-about">
+            <a class="mcard" href="#home"><span class="seal-ph"><img src="assets/menu-perfume.jpg" width="1536" height="1024" alt="손목에 향수를 뿌리는 모습" loading="lazy" decoding="async">
+              <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="sealC" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-width="1.6"/><text font-family="Cormorant Garamond,serif" font-size="20" fill="#fff"><textPath href="#sealC" textLength="448" lengthAdjust="spacing">HARMLESS · PARFUMS · SEOUL · </textPath></text></svg></span><span>브랜드 스토리</span></a>
+          </div></div>
+        </div>
+      </nav>
+      <div class="hd-right">
+        <button data-act="search" aria-label="검색"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+        <button class="desk" data-act="account" aria-label="로그인"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg></button>
+        <button class="cart-btn" data-act="cart" aria-label="장바구니"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b id="cartCount" data-n="0">0</b></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer class="ft">
+  <div class="wrap in">
+    <div style="display:grid;gap:14px;align-content:start">
+      <a class="logo" href="#home" aria-label="muhae village 홈"><span class="lm" role="img" aria-label="muhae village"></span><span class="sub">PARFUMS · SEOUL</span></a>
+      <p style="margin:0;max-width:24em">누구에게도 해가 되지 않는 향을 만듭니다.</p>
+    </div>
+    <div><h5>Shop</h5><ul><li><a href="#shop-perfume">오 드 퍼퓸</a></li><li><a href="#shop-discovery">디스커버리 세트</a></li><li><a href="#shop-gift">기프트</a></li></ul></div>
+    <div><h5>Customer Care</h5><ul><li><a href="#home">자주 묻는 질문</a></li><li><a href="#home">배송 · 교환 · 반품</a></li><li><a href="#home">1:1 문의</a></li></ul></div>
+    <div><h5>About</h5><ul><li><a href="#home">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li><li><a href="#home">이용약관</a></li><li><a href="#home"><b style="font-weight:500">개인정보처리방침</b></a></li></ul></div>
+  </div>
+  <div class="wrap biz">
+    상호 무해한 마을 · 대표 문선우 · 사업자등록번호 853-54-01008 · 통신판매업신고 신고 후 기재<br>
+    주소 서울특별시 강남구 영동대로 602, 6층 E46 (삼성동, 삼성동 미켈란 107) · 고객센터 1600-0000 (평일 10:00–17:00)<br>
+    © muhae village. All rights reserved.
+  </div>
+</footer>
+
+<!-- Drawers -->
+<div class="scrim" id="scrim" data-act="close"></div>
+<aside class="drawer right" id="cartDr" aria-label="장바구니" aria-hidden="true">
+  <div class="dr-hd"><span>장바구니 <span id="cartN"></span></span><button data-act="close" aria-label="닫기"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dr-body" id="cartBody"></div>
+  <div class="dr-ft" id="cartFt"></div>
+</aside>
+<aside class="drawer left" id="menuDr" aria-label="메뉴" aria-hidden="true">
+  <div class="dr-hd"><span>Menu</span><button data-act="close" aria-label="닫기"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dr-body mnav">
+    <details open><summary>Shop</summary><ul><li><a href="#shop">전체 상품</a></li><li><a href="#shop-best">베스트셀러</a></li><li><a href="#shop-new">신제품</a></li><li><a href="#shop-gift">기프트 세트</a></li></ul></details>
+    <details><summary>By Category</summary><ul><li><a href="#shop-perfume">오 드 퍼퓸</a></li><li><a href="#shop-discovery">디스커버리</a></li><li><a href="#shop-body">바디 케어</a></li><li><a href="#shop-hand">핸드 케어</a></li><li><a href="#shop-home">홈 프래그런스</a></li></ul></details>
+    <details><summary>By Scent</summary><ul><li><a href="#scent-citrus">시트러스</a></li><li><a href="#scent-floral">플로럴</a></li><li><a href="#scent-woody">우디</a></li><li><a href="#scent-green">그린</a></li><li><a href="#scent-musk">머스크</a></li></ul></details>
+    <details><summary>About</summary><ul><li><a href="#home">브랜드 스토리</a></li><li><a href="#home">매장 안내</a></li></ul></details>
+    <div style="padding-top:20px;display:grid;gap:10px;font-size:13px"><button style="text-align:left" data-act="account">로그인 / 회원가입</button><a href="#home">고객센터</a></div>
+  </div>
+</aside>
+<div class="search" id="search" aria-hidden="true">
+  <div class="wrap">
+    <div class="row"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="q" type="search" placeholder="향, 노트, 제품명으로 검색" aria-label="검색어"><button data-act="close" aria-label="검색 닫기"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="kw" id="kw"></div>
+    <div class="res" id="res"></div>
+  </div>
+</div>
+<div class="mbar" id="mbar"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+/* ================= DATA ================= */
+const CATS={perfume:'오 드 퍼퓸',discovery:'디스커버리',body:'바디 케어',hand:'핸드 케어',home:'홈 프래그런스',gift:'기프트 세트'};
+const SCENTS={citrus:['시트러스','막 자른 껍질의 맑음'],floral:['플로럴','살결에 닿은 꽃잎'],woody:['우디','오래된 나무 서랍'],green:['그린','비 온 뒤 잎사귀'],musk:['머스크','갓 빨아 말린 옷']};
+const EDP=[{l:'10ml',p:39000},{l:'50ml',p:128000},{l:'100ml',p:178000}];
+const P=[
+ {id:'soft-linen',name:'Soft Linen',kr:'소프트 리넨',type:'perfume',scent:'musk',badge:'Best',best:1,a:'#ECEAE4',b:'#DCD7CE',juice:'#F1ECE1',cap:'#2A2825',sizes:EDP,def:1,
+  desc:'햇볕에 막 마른 흰 리넨처럼, 가까이 다가왔을 때만 느껴지는 깨끗한 살결의 향.',tags:['깨끗한','데일리','살냄새'],
+  notes:[['알데하이드, 베르가못','첫 15분'],['코튼 플라워, 아이리스','30분 – 3시간'],['화이트 머스크, 캐시미어 우드','3시간 이후']],last:70,proj:40,rating:4.8,rc:1284},
+ {id:'morning-fig',name:'Morning Fig',kr:'모닝 피그',type:'perfume',scent:'green',badge:'Best',best:1,a:'#E6E8DE',b:'#CFD3C2',juice:'#DCE2CB',cap:'#3A3F35',sizes:EDP,def:1,
+  desc:'이슬 맺힌 무화과 잎을 손으로 비볐을 때의 초록빛. 부드러운 밀크 노트가 끝을 감쌉니다.',tags:['싱그러운','중성적','봄 · 여름'],
+  notes:[['무화과 잎, 블랙커런트','첫 15분'],['그린 티, 코코넛 밀크','30분 – 3시간'],['시더우드, 머스크','3시간 이후']],last:60,proj:55,rating:4.7,rc:862},
+ {id:'quiet-wood',name:'Quiet Wood',kr:'콰이어트 우드',type:'perfume',scent:'woody',badge:'Best',best:1,a:'#E9E3DA',b:'#D2C6B6',juice:'#D9C3A5',cap:'#2B241E',sizes:EDP,def:1,
+  desc:'불을 끈 서재, 오래된 나무 책장 사이의 고요. 차분하게 오래 머무는 우디 향.',tags:['차분한','가을 · 겨울','오래가는'],
+  notes:[['핑크 페퍼, 카다멈','첫 15분'],['샌달우드, 블랙 티','30분 – 3시간'],['시더, 앰버, 베티버','3시간 이후']],last:85,proj:50,rating:4.9,rc:1057},
+ {id:'bare-petal',name:'Bare Petal',kr:'베어 페탈',type:'perfume',scent:'floral',badge:'New',isNew:1,a:'#F0E7E4',b:'#DECFCA',juice:'#F2DCD6',cap:'#3A2F2D',sizes:EDP,def:1,
+  desc:'화장기 없는 얼굴처럼 투명한 작약. 달지 않고 담백하게 피어나는 플로럴.',tags:['투명한','플로럴','첫 향수로'],
+  notes:[['라즈베리 잎, 만다린','첫 15분'],['작약, 로즈 워터','30분 – 3시간'],['화이트 머스크, 앰브레트','3시간 이후']],last:55,proj:45,rating:4.6,rc:214},
+ {id:'clear-yuzu',name:'Clear Yuzu',kr:'클리어 유자',type:'perfume',scent:'citrus',a:'#F0EDDC',b:'#DCD6BB',juice:'#EEE3B4',cap:'#34322A',sizes:EDP,def:1,
+  desc:'고흥 유자 껍질을 막 깠을 때 튀는 맑은 기름. 생강과 히노키가 산뜻하게 받쳐줍니다.',tags:['상큼한','출근길','여름'],
+  notes:[['유자, 베르가못','첫 15분'],['생강, 네롤리','30분 – 3시간'],['히노키, 머스크','3시간 이후']],last:45,proj:65,rating:4.6,rc:498},
+ {id:'warm-milk',name:'Warm Milk',kr:'웜 밀크',type:'perfume',scent:'musk',badge:'Limited',ltd:1,isNew:1,a:'#EFE6DA',b:'#D9C9B4',juice:'#EADBC4',cap:'#3B2E22',sizes:[{l:'50ml',p:138000}],def:0,
+  desc:'겨울밤 머그잔에 데운 우유와 꿀 한 스푼. 2026 겨울에만 만나는 한정 향.',tags:['포근한','겨울 한정','선물'],
+  notes:[['스팀 밀크, 배','첫 15분'],['쌀, 허니, 오렌지 블로섬','30분 – 3시간'],['통카빈, 캐시미어 머스크','3시간 이후']],last:75,proj:45,rating:4.9,rc:96},
+ {id:'discovery',name:'Discovery Set',kr:'디스커버리 세트 · 2ml × 6',type:'discovery',badge:'Best',best:1,a:'#ECE9E3',b:'#D9D4CA',cap:'#2A2825',sizes:[{l:'2ml × 6',p:32000}],def:0,
+  desc:'여섯 가지 향을 2ml씩 먼저 경험해 보세요. 30일 안에 본품 구매 시 세트 금액을 차감해 드립니다.',tags:['처음이라면','6가지 향','본품 금액 차감'],rating:4.9,rc:2311},
+ {id:'linen-hand',name:'Soft Linen Hand Cream',kr:'소프트 리넨 핸드크림',type:'hand',scent:'musk',a:'#EDEBE6',b:'#DCD8D0',juice:'#F3EFE7',cap:'#2A2825',sizes:[{l:'30ml',p:18000},{l:'75ml',p:32000}],def:1,
+  desc:'끈적임 없이 스며드는 시어버터 핸드크림. 손끝에 소프트 리넨이 은은하게 남습니다.',tags:['시어버터','빠른 흡수'],rating:4.8,rc:640},
+ {id:'fig-body',name:'Morning Fig Body Lotion',kr:'모닝 피그 바디 로션',type:'body',scent:'green',a:'#E7E9E0',b:'#D2D6C6',juice:'#E4E8D6',cap:'#3A3F35',sizes:[{l:'300ml',p:48000}],def:0,
+  desc:'샤워 후 촉촉함을 오래 붙잡는 가벼운 로션. 하루 종일 무화과 잎의 초록이 피부에 머뭅니다.',tags:['가벼운 제형','레이어링'],rating:4.7,rc:318},
+ {id:'wood-diffuser',name:'Quiet Wood Diffuser',kr:'콰이어트 우드 디퓨저',type:'home',scent:'woody',a:'#E8E2D8',b:'#CFC3B2',juice:'#D7BE9C',cap:'#2B241E',sizes:[{l:'200ml',p:68000}],def:0,
+  desc:'거실 한쪽을 조용한 서재로 바꾸는 디퓨저. 약 8주간 은은하게 확산됩니다.',tags:['8주 지속','리드 8개 포함'],rating:4.8,rc:402},
+ {id:'milk-candle',name:'Warm Milk Candle',kr:'웜 밀크 캔들',type:'home',scent:'musk',badge:'Limited',ltd:1,a:'#EEE6DB',b:'#D8C8B3',juice:'#F4ECE0',cap:'#3B2E22',sizes:[{l:'220g',p:58000}],def:0,
+  desc:'소이 왁스와 면 심지로 그을음 없이 타는 캔들. 약 45시간 연소됩니다.',tags:['소이 왁스','45시간'],rating:4.9,rc:77},
+ {id:'gift-duo',name:'Harmless Gift Duo',kr:'기프트 듀오 · 10ml × 2 + 핸드크림',type:'gift',badge:'Gift',a:'#EAE5DD',b:'#D3CABD',cap:'#34403A',sizes:[{l:'세트',p:79000}],def:0,
+  desc:'오 드 퍼퓸 10ml 두 가지와 핸드크림 30ml. 리본 포장과 메시지 카드가 함께 갑니다.',tags:['선물 포장','메시지 카드'],rating:4.9,rc:530},
+];
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+/* 헤더 메가메뉴: 카테고리 · 향 계열별 상품 목록 */
+(function buildMegas(){
+  const nm=p=>p.kr.split(' · ')[0];
+  const list=ps=>`<ul>${ps.map(p=>`<li><a href="#product-${p.id}">${nm(p)}</a></li>`).join('')}</ul>`;
+  const IMG={citrus:['menu-green','crop-citrus','레몬 껍질'],floral:['menu-floral','','흰 꽃 한 송이'],woody:['menu-woody','','결이 깊은 나무 조각'],green:['menu-green','','반으로 자른 배와 잎사귀'],musk:['menu-perfume','','손목에 향수를 뿌리는 모습']};
+  const cat=document.querySelector('[data-mega="cat"]'), sc=document.querySelector('[data-mega="scent"]');
+  // [카테고리, 메뉴 이름, 대표 상품(이미지), 배경색, 함께 보여줄 타입]
+  const CAT_MENU=[['perfume','퍼퓸','soft-linen','#E9C6CB',['perfume','gift']],['discovery','디스커버리','discovery','#E9C6CB',['discovery']],
+    ['body','바디 케어','fig-body','#BFCDB3',['body']],['hand','핸드 케어','linen-hand','#BFCDB3',['hand']],['home','방향제','wood-diffuser','#B9D3DD',['home']]];
+  cat.innerHTML=CAT_MENU.map(([k,n,id,bg,types])=>`<div class="mcol"><a class="mimg" href="#shop-${k}" style="background:${bg}"><div data-art="${id}"></div></a><a class="mt" href="#shop-${k}">${n}</a>${list(P.filter(p=>types.includes(p.type)))}</div>`).join('');
+  sc.innerHTML=Object.entries(SCENTS).map(([k,[n]])=>{const [f,c,alt]=IMG[k];
+    return `<div class="mcol"><a class="mimg ${c}" href="#scent-${k}"><img src="assets/${f}.jpg" width="1536" height="1024" alt="${alt}" loading="lazy" decoding="async"></a><a class="mt" href="#scent-${k}">${n}</a>${list(P.filter(p=>p.scent===k))}</div>`}).join('');
+})();
+const won=n=>n.toLocaleString('ko-KR')+'원';
+const minP=p=>Math.min(...p.sizes.map(s=>s.p));
+
+/* ================= ART (사진 자리 — 실제 사진으로 교체) ================= */
+function svgObj(p){
+  const j=p.juice||'#EDE7DC', c=p.cap||'#2A2825', nm=p.name.toUpperCase().replace(' HAND CREAM','').replace(' BODY LOTION','').replace(' DIFFUSER','').replace(' CANDLE','');
+  const label=(y,s=5)=>`<text x="50" y="${y}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="${s}" letter-spacing="1.3" fill="#1F1E1B">HARMLESS</text><text x="50" y="${y+7}" text-anchor="middle" font-family="Jost,sans-serif" font-size="2.6" letter-spacing=".9" fill="#7c7871">${nm}</text>`;
+  const sh='<ellipse cx="50" cy="133" rx="32" ry="3.4" fill="rgba(40,35,30,.12)"/>';
+  switch(p.type){
+    case 'perfume': return `<svg viewBox="0 0 100 140">${sh}<rect x="38" y="5" width="24" height="25" rx="1.5" fill="${c}"/><rect x="40" y="6" width="3" height="23" fill="#fff" fill-opacity=".12"/><rect x="44" y="29.5" width="12" height="6" fill="#fff" fill-opacity=".6"/><rect x="19" y="35" width="62" height="96" rx="5" fill="${j}" fill-opacity=".78" stroke="#fff" stroke-opacity=".9"/><rect x="21" y="38" width="58" height="90" rx="4" fill="none" stroke="#000" stroke-opacity=".05"/><rect x="24" y="42" width="5" height="82" rx="2.5" fill="#fff" fill-opacity=".4"/><rect x="33" y="70" width="34" height="27" fill="#FBFAF7"/>${label(81)}</svg>`;
+    case 'discovery': {let v='';for(let i=0;i<6;i++){const x=17+i*12;v+=`<rect x="${x}" y="58" width="7" height="6" fill="${c}"/><rect x="${x}" y="64" width="7" height="44" rx="3" fill="#fff" fill-opacity=".55" stroke="#fff"/><rect x="${x+1}" y="${82-i}" width="5" height="${25+i}" rx="2.5" fill="${['#F1ECE1','#DCE2CB','#D9C3A5','#F2DCD6','#EEE3B4','#EADBC4'][i]}"/>`}
+      return `<svg viewBox="0 0 100 140">${sh}<rect x="10" y="100" width="80" height="30" fill="#FBFAF7" stroke="#000" stroke-opacity=".06"/>${v}<text x="50" y="117" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="5" letter-spacing="1.3" fill="#1F1E1B">HARMLESS</text><text x="50" y="124" text-anchor="middle" font-family="Jost,sans-serif" font-size="2.6" letter-spacing=".9" fill="#7c7871">DISCOVERY SET</text></svg>`;}
+    case 'hand': return `<svg viewBox="0 0 100 140">${sh}<path d="M30 14h40l-5 96H35z" fill="#FBFAF7" stroke="#000" stroke-opacity=".07"/><rect x="30" y="12" width="40" height="4" fill="#e8e4dc"/><rect x="38" y="110" width="24" height="22" rx="2" fill="${c}"/>${label(56,4.6)}</svg>`;
+    case 'body': return `<svg viewBox="0 0 100 140">${sh}<path d="M46 10h14v6H46z" fill="${c}"/><path d="M60 12h12v3H60z" fill="${c}"/><rect x="44" y="16" width="12" height="20" fill="${c}"/><rect x="27" y="36" width="46" height="96" rx="7" fill="${j}" stroke="#fff" stroke-opacity=".9"/><rect x="31" y="42" width="4" height="82" rx="2" fill="#fff" fill-opacity=".45"/><rect x="34" y="70" width="32" height="27" fill="#FBFAF7"/>${label(81,4.6)}</svg>`;
+    case 'home': return p.id.includes('candle')
+      ? `<svg viewBox="0 0 100 140">${sh}<rect x="22" y="56" width="56" height="76" rx="4" fill="${j}" stroke="#fff"/><rect x="24" y="66" width="52" height="64" rx="3" fill="#fff" fill-opacity=".35"/><rect x="20" y="48" width="60" height="10" rx="2" fill="${c}"/><rect x="33" y="80" width="34" height="27" fill="#FBFAF7"/>${label(91,4.6)}</svg>`
+      : `<svg viewBox="0 0 100 140">${sh}<g stroke="${c}" stroke-width=".9"><path d="M47 72L30 6"/><path d="M49 72L42 2"/><path d="M51 72L56 4"/><path d="M53 72L70 10"/><path d="M50 72L62 0"/></g><rect x="43" y="64" width="14" height="8" fill="${c}"/><rect x="26" y="72" width="48" height="60" rx="4" fill="${j}" fill-opacity=".8" stroke="#fff"/><rect x="30" y="76" width="4" height="52" rx="2" fill="#fff" fill-opacity=".4"/><rect x="34" y="92" width="32" height="26" fill="#FBFAF7"/>${label(103,4.6)}</svg>`;
+    case 'gift': return `<svg viewBox="0 0 100 140">${sh}<rect x="16" y="56" width="68" height="76" fill="#FBFAF7" stroke="#000" stroke-opacity=".06"/><rect x="12" y="46" width="76" height="14" fill="#F3F0EA" stroke="#000" stroke-opacity=".06"/><rect x="47" y="46" width="6" height="86" fill="${c}"/><path d="M50 46c-8-12-20-10-16-2s16 2 16 2zM50 46c8-12 20-10 16-2s-16 2-16 2z" fill="none" stroke="${c}" stroke-width="2.2"/>${label(96,4.6).replace(/x="50"/g,'x="32"').replace('font-size="4.6"','font-size="3.6"')}</svg>`;
+  }
+}
+function art(id,mode=''){
+  const p=byId[id]; if(!p) return '';
+  if(mode==='tex') return `<div class="art tex" style="--a:${p.a};--b:${p.b}"><div class="note">${(p.notes?p.notes[1][0]:p.tags.join(' · '))}</div></div>`;
+  return `<div class="art ${mode}" style="--a:${p.a};--b:${p.b}"><div class="obj">${svgObj(p)}</div></div>`;
+}
+function hydrateArt(root=document){root.querySelectorAll('[data-art]').forEach(el=>{const [id,m]=el.dataset.art.split(':');el.outerHTML=art(id,m||'')})}
+
+/* ================= STATE ================= */
+const load=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let cart=load('harmless-cart',[]).filter(i=>byId[i.id]);
+let wish=new Set(load('harmless-wish',[]));
+let coupon=null, lastOrder=null;
+const SHIP_FREE=50000, SHIP_FEE=3000;
+const lineP=i=>byId[i.id].sizes[i.s].p*i.q;
+const subtotal=()=>cart.reduce((a,i)=>a+lineP(i)+(i.wrap?3000*i.q:0),0);
+function addToCart(id,s,q=1,wrap=false){
+  const ex=cart.find(i=>i.id===id&&i.s===s&&!!i.wrap===!!wrap);
+  if(ex) ex.q+=q; else cart.push({id,s,q,wrap});
+  save('harmless-cart',cart); renderCart();
+}
+
+/* ================= COMPONENTS ================= */
+const heart='<svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+function card(p){
+  const s=p.sizes[p.def];
+  return `<article class="card" data-type="${p.type}">
+   <div class="ph"><a href="#product-${p.id}" aria-label="${p.name} 상세 보기">${art(p.id)}</a>
+    ${p.badge?`<span class="badge ${p.ltd?'ltd':''}">${p.badge}</span>`:''}
+    <button class="wish" data-wish="${p.id}" aria-pressed="${wish.has(p.id)}" aria-label="${p.name} 찜하기">${heart}</button>
+    <button class="btn sm solid quick" data-add="${p.id}">장바구니 담기 · ${s.l}</button></div>
+   <a href="#product-${p.id}" class="info"><span class="nm">${p.name}</span><span class="kr">${p.kr}</span>
+    <span class="sz">${s.l}</span><span class="pr">${won(s.p)}</span></a>
+   <button class="btn sm line full add" data-add="${p.id}">장바구니 담기</button>
+  </article>`;
+}
+function rail(id,items){return `<div class="rail" id="${id}">${items.map(card).join('')}</div>`}
+const arrows=id=>`<div class="arrows desk"><button data-scroll="${id}" data-dir="-1" aria-label="이전"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button data-scroll="${id}" data-dir="1" aria-label="다음"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>`;
+
+/* ================= VIEWS ================= */
+let heroTimer=null;
+function vHome(){
+  const ORDER=['gift', 'home', 'discovery', 'perfume', 'body', 'hand'];
+  return `
+  <section class="hero photo" aria-label="메인 배너">
+    <img src="assets/hero-winter.jpg" width="1672" height="941" alt="선물 상자에 둘러싸여 소파에 기대 앉은 모델 · 2026 윈터 컬렉션" fetchpriority="high" decoding="async">
+    <div class="copy"><div class="wrap">
+      <h1>A <em>Harmless</em> Winter</h1>
+      <div class="sub"><span>2026 WINTER COLLECTION</span><a href="#product-warm-milk">겨울 한정 향 보러가기 →</a></div>
+    </div></div>
+  </section>
+
+  <section class="wrap">
+    <div class="h-bar"><span>2026 Winter</span><a href="#shop">+ 전체 보기</a></div>
+    <div class="benefits">
+      <span class="orn o1">${svgObj(byId['milk-candle'])}</span><span class="orn o2">${svgObj(byId['gift-duo'])}</span><span class="orn o3">${svgObj(byId['discovery'])}</span>
+      <h2>WINTER BENEFITS</h2>
+      <p>따뜻한 기억과 감성을 담은 겨울 한정 패키지와 함께,<br>나를 위한 향과 선물의 순간을 위한 아이템을 만나보세요.</p>
+      <ul><li>+ 겨울 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트 증정</li></ul>
+    </div>
+    <div class="grid hol">${P.slice().sort((a,b)=>(b.ltd||0)-(a.ltd||0)||ORDER.indexOf(a.type)-ORDER.indexOf(b.type)).map(card).join('')}</div>
+  </section>
+
+  <section class="news"><div class="wrap in">
+    <div><h3>Letters from the Village</h3><p style="margin:6px 0 0;color:var(--mute)">뉴스레터를 구독하면 첫 구매 15% 할인 코드를 보내드려요.</p></div>
+    <form id="newsForm"><input id="newsEmail" type="email" required placeholder="이메일 주소" aria-label="이메일 주소"><button class="txtlink" type="submit" style="border:0">구독하기</button></form>
+  </div></section>`;
+}
+function initHome(){
+  document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();toast('구독 완료 · WELCOME15 코드를 보내드렸어요 (시안)');e.target.reset()});
+}
+
+let sortBy='rec';
+function vShop(filter){
+  let list=P.slice(), title='All Products', kr='전체 상품', crumb='전체 상품', desc='HARMLESS의 모든 향과 케어 제품.';
+  let [kind,val]=filter;
+  if(kind==='cat'){
+    if(val==='best'){list=P.filter(p=>p.best);title='Best Sellers';kr=crumb='베스트셀러';desc='가장 많은 분들이 다시 찾는 향.'}
+    else if(val==='new'){list=P.filter(p=>p.isNew||p.ltd);title='New & Limited';kr=crumb='신제품 · 한정판';desc='새로 나온 향과 이번 겨울에만 만나는 한정판.'}
+    else if(CATS[val]){list=P.filter(p=>p.type===val);title={perfume:'Eau de Parfum',discovery:'Discovery',body:'Body Care',hand:'Hand Care',home:'Home Fragrance',gift:'Gift Sets'}[val];kr=crumb=CATS[val];
+      desc={perfume:'가까이 다가왔을 때 알 수 있는 오 드 퍼퓸. 10ml · 50ml · 100ml.',discovery:'본품 전에 먼저 경험하는 시향 세트.',body:'샤워 후 피부에 향을 한 겹 더.',hand:'손끝에 남는 은은한 향.',home:'머무는 공간을 위한 향.',gift:'포장과 메시지 카드까지 준비된 선물.'}[val]}
+  }
+  if(kind==='scent'&&SCENTS[val]){list=P.filter(p=>p.scent===val);title=SCENTS[val][0];kr=crumb=SCENTS[val][0]+' 계열';desc=SCENTS[val][1]+'. '+SCENTS[val][0]+' 계열의 향을 모았습니다.'}
+  const sorted=list.slice().sort((a,b)=>sortBy==='low'?minP(a)-minP(b):sortBy==='high'?minP(b)-minP(a):sortBy==='new'?(b.isNew||0)-(a.isNew||0):(b.rc-a.rc));
+  const tabs=[['shop','전체'],['shop-best','베스트'],['shop-new','신제품'],...Object.entries(CATS).map(([k,v])=>['shop-'+k,v])];
+  const curHash=location.hash.slice(1)||'shop';
+  return `<div class="wrap">
+    <div class="crumb"><a href="#home">홈</a><span>/</span><span>${crumb}</span></div>
+    <div class="shop-hd"><span class="lbl">${kr}</span><h1>${title}</h1><p>${desc}</p></div>
+  </div>
+  <div class="filters"><div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;width:100%">
+    <nav class="tabs" aria-label="카테고리">${tabs.map(([h,l])=>`<a href="#${h}" class="${curHash===h?'on':''}">${l}</a>`).join('')}</nav>
+    <select id="sort" aria-label="정렬"><option value="rec">추천순</option><option value="new">신상품순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option></select>
+  </div></div>
+  <div class="wrap">
+    <div class="scent-row" aria-label="향 계열">${Object.entries(SCENTS).map(([k,[n]])=>`<a href="#scent-${k}" class="${curHash==='scent-'+k?'on':''}">${n}</a>`).join('')}</div>
+    <div class="count">${sorted.length}개 상품</div>
+    <div class="grid">${sorted.map(card).join('')}</div>
+  </div><div style="height:96px"></div>`;
+}
+function initShop(filter){
+  const s=document.getElementById('sort'); s.value=sortBy;
+  s.addEventListener('change',()=>{sortBy=s.value;render()});
+}
+
+let pdpState={s:0,q:1,wrap:false};
+function vPdp(p){
+  pdpState={s:p.def,q:1,wrap:false};
+  const isEdp=p.type==='perfume';
+  const rel=P.filter(x=>x.id!==p.id&&(x.scent===p.scent||x.type==='discovery')).slice(0,4);
+  const relFill=rel.length<4?rel.concat(P.filter(x=>x.best&&x.id!==p.id&&!rel.includes(x)).slice(0,4-rel.length)):rel;
+  const dist=[78,15,5,1,1];
+  return `<div class="wrap">
+   <div class="crumb"><a href="#home">홈</a><span>/</span><a href="#shop-${p.type}">${CATS[p.type]}</a><span>/</span><span>${p.name}</span></div>
+   <div class="pdp">
+    <div class="gal">
+      <div class="gal-main" id="gal">${art(p.id)}${art(p.id,'zoom')}${art(p.id,'mood')}${art(p.id,'tex')}</div>
+      <div class="gal-dots" id="galDots"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="buy">
+      <div class="top">
+        ${p.badge?`<span class="lbl" style="color:${p.ltd?'var(--pine)':'var(--mute)'}">${p.badge}${p.ltd?' · 2026 Winter':''}</span>`:''}
+        <h1>${p.name}</h1>
+        <div class="kr">${p.kr}${isEdp?' · Eau de Parfum':''}</div>
+        <div class="rate"><span class="stars">★★★★★</span><span>${p.rating}</span><a href="#reviews" data-jump="reviews">리뷰 ${p.rc.toLocaleString()}개</a></div>
+      </div>
+      <div class="price" id="pdpPrice">${won(p.sizes[p.def].p)}</div>
+      <p class="desc">${p.desc}</p>
+      <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      <div>
+        <div class="opt-lbl"><span>${p.sizes.length>1?'용량 선택':'구성'}</span><span id="sizeLbl" style="color:var(--mute)">${p.sizes[p.def].l}</span></div>
+        <div class="sizes">${p.sizes.map((s,i)=>`<button data-size="${i}" aria-pressed="${i===p.def}"><b>${s.l}</b><small>${won(s.p)}</small></button>`).join('')}</div>
+      </div>
+      <label class="chk"><input type="checkbox" id="wrapChk"> 선물 포장 추가 (+3,000원 · 리본, 메시지 카드)</label>
+      <div class="row-buy">
+        <div class="step lg"><button data-pq="-1" aria-label="수량 줄이기">−</button><span id="pq">1</span><button data-pq="1" aria-label="수량 늘리기">+</button></div>
+        <button class="btn solid" data-act="pdp-add" id="pdpAdd">장바구니 담기</button>
+      </div>
+      <div class="cta2"><button class="btn line" data-act="pdp-buy">바로 구매</button><button class="btn line" data-wish="${p.id}" aria-pressed="${wish.has(p.id)}" style="gap:10px">${heart}<span>찜하기</span></button></div>
+      <ul class="perks"><li>50,000원 이상 무료배송 · 오후 2시 이전 주문 시 당일 출고</li><li>모든 주문에 시향 샘플 2종 증정</li><li>첫 구매 15% 할인 · WELCOME15</li></ul>
+      <div class="acc">
+        <details open><summary>제품 설명</summary><div class="ct"><p>${p.desc}</p><p>${isEdp?'부향률 18% 오 드 퍼퓸. 피부 자극 테스트를 완료했습니다.':'피부 자극 테스트를 완료했습니다.'}</p></div></details>
+        ${p.notes?`<details><summary>향 노트</summary><div class="ct"><p>TOP · ${p.notes[0][0]}</p><p>MIDDLE · ${p.notes[1][0]}</p><p>BASE · ${p.notes[2][0]}</p></div></details>`:''}
+        <details><summary>사용 방법</summary><div class="ct"><p>${isEdp?'손목, 귀 뒤, 쇄골처럼 맥박이 뛰는 곳에 20cm 거리에서 1–2회 분사하세요. 문지르지 않아야 향이 오래 남습니다.':'적당량을 덜어 부드럽게 펴 발라주세요.'}</p></div></details>
+        <details><summary>전성분</summary><div class="ct"><p>${isEdp?'변성알코올, 향료, 정제수, 리모넨, 리날룰, 쿠마린':'정제수, 시어버터, 글리세린, 향료, 토코페롤'} (시안용 예시)</p></div></details>
+        <details><summary>배송 · 교환 · 반품</summary><div class="ct"><p>평일 오후 2시 이전 결제 시 당일 출고, 1–3일 내 도착합니다.</p><p>미개봉 상품은 수령 후 7일 이내 교환·반품할 수 있습니다. 단순 변심 시 왕복 배송비 6,000원이 부과됩니다.</p></div></details>
+      </div>
+    </div>
+   </div>
+  </div>
+
+  ${p.notes?`<section class="notes-sec"><div class="wrap in">
+    <div><span class="lbl">Scent Notes</span><h2 style="margin-top:12px">${p.name.split(' ')[0]}<br><em>${p.name.split(' ').slice(1).join(' ')}</em></h2><p style="max-width:26em;margin-top:16px;color:#4b4944">${p.desc}</p></div>
+    <div>
+      <div class="pyr"><div><b>TOP</b><span>${p.notes[0][0]}</span><small>${p.notes[0][1]}</small></div><div><b>MIDDLE</b><span>${p.notes[1][0]}</span><small>${p.notes[1][1]}</small></div><div><b>BASE</b><span>${p.notes[2][0]}</span><small>${p.notes[2][1]}</small></div></div>
+      <div class="meter"><b>LONGEVITY</b><div class="t"><i style="width:${p.last}%"></i></div><em>${Math.round(p.last/10)}시간</em></div>
+      <div class="meter"><b>SILLAGE</b><div class="t"><i style="width:${p.proj}%"></i></div><em>${p.proj<50?'은은함':p.proj<60?'보통':'풍성함'}</em></div>
+    </div>
+  </div></section>`:'<div style="height:80px"></div>'}
+
+  <section class="wrap sec">
+    <div class="sec-hd"><h2>Pairs Well With<small>함께 쓰면 좋은 제품</small></h2>${arrows('r3')}</div>
+    ${rail('r3',relFill)}
+  </section>
+
+  <section class="wrap sec" id="reviews" style="padding-bottom:96px">
+    <div class="sec-hd"><h2>Reviews<small>리뷰 ${p.rc.toLocaleString()}개 · 시안용 예시</small></h2><button class="txtlink" data-act="review">리뷰 쓰기</button></div>
+    <div class="rv-sum">
+      <div class="rv-avg"><b>${p.rating}</b><span class="stars">★★★★★</span><div class="sample-note" style="margin-top:8px">재구매 의사 92%</div></div>
+      <div class="dist">${dist.map((d,i)=>`<div><span>${5-i}★</span><div class="t"><i style="width:${d}%"></i></div><span style="text-align:right;color:var(--mute)">${d}%</span></div>`).join('')}</div>
+    </div>
+    <div class="rv-list">
+      <div class="rv-item"><div class="who">★★★★★<br>예시 고객 · ${p.sizes[p.def].l}</div><div><h4>가까이 와야 알 수 있는 향</h4><p>향이 강한 걸 싫어하는데 이건 정말 은은해요. 오후까지 옷에 남아 있어서 만족합니다.</p></div></div>
+      <div class="rv-item"><div class="who">★★★★★<br>예시 고객 · 선물 포장</div><div><h4>포장이 정말 예뻐요</h4><p>선물 포장을 추가했는데 리본과 카드까지 정갈하게 와서 받는 사람이 좋아했어요.</p></div></div>
+      <div class="rv-item"><div class="who">★★★★☆<br>예시 고객 · 재구매</div><div><h4>두 번째 구매</h4><p>디스커버리 세트로 시작해서 본품까지 왔어요. 다음엔 100ml로 살 예정입니다.</p></div></div>
+    </div>
+  </section>`;
+}
+function initPdp(p){
+  const upd=()=>{
+    const s=p.sizes[pdpState.s];
+    document.getElementById('pdpPrice').textContent=won((s.p+(pdpState.wrap?3000:0))*pdpState.q);
+    document.getElementById('sizeLbl').textContent=s.l;
+    document.getElementById('pq').textContent=pdpState.q;
+    document.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.size===pdpState.s));
+    mbar.innerHTML=`<button class="btn line" data-act="pdp-add">장바구니</button><button class="btn solid" data-act="pdp-buy">바로 구매 · ${won((s.p+(pdpState.wrap?3000:0))*pdpState.q)}</button>`;
+  };
+  document.querySelectorAll('[data-size]').forEach(b=>b.addEventListener('click',()=>{pdpState.s=+b.dataset.size;upd()}));
+  document.querySelectorAll('[data-pq]').forEach(b=>b.addEventListener('click',()=>{pdpState.q=Math.max(1,Math.min(10,pdpState.q+ +b.dataset.pq));upd()}));
+  document.getElementById('wrapChk').addEventListener('change',e=>{pdpState.wrap=e.target.checked;upd()});
+  const g=document.getElementById('gal'), gd=[...document.querySelectorAll('#galDots i')];
+  g.addEventListener('scroll',()=>{const k=Math.round(g.scrollLeft/g.clientWidth);gd.forEach((d,i)=>d.classList.toggle('on',i===k))},{passive:true});
+  upd();
+  const btn=document.getElementById('pdpAdd');
+  const io=new IntersectionObserver(([e])=>mbar.classList.toggle('on',!e.isIntersecting&&e.boundingClientRect.top<0));
+  io.observe(btn); cleanup.push(()=>io.disconnect());
+}
+
+function vCheckout(){
+  if(!cart.length) return `<div class="wrap done"><span class="lbl">Checkout</span><h1>장바구니가 비어 있어요</h1><p style="color:var(--mute);margin:0">먼저 마음에 드는 향을 담아주세요.</p><a class="btn solid" href="#shop">쇼핑 계속하기</a></div>`;
+  return `<div class="wrap">
+   <div class="crumb"><a href="#home">홈</a><span>/</span><button data-act="cart" style="color:inherit">장바구니</button><span>/</span><span>주문서</span></div>
+   <form class="co" id="coForm" novalidate>
+    <div>
+      <h1>Checkout</h1>
+      <p class="hint" style="margin-top:10px">시안 화면입니다. 실제 결제는 진행되지 않습니다.</p>
+      <h2>주문자 정보</h2>
+      <div class="fgrid">
+        <div class="field"><label for="f-name">이름</label><input id="f-name" required autocomplete="name"></div>
+        <div class="field"><label for="f-phone">휴대폰 번호</label><input id="f-phone" required inputmode="tel" placeholder="010-0000-0000" autocomplete="tel"></div>
+        <div class="field full"><label for="f-email">이메일</label><input id="f-email" type="email" required autocomplete="email"></div>
+      </div>
+      <h2>배송지</h2>
+      <div class="fgrid">
+        <div class="field"><label for="f-zip">우편번호</label><input id="f-zip" required inputmode="numeric" autocomplete="postal-code"></div>
+        <div class="field" style="align-self:end"><button type="button" class="btn line" style="height:48px" data-act="zip">주소 검색</button></div>
+        <div class="field full"><label for="f-addr">주소</label><input id="f-addr" required autocomplete="address-line1"></div>
+        <div class="field full"><label for="f-addr2">상세 주소</label><input id="f-addr2" autocomplete="address-line2"></div>
+        <div class="field full"><label for="f-memo">배송 메모</label><select id="f-memo"><option>문 앞에 놓아주세요</option><option>경비실에 맡겨주세요</option><option>배송 전 연락 부탁드려요</option><option>직접 받을게요</option></select></div>
+      </div>
+      <h2>결제 수단</h2>
+      <div class="pay">${['신용 · 체크카드','카카오페이','네이버페이','토스페이','무통장 입금','휴대폰 결제'].map((m,i)=>`<label><input type="radio" name="pay" id="pay-${i}" value="${m}" ${i===0?'checked':''}><span>${m}</span></label>`).join('')}</div>
+      <label class="chk" style="margin-top:24px"><input type="checkbox" id="f-agree" required> 주문 내용을 확인했으며 결제에 동의합니다 (필수)</label>
+    </div>
+    <aside class="summary" id="summary"></aside>
+   </form>
+  </div>`;
+}
+function totals(){
+  const sub=subtotal(), disc=coupon?Math.round(sub*.15/10)*10:0, ship=sub-disc>=SHIP_FREE||sub===0?0:SHIP_FEE;
+  return {sub,disc,ship,total:sub-disc+ship};
+}
+function renderSummary(){
+  const el=document.getElementById('summary'); if(!el) return;
+  const t=totals();
+  el.innerHTML=`<span class="lbl">주문 상품 ${cart.reduce((a,i)=>a+i.q,0)}개</span>
+    ${cart.map(i=>{const p=byId[i.id];return `<div class="sitem">${art(p.id)}<div><span class="en" style="font-size:11.5px">${p.name}</span><small>${p.sizes[i.s].l} · ${i.q}개${i.wrap?' · 선물 포장':''}</small></div><span>${won(lineP(i)+(i.wrap?3000*i.q:0))}</span></div>`}).join('')}
+    <div class="coupon"><input id="cpn" placeholder="쿠폰 코드" value="${coupon||''}" aria-label="쿠폰 코드"><button type="button" class="btn line sm" data-act="coupon">${coupon?'해제':'적용'}</button></div>
+    <div class="hint">${coupon?'WELCOME15 · 15% 할인이 적용됐어요':'첫 구매 15% 할인 코드: WELCOME15'}</div>
+    <div style="border-top:1px solid var(--line);padding-top:14px;display:grid;gap:8px">
+      <div class="sumrow"><span>상품 금액</span><span>${won(t.sub)}</span></div>
+      <div class="sumrow"><span>할인</span><span>${t.disc?'−'+won(t.disc):'0원'}</span></div>
+      <div class="sumrow"><span>배송비</span><span>${t.ship?won(t.ship):'무료'}</span></div>
+    </div>
+    <div class="sumrow tot" style="border-top:1px solid var(--ink);padding-top:14px"><span>총 결제 금액</span><span>${won(t.total)}</span></div>
+    <button type="submit" class="btn solid full">${won(t.total)} 결제하기</button>`;
+}
+function initCheckout(){
+  if(!cart.length) return;
+  renderSummary();
+  const f=document.getElementById('coForm');
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    let ok=true;
+    f.querySelectorAll('input[required]').forEach(inp=>{const bad=inp.type==='checkbox'?!inp.checked:!inp.value.trim()||(inp.type==='email'&&!/^\S+@\S+\.\S+$/.test(inp.value));inp.classList.toggle('err',bad);if(bad&&ok){ok=false;inp.focus()}});
+    if(!ok){toast(document.getElementById('f-agree').checked?'빨간 칸을 채워주세요':'필수 항목과 결제 동의를 확인해주세요');return}
+    const t=totals();
+    lastOrder={no:'HM'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.floor(1000+Math.random()*9000),items:cart.map(i=>({...i})),t,name:document.getElementById('f-name').value,pay:f.querySelector('input[name=pay]:checked').value,addr:document.getElementById('f-addr').value};
+    cart=[];coupon=null;save('harmless-cart',cart);renderCart();
+    location.hash='complete';
+  });
+}
+function vComplete(){
+  if(!lastOrder) return `<div class="wrap done"><h1>주문 내역이 없어요</h1><a class="btn solid" href="#shop">쇼핑하러 가기</a></div>`;
+  const o=lastOrder;
+  return `<div class="wrap done">
+    <span class="lbl">Order Complete</span>
+    <h1>주문이 완료되었습니다</h1>
+    <p style="margin:0;color:var(--mute)">${o.name}님, 무해한 하루가 곧 도착합니다. (시안 화면 · 실제 결제 없음)</p>
+    <div class="box">
+      <div class="sumrow"><span>주문 번호</span><span class="en" style="font-size:12px">${o.no}</span></div>
+      <div class="sumrow"><span>결제 수단</span><span>${o.pay}</span></div>
+      <div class="sumrow"><span>배송지</span><span style="text-align:right;max-width:60%">${o.addr}</span></div>
+      <div style="border-top:1px solid var(--line);margin-top:6px;padding-top:10px;display:grid;gap:6px">${o.items.map(i=>`<div class="sumrow" style="font-size:13px"><span>${byId[i.id].name} · ${byId[i.id].sizes[i.s].l} × ${i.q}</span><span>${won(lineP(i)+(i.wrap?3000*i.q:0))}</span></div>`).join('')}</div>
+      <div class="sumrow tot" style="border-top:1px solid var(--ink);padding-top:10px"><span>총 결제 금액</span><span>${won(o.t.total)}</span></div>
+    </div>
+    <a class="btn solid" href="#home">홈으로</a>
+  </div>`;
+}
+
+/* ================= CART DRAWER ================= */
+function renderCart(){
+  const n=cart.reduce((a,i)=>a+i.q,0);
+  const cc=document.getElementById('cartCount'); cc.textContent=n; cc.dataset.n=n;
+  document.getElementById('cartN').textContent=n?`(${n})`:'';
+  const body=document.getElementById('cartBody'), ft=document.getElementById('cartFt');
+  const sub=subtotal(), left=Math.max(0,SHIP_FREE-sub);
+  if(!cart.length){
+    body.innerHTML=`<div style="text-align:center;padding-block:60px 30px;display:grid;gap:12px;justify-items:center"><span class="serif" style="font-size:28px">장바구니가 비어 있어요</span><span style="color:var(--mute);font-size:13px">처음이라면 디스커버리 세트로 시작해 보세요.</span></div>
+      <div class="upsell">${art('discovery')}<p><b>DISCOVERY SET</b>2ml × 6 · 32,000원</p><button class="btn sm solid" data-add="discovery">담기</button></div>`;
+    ft.innerHTML=`<a class="btn line full" href="#shop" data-act="close">쇼핑 계속하기</a>`;
+  } else {
+    body.innerHTML=`<div class="ship">${left?`<b style="font-weight:400">${won(left)}</b> 더 담으면 무료배송`:'무료배송 혜택이 적용됐어요'}<div class="bar"><i style="width:${Math.min(100,sub/SHIP_FREE*100)}%"></i></div></div>
+      ${cart.map((i,k)=>{const p=byId[i.id];return `<div class="citem"><a href="#product-${p.id}" data-act="close">${art(p.id)}</a><div><h5>${p.name.toUpperCase()}</h5><div class="meta">${p.sizes[i.s].l}${i.wrap?' · 선물 포장':''}</div><div class="step"><button data-cq="${k}" data-d="-1" aria-label="수량 줄이기">−</button><span>${i.q}</span><button data-cq="${k}" data-d="1" aria-label="수량 늘리기">+</button></div><br><button class="rm" data-rm="${k}">삭제</button></div><div class="pr">${won(lineP(i)+(i.wrap?3000*i.q:0))}</div></div>`}).join('')}
+      ${cart.some(i=>i.id==='discovery')?'':`<div class="upsell">${art('discovery')}<p><b>DISCOVERY SET</b>함께 담으면 좋아요 · 32,000원</p><button class="btn sm solid" data-add="discovery">담기</button></div>`}`;
+    ft.innerHTML=`<div class="sumrow"><span>상품 금액</span><span>${won(sub)}</span></div><div class="sumrow"><span>배송비</span><span>${left?won(SHIP_FEE):'무료'}</span></div><div class="sumrow tot"><span>합계</span><span>${won(sub+(left?SHIP_FEE:0))}</span></div><a class="btn solid full" href="#checkout" data-act="close">주문하기</a><p class="hint" style="margin:0;text-align:center">쿠폰은 주문서에서 적용할 수 있어요</p>`;
+  }
+  renderSummary();
+}
+
+/* ================= OVERLAYS ================= */
+const scrim=document.getElementById('scrim'), cartDr=document.getElementById('cartDr'), menuDr=document.getElementById('menuDr'), search=document.getElementById('search'), mbar=document.getElementById('mbar');
+function closeAll(){[cartDr,menuDr,search].forEach(d=>{d.classList.remove('on');d.setAttribute('aria-hidden','true')});scrim.classList.remove('on');document.body.style.overflow=''}
+function open(d){closeAll();d.classList.add('on');d.setAttribute('aria-hidden','false');scrim.classList.add('on');document.body.style.overflow='hidden'}
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+function doSearch(q){
+  q=q.trim().toLowerCase();
+  const kw=document.getElementById('kw'), res=document.getElementById('res');
+  kw.innerHTML=q?'':`<span class="lbl" style="width:100%">추천 검색어</span>${['머스크','디스커버리','선물','우디','한정판'].map(k=>`<button data-kw="${k}">${k}</button>`).join('')}`;
+  const list=(q?P.filter(p=>(p.name+p.kr+p.tags.join()+(p.notes?p.notes.map(n=>n[0]).join():'')+(SCENTS[p.scent]?.[0]||'')+(p.ltd?'한정판':'')+(p.type==='gift'?'선물':'')).toLowerCase().includes(q)):P.filter(p=>p.best));
+  res.innerHTML=list.length?list.map(p=>`<a href="#product-${p.id}" data-act="close">${art(p.id)}<p>${p.name.toUpperCase()}</p><span style="font-size:12px;color:var(--mute)">${won(minP(p))}~</span></a>`).join(''):`<p style="grid-column:1/-1;color:var(--mute)">'${q}'에 맞는 제품이 없어요. 다른 향이나 노트로 검색해 보세요.</p>`;
+}
+document.getElementById('q').addEventListener('input',e=>doSearch(e.target.value));
+
+/* ================= EVENTS ================= */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act],[data-add],[data-wish],[data-cq],[data-rm],[data-scroll],[data-kw],[data-jump]'); if(!t) return;
+  if(t.dataset.add){e.preventDefault();const p=byId[t.dataset.add];addToCart(p.id,p.def,1);open(cartDr);return}
+  if(t.dataset.wish){e.preventDefault();const id=t.dataset.wish;wish.has(id)?wish.delete(id):wish.add(id);save('harmless-wish',[...wish]);document.querySelectorAll(`[data-wish="${id}"]`).forEach(b=>b.setAttribute('aria-pressed',wish.has(id)));toast(wish.has(id)?'찜 목록에 담았어요':'찜을 해제했어요');return}
+  if(t.dataset.cq){const i=cart[+t.dataset.cq];i.q=Math.max(1,Math.min(10,i.q+ +t.dataset.d));save('harmless-cart',cart);renderCart();return}
+  if(t.dataset.rm){cart.splice(+t.dataset.rm,1);save('harmless-cart',cart);renderCart();if(location.hash==='#checkout'&&!cart.length)render();return}
+  if(t.dataset.scroll){const r=document.getElementById(t.dataset.scroll);r.scrollBy({left:r.clientWidth*.9*+t.dataset.dir});return}
+  if(t.dataset.kw){const q=document.getElementById('q');q.value=t.dataset.kw;doSearch(q.value);return}
+  if(t.dataset.jump){e.preventDefault();document.getElementById(t.dataset.jump)?.scrollIntoView({behavior:'smooth'});return}
+  const a=t.dataset.act;
+  if(a==='cart'){open(cartDr)}
+  else if(a==='menu'){open(menuDr)}
+  else if(a==='search'){open(search);doSearch('');setTimeout(()=>document.getElementById('q').focus(),300)}
+  else if(a==='close'){closeAll()}
+  else if(a==='account'){toast('로그인은 시안에서 제외했어요')}
+  else if(a==='review'){toast('리뷰 작성은 구매 후 가능해요')}
+  else if(a==='zip'){document.getElementById('f-zip').value='04001';document.getElementById('f-addr').value='서울특별시 마포구 예시로 12';toast('예시 주소를 채웠어요 (실제 서비스에선 우편번호 검색 연동)')}
+  else if(a==='coupon'){const v=document.getElementById('cpn').value.trim().toUpperCase();if(coupon){coupon=null;renderSummary()}else if(v==='WELCOME15'){coupon='WELCOME15';renderSummary();toast('15% 할인이 적용됐어요')}else toast('사용할 수 없는 쿠폰이에요')}
+  else if(a==='pdp-add'||a==='pdp-buy'){const id=location.hash.replace('#product-','');addToCart(id,pdpState.s,pdpState.q,pdpState.wrap);if(a==='pdp-buy'){location.hash='checkout'}else open(cartDr)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+menuDr.addEventListener('click',e=>{if(e.target.closest('a'))closeAll()});
+
+/* ================= ROUTER ================= */
+let cleanup=[];
+function render(){
+  cleanup.forEach(f=>f());cleanup=[];clearInterval(heroTimer);mbar.classList.remove('on');mbar.innerHTML='';
+  const h=(location.hash||'#home').slice(1), v=document.getElementById('view');
+  if(h.startsWith('product-')&&byId[h.slice(8)]){const p=byId[h.slice(8)];v.innerHTML=vPdp(p);initPdp(p)}
+  else if(h==='shop'){v.innerHTML=vShop(['all']);initShop()}
+  else if(h.startsWith('shop-')){v.innerHTML=vShop(['cat',h.slice(5)]);initShop()}
+  else if(h.startsWith('scent-')){v.innerHTML=vShop(['scent',h.slice(6)]);initShop()}
+  else if(h==='checkout'){v.innerHTML=vCheckout();initCheckout()}
+  else if(h==='complete'){v.innerHTML=vComplete()}
+  else if(h==='reviews'){return}
+  else {v.innerHTML=vHome();initHome()}
+  document.body.classList.toggle('is-home',!v.querySelector('.shop-hd,.pdp,.summary,.done')&&!!v.querySelector('.hero.photo'));
+  hydrateArt(document);
+  window.scrollTo(0,0);
+  hdUpdate(true);
+}
+
+/* 헤더: 맨 위(홈)=투명 · 내릴 때 숨김 · 올릴 때 흰 배경으로 등장 */
+const hd=document.querySelector('header.hd'), rootSt=document.documentElement.style;
+let lastY=0;
+function hdMeasure(){rootSt.setProperty('--hdH',hd.offsetHeight+'px')}
+function hdUpdate(reset){
+  const y=Math.max(0,scrollY), top=y<10, home=document.body.classList.contains('is-home');
+  if(reset||top) hd.classList.remove('hide');
+  else if(Math.abs(y-lastY)>4) hd.classList.toggle('hide',y>lastY&&y>hd.offsetHeight);
+  hd.classList.toggle('over',home&&top);
+  rootSt.setProperty('--hdShow',hd.classList.contains('hide')?'0px':hd.offsetHeight+'px');
+  if(reset||Math.abs(y-lastY)>4) lastY=y;
+}
+addEventListener('scroll',()=>hdUpdate(),{passive:true});
+addEventListener('resize',()=>{hdMeasure();hdUpdate()});
+hdMeasure();
+addEventListener('hashchange',()=>{closeAll();render()});
+hydrateArt(document.querySelector('header'));
+render(); renderCart();
+
+/* announcement rotate */
+const ann=[...document.querySelectorAll('.ann div')];let ai=0;
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{ann[ai].classList.add('off');ai=(ai+1)%ann.length;ann[ai].classList.remove('off')},4000);
+})();
+</script>
+
+</body>
+</html>
