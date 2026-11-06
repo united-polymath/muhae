@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>향기 무드 테스트 신청 | muhae village</title>
+<meta name="description" content="muhae village 향기 무드 테스트 신청">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:title" content="향기 무드 테스트 신청">
+<meta property="og:description" content="muhae village">
+<meta property="og:url" content="https://united-polymath.github.io/muhae/scent-test/">
+<meta property="og:image" content="https://united-polymath.github.io/muhae/scent-test/og.png">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --text: #353535;
+    --sub: #999;
+    --line: #e6e6e6;
+    --line-strong: #d7d5d5;
+    --bg: #fff;
+    --soft: #fbfafa;
+    --err: #c8102e;
+    --en: 'Jost', 'Noto Sans KR', sans-serif;
+    --ko: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ko);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.6;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .head { display: flex; justify-content: center; padding: 34px 16px 0; }
+  .logo { display: block; width: 168px; height: auto; }
+
+  .wrap { width: 100%; max-width: 480px; margin: 0 auto; padding: 0 20px 72px; }
+
+  .title { text-align: center; padding: 56px 0 44px; }
+  .title h1 { font-family: var(--en); font-weight: 400; font-size: 17px; letter-spacing: .14em; }
+  .title p { margin-top: 10px; color: var(--sub); font-size: 13px; }
+
+  .field { padding: 26px 0 0; }
+  .field + .field { margin-top: 10px; }
+  .label { display: flex; align-items: baseline; gap: 10px; font-size: 13px; font-weight: 500; }
+  .label .no { font-family: var(--en); font-weight: 400; font-size: 12px; color: var(--sub); letter-spacing: .04em; min-width: 16px; }
+  .label .opt { font-weight: 400; color: var(--sub); font-size: 12px; }
+  .label i { font-style: normal; color: var(--ink); margin-left: -6px; }
+
+  .input {
+    display: block; width: 100%; margin-top: 12px;
+    height: 46px; padding: 0 2px;
+    border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0;
+    background: transparent; outline: 0;
+    font-size: 16px; font-weight: 300; letter-spacing: .01em;
+    transition: border-color .2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .input::placeholder { color: #bbb; }
+  .input:focus { border-bottom-color: var(--ink); }
+  .field.bad .input { border-bottom-color: var(--err); }
+
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .chip, .seg label { position: relative; display: block; cursor: pointer; }
+  .chip input, .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: flex; align-items: center; justify-content: center;
+    height: 46px; border: 1px solid var(--line-strong);
+    font-size: 14px; font-weight: 300; transition: background .15s, color .15s, border-color .15s;
+  }
+  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 400; }
+  .chip input:focus-visible + span, .seg input:focus-visible + span { outline: 1px solid var(--ink); outline-offset: 2px; }
+  .field.bad .chip span { border-color: #e9b5bd; }
+
+  .mbti { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line-strong); }
+  .seg label + label { border-left: 1px solid var(--line-strong); }
+  .seg span {
+    display: flex; align-items: center; justify-content: center; height: 46px;
+    font-family: var(--en); font-size: 15px; letter-spacing: .02em; color: var(--sub);
+    transition: background .15s, color .15s;
+  }
+  .seg input:checked + span { background: var(--ink); color: #fff; }
+  .field.bad .seg { border-color: #e9b5bd; }
+
+  .err { min-height: 0; margin-top: 8px; font-size: 12px; color: var(--err); }
+  .err:empty { display: none; }
+
+  .agree-field { margin-top: 22px; }
+  .agree { margin-top: 14px; border-top: 1px solid var(--ink); }
+  .agree-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0; }
+  .agree-row + .agree-row, .terms + .agree-row { border-top: 1px solid var(--line); }
+  .agree-all { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .check { position: relative; display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 13px; }
+  .check input { position: absolute; opacity: 0; width: 18px; height: 18px; margin: 0; cursor: pointer; }
+  .box {
+    flex: none; width: 18px; height: 18px; border: 1px solid #bbb; background: #fff;
+    display: flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s;
+  }
+  .box::after {
+    content: ''; width: 9px; height: 5px; margin-top: -2px;
+    border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg); opacity: 0;
+  }
+  .check input:checked + .box { background: var(--ink); border-color: var(--ink); }
+  .check input:checked + .box::after { opacity: 1; }
+  .check input:focus-visible + .box { outline: 1px solid var(--ink); outline-offset: 2px; }
+  .agree-all .check { font-size: 14px; font-weight: 500; }
+  .tag { color: var(--sub); margin-right: 2px; }
+  .more { flex: none; font-size: 12px; color: var(--sub); padding: 4px 0 4px 8px; white-space: nowrap; }
+  .more:hover { color: var(--ink); }
+  .terms { background: var(--soft); padding: 16px 16px 14px; margin-bottom: 14px; font-size: 12px; color: var(--text); font-weight: 300; }
+  .terms dl { display: grid; grid-template-columns: 64px 1fr; gap: 6px 12px; }
+  .terms dt { color: var(--sub); font-weight: 400; }
+  .terms p { margin-top: 12px; color: var(--sub); }
+  .agree-err { margin-top: 4px; }
+
+  .submit {
+    display: block; width: 100%; height: 56px; margin-top: 36px;
+    background: var(--ink); color: #fff;
+    font-size: 14px; font-weight: 500; letter-spacing: .08em;
+    transition: opacity .2s;
+  }
+  .submit:disabled { opacity: .45; cursor: default; }
+  .send-err { margin-top: 12px; text-align: center; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  .done { text-align: center; padding: 40px 0 120px; border-top: 1px solid var(--ink); }
+  .done .en { margin-top: 56px; font-family: var(--en); font-size: 15px; letter-spacing: .14em; }
+  .done h2 { margin-top: 14px; font-size: 14px; font-weight: 400; }
+  .done .sub { margin-top: 6px; color: var(--sub); }
+
+  .foot { padding: 28px 16px 40px; border-top: 1px solid var(--line); text-align: center; font-family: var(--en); font-size: 11px; letter-spacing: .12em; color: var(--sub); }
+
+  @media (min-width: 768px) {
+    .head { padding-top: 48px; }
+    .logo { width: 200px; }
+    .title { padding: 72px 0 52px; }
+  }
+</style>
+</head>
+<body>
+  <header class="head">
+    <img class="logo" src="logo.png" alt="muhae village" width="960" height="196">
+  </header>
+
+  <main class="wrap">
+    <div class="title">
+      <h1>SCENT MOOD TEST</h1>
+      <p>향기 무드 테스트 신청</p>
+    </div>
+
+    <form id="form" novalidate autocomplete="on">
+      <div class="field" data-key="name">
+        <label class="label" for="name"><span class="no">01</span>이름 <i>*</i></label>
+        <input class="input" id="name" name="name" type="text" autocomplete="name" maxlength="20" placeholder="이름">
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <div class="field" data-key="phone">
+        <label class="label" for="phone"><span class="no">02</span>연락처 <i>*</i></label>
+        <input class="input" id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000">
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <div class="field" data-key="gender">
+        <p class="label" id="gender-label"><span class="no">03</span>성별 <i>*</i></p>
+        <div class="chips" role="radiogroup" aria-labelledby="gender-label">
+          <label class="chip"><input type="radio" name="gender" value="여성"><span>여성</span></label>
+          <label class="chip"><input type="radio" name="gender" value="남성"><span>남성</span></label>
+        </div>
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <div class="field" data-key="birth">
+        <label class="label" for="birth"><span class="no">04</span>생년월일 <i>*</i></label>
+        <input class="input" id="birth" name="birth" type="text" inputmode="numeric" autocomplete="bday" maxlength="10" placeholder="YYYY.MM.DD">
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <div class="field" data-key="address">
+        <label class="label" for="address"><span class="no">05</span>거주지 <span class="opt">동까지</span> <i>*</i></label>
+        <input class="input" id="address" name="address" type="text" autocomplete="off" maxlength="50" placeholder="예) 서울시 마포구 연남동">
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <div class="field" data-key="mbti">
+        <p class="label" id="mbti-label"><span class="no">06</span>MBTI <span class="opt">선택</span></p>
+        <div class="mbti" aria-labelledby="mbti-label">
+          <div class="seg" role="radiogroup" aria-label="E 또는 I">
+            <label><input type="radio" name="m0" value="E"><span>E</span></label>
+            <label><input type="radio" name="m0" value="I"><span>I</span></label>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="S 또는 N">
+            <label><input type="radio" name="m1" value="S"><span>S</span></label>
+            <label><input type="radio" name="m1" value="N"><span>N</span></label>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="T 또는 F">
+            <label><input type="radio" name="m2" value="T"><span>T</span></label>
+            <label><input type="radio" name="m2" value="F"><span>F</span></label>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="J 또는 P">
+            <label><input type="radio" name="m3" value="J"><span>J</span></label>
+            <label><input type="radio" name="m3" value="P"><span>P</span></label>
+          </div>
+        </div>
+        <p class="err" aria-live="polite"></p>
+      </div>
+
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field agree-field" data-key="agree">
+        <p class="label"><span class="no">07</span>개인정보 동의 <i>*</i></p>
+        <div class="agree">
+          <div class="agree-all">
+            <label class="check"><input type="checkbox" id="agree-all"><span class="box"></span>전체 동의</label>
+          </div>
+
+          <div class="agree-row">
+            <label class="check"><input type="checkbox" name="privacy" class="agree-item"><span class="box"></span><span><span class="tag">[필수]</span> 개인정보 수집·이용 동의</span></label>
+            <button type="button" class="more" aria-expanded="false" aria-controls="terms-privacy">보기 +</button>
+          </div>
+          <div class="terms" id="terms-privacy" hidden>
+            <dl>
+              <dt>수집 항목</dt><dd>이름, 연락처, 성별, 생년월일, 거주지, MBTI</dd>
+              <dt>이용 목적</dt><dd>향기 무드 테스트 신청 접수, 참여자 확인 및 안내 연락</dd>
+              <dt>보유 기간</dt><dd>테스트 종료 후 지체 없이 파기</dd>
+            </dl>
+            <p>개인정보 수집·이용에 동의하지 않을 수 있으며, 동의하지 않으면 신청이 제한됩니다.</p>
+          </div>
+
+          <div class="agree-row">
+            <label class="check"><input type="checkbox" name="marketing" class="agree-item"><span class="box"></span><span><span class="tag">[선택]</span> 마케팅 정보 수신 동의</span></label>
+            <button type="button" class="more" aria-expanded="false" aria-controls="terms-marketing">보기 +</button>
+          </div>
+          <div class="terms" id="terms-marketing" hidden>
+            <dl>
+              <dt>수집 항목</dt><dd>이름, 연락처</dd>
+              <dt>이용 목적</dt><dd>신제품, 이벤트, 혜택 소식 안내 (문자, 카카오톡)</dd>
+              <dt>보유 기간</dt><dd>동의 철회 시까지</dd>
+            </dl>
+            <p>동의하지 않아도 신청할 수 있습니다.</p>
+          </div>
+        </div>
+        <p class="err agree-err" id="agree-err" aria-live="polite"></p>
+      </div>
+
+      <button class="submit" type="submit">신청하기</button>
+      <p class="err send-err" id="send-err" aria-live="polite"></p>
+    </form>
+
+    <section class="done" id="done" hidden>
+      <p class="en">THANK YOU</p>
+      <h2>신청이 완료되었습니다</h2>
+      <p class="sub">감사합니다.</p>
+    </section>
+  </main>
+
+  <footer class="foot">MUHAE VILLAGE</footer>
+
+<script>
+  // Google Apps Script 웹 앱 주소 (배포 후 붙여 넣기)
+  const ENDPOINT = '';
+  // 주소가 비어 있을 때 내 컴퓨터에서 열면 저장 없이 완료 화면만 확인 (공개 사이트에서는 전송 실패로 처리)
+  const PREVIEW = !ENDPOINT && /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
+
+  const form = document.getElementById('form');
+  const $ = (sel) => form.querySelector(sel);
+  const fieldOf = (key) => form.querySelector(`.field[data-key="${key}"]`);
+
+  function setError(key, msg) {
+    const f = fieldOf(key);
+    f.classList.toggle('bad', !!msg);
+    f.querySelector('.err').textContent = msg || '';
+  }
+
+  // 입력 자동 정리
+  const phone = $('#phone');
+  const birth = $('#birth');
+
+  function formatPhone(v) {
+    const d = v.replace(/\D/g, '').slice(0, 11);
+    if (d.length < 4) return d;
+    if (d.length < 8) return `${d.slice(0, 3)}-${d.slice(3)}`;
+    if (d.length === 10) return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6)}`;
+    return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;
+  }
+  function formatBirth(v) {
+    const d = v.replace(/\D/g, '').slice(0, 8);
+    if (d.length <= 4) return d;
+    if (d.length <= 6) return `${d.slice(0, 4)}.${d.slice(4)}`;
+    return `${d.slice(0, 4)}.${d.slice(4, 6)}.${d.slice(6)}`;
+  }
+  phone.addEventListener('input', () => { phone.value = formatPhone(phone.value); });
+  birth.addEventListener('input', () => { birth.value = formatBirth(birth.value); });
+
+  // MBTI: 한 번 더 누르면 선택 해제
+  form.querySelectorAll('.seg input').forEach((r) => {
+    r.addEventListener('pointerdown', () => { r.dataset.was = r.checked ? '1' : ''; });
+    r.addEventListener('click', () => {
+      if (r.dataset.was === '1') r.checked = false;
+      r.dataset.was = '';
+      setError('mbti', '');
+    });
+  });
+
+  // 동의
+  const all = document.getElementById('agree-all');
+  const items = [...form.querySelectorAll('.agree-item')];
+  const agreeErr = document.getElementById('agree-err');
+  all.addEventListener('change', () => {
+    items.forEach((c) => { c.checked = all.checked; });
+    if (all.checked) agreeErr.textContent = '';
+  });
+  items.forEach((c) => c.addEventListener('change', () => {
+    all.checked = items.every((i) => i.checked);
+    if (form.privacy.checked) agreeErr.textContent = '';
+  }));
+  form.querySelectorAll('.more').forEach((b) => {
+    b.addEventListener('click', () => {
+      const t = document.getElementById(b.getAttribute('aria-controls'));
+      const open = t.hidden;
+      t.hidden = !open;
+      b.setAttribute('aria-expanded', String(open));
+      b.textContent = open ? '닫기 −' : '보기 +';
+    });
+  });
+
+  // 입력하면 해당 오류 지우기
+  ['name', 'phone', 'birth', 'address'].forEach((k) => $(`#${k}`).addEventListener('input', () => setError(k, '')));
+  form.querySelectorAll('input[name="gender"]').forEach((r) => r.addEventListener('change', () => setError('gender', '')));
+
+  function validBirth(v) {
+    const m = /^(\d{4})\.(\d{2})\.(\d{2})$/.exec(v);
+    if (!m) return false;
+    const [y, mo, d] = [+m[1], +m[2], +m[3]];
+    const dt = new Date(y, mo - 1, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return false;
+    return y >= 1920 && dt <= new Date();
+  }
+
+  function collect() {
+    const mbtiParts = [0, 1, 2, 3].map((i) => (form.querySelector(`input[name="m${i}"]:checked`) || {}).value || '');
+    return {
+      name: $('#name').value.trim(),
+      phone: formatPhone(phone.value),
+      gender: (form.querySelector('input[name="gender"]:checked') || {}).value || '',
+      birth: birth.value.trim(),
+      mbtiParts,
+      mbti: mbtiParts.join(''),
+      address: $('#address').value.trim().replace(/\s+/g, ' '),
+      privacy: form.privacy.checked,
+      marketing: form.marketing.checked,
+      website: form.website.value,
+    };
+  }
+
+  function validate(v) {
+    const errs = {};
+    if (v.name.length < 2) errs.name = '이름을 입력해 주세요.';
+    if (!/^01[016789]-\d{3,4}-\d{4}$/.test(v.phone)) errs.phone = '연락처를 정확히 입력해 주세요.';
+    if (!v.gender) errs.gender = '성별을 선택해 주세요.';
+    if (!validBirth(v.birth)) errs.birth = '생년월일 8자리를 입력해 주세요. 예) 1995.03.12';
+    const picked = v.mbtiParts.filter(Boolean).length;
+    if (picked > 0 && picked < 4) errs.mbti = '네 가지를 모두 선택하거나 비워 두세요.';
+    if (v.address.length < 2) errs.address = '거주지를 동까지 입력해 주세요.';
+    return errs;
+  }
+
+  const submitBtn = form.querySelector('.submit');
+  const sendErr = document.getElementById('send-err');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    sendErr.textContent = '';
+    const v = collect();
+    const errs = validate(v);
+    ['name', 'phone', 'gender', 'birth', 'mbti', 'address'].forEach((k) => setError(k, errs[k]));
+    agreeErr.textContent = v.privacy ? '' : '개인정보 수집·이용에 동의해 주세요.';
+
+    const firstBad = form.querySelector('.field.bad') || (!v.privacy ? agreeErr : null);
+    if (firstBad) {
+      firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const inp = firstBad.querySelector && firstBad.querySelector('.input');
+      if (inp) inp.focus({ preventScroll: true });
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '신청 중';
+    try {
+      if (PREVIEW) {
+        console.warn('ENDPOINT가 비어 있어 저장하지 않았습니다 (미리보기).', v);
+        await new Promise((r) => setTimeout(r, 500));
+      } else if (!ENDPOINT) {
+        throw new Error('no endpoint');
+      } else if (!v.website) {
+        const body = new URLSearchParams({
+          name: v.name,
+          phone: v.phone,
+          gender: v.gender,
+          birth: v.birth,
+          mbti: v.mbti,
+          address: v.address,
+          privacy: '동의',
+          marketing: v.marketing ? '동의' : '미동의',
+        });
+        const res = await fetch(ENDPOINT, { method: 'POST', body });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'failed');
+      }
+      form.hidden = true;
+      document.getElementById('done').hidden = false;
+      window.scrollTo({ top: 0 });
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '신청하기';
+      sendErr.textContent = '신청이 전송되지 않았어요. 잠시 후 다시 시도해 주세요.';
+    }
+  });
+</script>
+</body>
+</html>
