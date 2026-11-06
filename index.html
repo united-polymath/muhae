@@ -297,6 +297,45 @@ a:hover .art .obj,.card:hover .art .obj{transform:translateY(-3%)}
 .scent-row a{font-size:12px;padding:5px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
 .scent-row a.on{border-color:var(--ink);color:var(--ink);background:var(--white)}
 .count{font-size:12px;color:var(--mute);padding-block:8px 20px}
+/* 실사진 상품 카드: 마우스 올리면 두 번째 사진 */
+.art.ph{background:#EFEDE9}
+.art.ph::after{display:none}
+.art.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.art.ph img.alt{opacity:0}
+.card:hover .art.ph img.alt,a:hover>.art.ph img.alt{opacity:1}
+.card:hover .art.ph img{transform:scale(1.02)}
+.gal-main .art.ph{aspect-ratio:1}
+
+/* 홀리데이 컬렉션 */
+.hl-hero{position:relative;background:#3a0f12;overflow:hidden}
+.hl-hero>img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;object-position:50% 55%}
+@media (max-width:759px){.hl-hero>img{aspect-ratio:4/5;object-position:62% 50%}}
+.hl-hero .copy{position:absolute;left:0;right:0;bottom:0;color:#fff;padding-block:90px 34px;background:linear-gradient(to top,rgba(30,8,10,.55),rgba(30,8,10,0))}
+.hl-hero h1{font-family:var(--f-logo);font-weight:400;font-style:italic;font-size:clamp(40px,6vw,88px);line-height:1;text-align:right;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+.hl-hero h1 em{font-style:italic}
+.hl-hero .sub{display:flex;justify-content:space-between;gap:16px;margin-top:14px;font-family:var(--f-ui);font-size:12px;letter-spacing:.08em}
+.hl-intro{text-align:center;display:grid;justify-items:center;gap:16px;padding-block:80px 64px}
+.hl-intro h2{font-family:var(--f-kr);font-weight:500;font-size:clamp(20px,2.2vw,26px);line-height:1.55}
+.hl-intro p{margin:0;font-size:13.5px;line-height:1.95;color:#4b4944}
+@media (min-width:760px){.grid.hl-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.hl-edit{display:grid;gap:10px;padding-top:96px}
+@media (min-width:760px){.hl-edit{grid-template-columns:1fr 1fr}}
+.hl-edit a{position:relative;display:block;overflow:hidden}
+.hl-edit img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.hl-edit a:hover img{transform:scale(1.03)}
+.hl-edit a::before{content:"";position:absolute;inset:0 0 auto;height:120px;z-index:1;background:linear-gradient(rgba(20,10,8,.32),rgba(20,10,8,0));pointer-events:none}
+.hl-edit span{position:absolute;z-index:2;left:24px;top:22px;color:#fff;font-family:var(--f-ui);font-size:14px;letter-spacing:.06em;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.hl-edit.two{padding-top:10px}
+.hl-split{display:grid;margin-top:96px;background:#F3EFE8}
+@media (min-width:860px){.hl-split{grid-template-columns:1fr 1fr}}
+.hl-split figure{margin:0}
+.hl-split img{display:block;width:100%;height:100%;aspect-ratio:1;object-fit:cover}
+.hl-split .txt{padding:48px var(--gr) 56px var(--gl);display:grid;align-content:center;gap:18px}
+@media (min-width:860px){.hl-split .txt{padding:64px clamp(40px,7vw,120px)}}
+.hl-split h2{font-family:var(--f-kr);font-weight:500;font-size:clamp(22px,2.4vw,30px);line-height:1.5}
+.hl-split h2 em{font-style:normal;color:#7a2a2f}
+.hl-split p{margin:0;max-width:30em;font-size:14px;line-height:1.9;color:#3d3b37}
+
 /* 브랜드 스토리 */
 .st-hero{margin:0}
 .st-hero img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;object-position:50% 45%}
@@ -503,7 +542,7 @@ footer.ft .logo .lm{height:22px}
       <nav class="main desk" aria-label="주요 메뉴">
         <div class="it"><a href="#shop">Shop</a>
           <div class="mega"><div class="wrap in m-shop">
-            <a class="mcard" href="#shop-new"><img src="assets/hero-winter.jpg" width="1672" height="941" alt="홀리데이 컬렉션 · 선물 상자 사이의 모델" loading="lazy" decoding="async" style="object-position:50% 30%"><span>홀리데이 컬렉션</span></a>
+            <a class="mcard" href="#holiday"><img src="assets/hol-duo-1.jpg" width="1400" height="933" alt="홀리데이 컬렉션 · 버건디 선물 상자" loading="lazy" decoding="async"><span>홀리데이 컬렉션</span></a>
             <a class="mcard" href="#shop-best"><div data-art="soft-linen"></div><span>베스트 셀러</span></a>
             <a class="mcard" href="#shop-gift"><div data-art="gift-duo"></div><span>기프트 세트</span></a>
           </div></div>
@@ -609,6 +648,15 @@ const P=[
   desc:'소이 왁스와 면 심지로 그을음 없이 타는 캔들. 약 45시간 연소됩니다.',tags:['소이 왁스','45시간'],rating:4.9,rc:77},
  {id:'gift-duo',name:'Harmless Gift Duo',kr:'기프트 듀오 · 10ml × 2 + 핸드크림',type:'gift',badge:'Gift',a:'#EAE5DD',b:'#D3CABD',cap:'#34403A',sizes:[{l:'세트',p:79000}],def:0,
   desc:'오 드 퍼퓸 10ml 두 가지와 핸드크림 30ml. 리본 포장과 메시지 카드가 함께 갑니다.',tags:['선물 포장','메시지 카드'],rating:4.9,rc:530},
+ /* 2026 홀리데이 컬렉션 — 실사진(img) 상품 */
+ {id:'hol-duo',name:'Holiday Duo',kr:'홀리데이 퍼퓸 & 핸드크림 세트',type:'gift',scent:'citrus',badge:'Holiday',hol:1,img:['hol-duo-2','hol-duo-1'],sizes:[{l:'오 드 퍼퓸 50ml + 핸드크림 50ml',p:148000}],def:0,
+  desc:'맑은 유자 껍질의 오 드 퍼퓸과 같은 향의 핸드크림을 버건디 상자에 담았습니다. 손목과 손끝에 같은 향을 겹쳐 두는 겨울 선물.',tags:['홀리데이 한정','리본 포장','시트러스'],rating:'NEW',rc:0},
+ {id:'hol-body',name:'Holiday Body Set',kr:'홀리데이 바디 케어 세트',type:'body',scent:'citrus',badge:'Holiday',hol:1,img:['hol-body-2','hol-body-1'],sizes:[{l:'바디 워시 500ml + 바디 로션 300ml',p:76000}],def:0,
+  desc:'시트러스와 플로럴이 포개지는 바디 워시와 바디 로션. 샤워 뒤 피부에 향을 한 겹 더 남기는, 깊은 초록 상자의 세트.',tags:['홀리데이 한정','리본 포장','시트러스 × 플로럴'],rating:'NEW',rc:0},
+ {id:'hol-discovery',name:'Holiday Discovery Set',kr:'홀리데이 디스커버리 세트 · 10ml × 4',type:'discovery',badge:'Holiday',hol:1,img:['hol-disc-2','hol-disc-1'],sizes:[{l:'10ml × 4',p:59000}],def:0,
+  desc:'시트러스 블룸, 블랑 코튼, 우드 브리즈, 로즈 벨벳. 네 가지 홀리데이 향을 10ml씩 담았습니다. 받는 사람이 자기 향을 직접 고르는 선물.',tags:['홀리데이 한정','10ml × 4','첫 선물로'],rating:'NEW',rc:0},
+ {id:'hol-home',name:'Holiday Home & Perfume Set',kr:'홀리데이 홈 & 퍼퓸 세트',type:'gift',scent:'woody',badge:'Holiday',hol:1,img:['hol-home-1','hol-home-2'],sizes:[{l:'디퓨저 200ml + 오 드 퍼퓸 50ml',p:189000}],def:0,
+  desc:'트래버틴 질감의 디퓨저와 오 드 퍼퓸 50ml. 머무는 공간의 향과 지니는 향을 한 상자에 담았습니다.',tags:['홀리데이 한정','리본 포장','홈 & 퍼퓸'],rating:'NEW',rc:0},
 ];
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 /* 헤더 메가메뉴: 카테고리 · 향 계열별 상품 목록 */
@@ -646,6 +694,11 @@ function svgObj(p){
 }
 function art(id,mode=''){
   const p=byId[id]; if(!p) return '';
+  if(p.img){
+    const im=(f,c='')=>`<img class="${c}" src="assets/${f}.jpg" alt="${p.kr}" loading="lazy" decoding="async">`;
+    const n=/^i\d$/.test(mode)?+mode[1]:-1;
+    return n>=0?`<div class="art ph">${im(p.img[n])}</div>`:`<div class="art ph">${im(p.img[0])}${p.img[1]?im(p.img[1],'alt'):''}</div>`;
+  }
   if(mode==='tex') return `<div class="art tex" style="--a:${p.a};--b:${p.b}"><div class="note">${(p.notes?p.notes[1][0]:p.tags.join(' · '))}</div></div>`;
   return `<div class="art ${mode}" style="--a:${p.a};--b:${p.b}"><div class="obj">${svgObj(p)}</div></div>`;
 }
@@ -691,20 +744,20 @@ function vHome(){
   <section class="hero photo" aria-label="메인 배너">
     <img src="assets/hero-winter.jpg" width="1672" height="941" alt="선물 상자에 둘러싸여 소파에 기대 앉은 모델 · 2026 윈터 컬렉션" fetchpriority="high" decoding="async">
     <div class="copy"><div class="wrap">
-      <h1>A <em>Harmless</em> Winter</h1>
-      <div class="sub"><span>2026 WINTER COLLECTION</span><a href="#product-warm-milk">겨울 한정 향 보러가기 →</a></div>
+      <h1>A <em>Harmless</em> Holiday</h1>
+      <div class="sub"><span>2026 HOLIDAY COLLECTION</span><a href="#holiday">홀리데이 컬렉션 보기 →</a></div>
     </div></div>
   </section>
 
   <section class="wrap">
-    <div class="h-bar"><span>2026 Winter</span><a href="#shop">+ 전체 보기</a></div>
+    <div class="h-bar"><span>2026 Holiday</span><a href="#holiday">+ 홀리데이 컬렉션</a></div>
     <div class="benefits">
       <span class="orn o1">${svgObj(byId['milk-candle'])}</span><span class="orn o2">${svgObj(byId['gift-duo'])}</span><span class="orn o3">${svgObj(byId['discovery'])}</span>
-      <h2>WINTER BENEFITS</h2>
-      <p>따뜻한 기억과 감성을 담은 겨울 한정 패키지와 함께,<br>나를 위한 향과 선물의 순간을 위한 아이템을 만나보세요.</p>
-      <ul><li>+ 겨울 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트 증정</li></ul>
+      <h2>HOLIDAY BENEFITS</h2>
+      <p>따뜻한 기억과 감성을 담은 홀리데이 한정 패키지와 함께,<br>나를 위한 향과 선물의 순간을 위한 아이템을 만나보세요.</p>
+      <ul><li>+ 홀리데이 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트 증정</li></ul>
     </div>
-    <div class="grid hol">${P.slice().sort((a,b)=>(b.ltd||0)-(a.ltd||0)||ORDER.indexOf(a.type)-ORDER.indexOf(b.type)).map(card).join('')}</div>
+    <div class="grid hol">${P.slice().sort((a,b)=>(b.hol||0)-(a.hol||0)||(b.ltd||0)-(a.ltd||0)||ORDER.indexOf(a.type)-ORDER.indexOf(b.type)).map(card).join('')}</div>
   </section>
 
   <section class="news"><div class="wrap in">
@@ -714,6 +767,41 @@ function vHome(){
 }
 function initHome(){
   document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();toast('구독 완료 · WELCOME15 코드를 보내드렸어요 (시안)');e.target.reset()});
+}
+
+/* 홀리데이 컬렉션 */
+function vHoliday(){
+  const H=P.filter(p=>p.hol), ph=(f,alt)=>`<img src="assets/${f}.jpg" alt="${alt}" decoding="async">`;
+  return `<article class="holi">
+  <section class="hl-hero">${ph('hol-duo-1','버건디 선물 상자에 담긴 오 드 퍼퓸과 핸드크림')}
+    <div class="copy"><div class="wrap"><h1>A <em>Harmless</em> Holiday</h1>
+      <div class="sub"><span>2026 HOLIDAY COLLECTION</span><span>가까운 사람에게 건네는 무해한 선물</span></div></div></div>
+  </section>
+  <section class="wrap hl-intro">
+    <span class="lbl">Holiday Gifts</span>
+    <h2>오래 곁에 머무는 향으로,<br>올겨울의 마음을 전하세요</h2>
+    <p>버건디와 깊은 초록, 따뜻한 아이보리. 네 가지 상자에 무해한 마을의 향을 담았습니다.<br>모든 홀리데이 세트는 리본 포장과 메시지 카드가 함께 갑니다.</p>
+  </section>
+  <section class="wrap"><div class="grid hl-grid">${H.map(card).join('')}</div></section>
+  <section class="wrap hl-edit">
+    <a href="#product-hol-duo">${ph('hol-duo-2','오 드 퍼퓸과 핸드크림 세트')}<span>PERFUME &amp; HAND →</span></a>
+    <a href="#product-hol-discovery">${ph('hol-disc-1','네 가지 향의 디스커버리 세트')}<span>DISCOVERY →</span></a>
+  </section>
+  <section class="hl-split">
+    <figure>${ph('hol-edp','돌 위에 놓인 오 드 퍼퓸 50ml')}</figure>
+    <div class="txt">
+      <span class="lbl">One Bottle</span>
+      <h2>한 병만 고른다면,<br><em>오 드 퍼퓸 50ml</em></h2>
+      <p>세트가 아니어도 괜찮습니다. 받는 사람의 하루에 가장 오래 남는 것은 결국 한 병의 향이니까요. 홀리데이 기간에는 모든 오 드 퍼퓸에 리본 포장을 무료로 해 드립니다.</p>
+      <div><a class="btn line" href="#shop-perfume">오 드 퍼퓸 보기</a></div>
+    </div>
+  </section>
+  <section class="wrap hl-edit two">
+    <a href="#product-hol-home">${ph('hol-home-2','디퓨저와 오 드 퍼퓸')}<span>HOME &amp; PERFUME →</span></a>
+    <a href="#product-hol-body">${ph('hol-body-1','바디 워시와 바디 로션 세트')}<span>BODY CARE →</span></a>
+  </section>
+  <div style="height:96px"></div>
+  </article>`;
 }
 
 /* 브랜드 스토리 */
@@ -816,7 +904,7 @@ function vPdp(p){
    <div class="crumb"><a href="#home">홈</a><span>/</span><a href="#shop-${p.type}">${CATS[p.type]}</a><span>/</span><span>${p.name}</span></div>
    <div class="pdp">
     <div class="gal">
-      <div class="gal-main" id="gal">${art(p.id)}${art(p.id,'zoom')}${art(p.id,'mood')}${art(p.id,'tex')}</div>
+      <div class="gal-main" id="gal">${p.img?p.img.map((_,i)=>art(p.id,'i'+i)).join(''):art(p.id)+art(p.id,'zoom')+art(p.id,'mood')+art(p.id,'tex')}</div>
       <div class="gal-dots" id="galDots"><i class="on"></i><i></i><i></i><i></i></div>
     </div>
     <div class="buy">
@@ -824,7 +912,7 @@ function vPdp(p){
         ${p.badge?`<span class="lbl" style="color:${p.ltd?'var(--pine)':'var(--mute)'}">${p.badge}${p.ltd?' · 2026 Winter':''}</span>`:''}
         <h1>${p.name}</h1>
         <div class="kr">${p.kr}${isEdp?' · Eau de Parfum':''}</div>
-        <div class="rate"><span class="stars">★★★★★</span><span>${p.rating}</span><a href="#reviews" data-jump="reviews">리뷰 ${p.rc.toLocaleString()}개</a></div>
+        ${p.rc?`<div class="rate"><span class="stars">★★★★★</span><span>${p.rating}</span><a href="#reviews" data-jump="reviews">리뷰 ${p.rc.toLocaleString()}개</a></div>`:`<div class="rate"><span>NEW · 첫 리뷰를 남겨 주세요</span></div>`}
       </div>
       <div class="price" id="pdpPrice">${won(p.sizes[p.def].p)}</div>
       <p class="desc">${p.desc}</p>
@@ -1051,6 +1139,7 @@ function render(){
   else if(h==='complete'){v.innerHTML=vComplete()}
   else if(h==='reviews'){return}
   else if(h==='about'){v.innerHTML=vAbout()}
+  else if(h==='holiday'){v.innerHTML=vHoliday()}
   else {v.innerHTML=vHome();initHome()}
   document.body.classList.toggle('is-home',!v.querySelector('.shop-hd,.pdp,.summary,.done')&&!!v.querySelector('.hero.photo'));
   hydrateArt(document);
