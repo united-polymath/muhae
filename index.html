@@ -44,7 +44,8 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.2;disp
 /* ---------- Announcement + header ---------- */
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--pine)}
 .ann{background:var(--pine);color:#F4F3EF;font-size:12.5px;letter-spacing:.02em;text-align:center;height:36px;overflow:hidden;position:sticky;top:env(safe-area-inset-top,0px);z-index:55}
-.ann div{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .6s,transform .6s;padding-inline:16px}
+.ann div{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .4s,transform .4s;padding-inline:16px}
+.ann div:not(.off){transition-delay:.4s}
 .ann div.off{opacity:0;transform:translateY(8px)}
 header.hd{position:sticky;top:calc(env(safe-area-inset-top,0px) + 36px);z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:transform .4s cubic-bezier(.2,.7,.2,1),background-color .3s,color .3s}
 /* 스크롤 내리면 공지바 뒤로 숨고, 올리면 다시 등장 */
@@ -543,7 +544,7 @@ footer.ft .logo .lm{height:22px}
         <div class="it"><a href="#shop">Shop</a>
           <div class="mega"><div class="wrap in m-shop">
             <a class="mcard" href="#holiday"><img src="assets/hol-duo-1.jpg" width="1400" height="933" alt="홀리데이 컬렉션 · 버건디 선물 상자" loading="lazy" decoding="async"><span>홀리데이 컬렉션</span></a>
-            <a class="mcard" href="#shop-best"><div data-art="soft-linen"></div><span>베스트 셀러</span></a>
+            <a class="mcard" href="#shop-best"><img src="assets/best-body-lotion.jpg" width="960" height="1280" alt="선물 상자 속 바디 로션 300ml" loading="lazy" decoding="async" style="object-position:50% 52%"><span>베스트 셀러</span></a>
             <a class="mcard" href="#shop-gift"><div data-art="gift-duo"></div><span>기프트 세트</span></a>
           </div></div>
         </div>
