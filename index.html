@@ -299,6 +299,35 @@ a:hover .art .obj,.card:hover .art .obj{transform:translateY(-3%)}
 .scent-row a{font-size:12px;padding:5px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
 .scent-row a.on{border-color:var(--ink);color:var(--ink);background:var(--white)}
 .count{font-size:12px;color:var(--mute);padding-block:8px 20px}
+/* 로그인 */
+.login{max-width:520px;padding-block:72px 120px;display:grid;gap:0}
+.login h1{font-family:var(--f-kr);font-size:15px;font-weight:500;margin-bottom:44px}
+.login form{display:grid;gap:12px}
+.login input{height:56px;border:1px solid var(--line);padding-inline:16px;font-size:14px;background:#fff;border-radius:0;outline:none;width:100%}
+.login input:focus{border-color:var(--ink)}
+.login input.err{border-color:#9a3b2f}
+.lg-err{margin:0;min-height:18px;font-size:12px;color:#9a3b2f}
+.login .btn{height:56px;font-family:var(--f-kr);font-size:14px;letter-spacing:0;text-transform:none}
+.lg-links{display:flex;gap:18px;margin:20px 0 48px;font-size:13px}
+.lg-links a{text-decoration:underline;text-underline-offset:3px}
+.lg-kakao{gap:8px;margin-bottom:12px}.lg-kakao svg{width:20px;height:20px}
+.lg-perks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:6px;font-size:12.5px;color:#3d3b37}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 상품 목록 (논픽션식) */
+.lst-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px 18px}
+.lst-crumb{display:flex;align-items:baseline;gap:12px;font-size:12.5px;flex-wrap:wrap}
+.lst-crumb span{font-family:var(--f-ui);letter-spacing:.06em;text-transform:uppercase}
+.lst-crumb i{font-style:normal;color:var(--mute)}
+.lst-crumb b{font-weight:500}
+.lst-crumb em{font-style:normal;color:var(--mute);font-size:12px}
+.lst-bar select{border:0;background:none;font-size:12.5px;padding:4px 2px}
+.lst-tabs{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;padding-bottom:22px;font-size:13px}
+.lst-tabs::-webkit-scrollbar{display:none}
+.lst-tabs a,.lst-tabs button{white-space:nowrap;color:var(--mute);padding-bottom:4px;border-bottom:1px solid transparent;font:inherit;font-size:13px}
+.lst-tabs .on{color:var(--ink);border-color:var(--ink)}
+.lst-grid{gap:56px 8px}
+
 /* 실사진 상품 카드: 마우스 올리면 두 번째 사진 */
 .art.ph{background:#EFEDE9}
 .art.ph::after{display:none}
@@ -369,9 +398,16 @@ a:hover .art .obj,.card:hover .art .obj{transform:translateY(-3%)}
 .benefits h2{font-family:var(--f-ui);font-size:15px;letter-spacing:.06em}
 .benefits p{margin:0;font-size:12.5px;line-height:1.9}
 .benefits ul{list-style:none;margin:6px 0 0;padding:0;font-size:12px;line-height:2;color:#4b4944}
-.orn{position:absolute;width:56px}.orn svg{width:100%;height:auto;display:block}
-.orn.o1{left:14%;top:44px;transform:rotate(-8deg)}.orn.o2{right:16%;top:28px;width:64px;transform:rotate(10deg)}.orn.o3{right:24%;bottom:40px;width:72px}
-@media (max-width:759px){.orn{display:none}}
+.grid.row4{padding-bottom:0}
+.home-tiles+.grid.row4{margin-bottom:112px}
+@media (min-width:760px){.grid.row4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.home-tiles{display:grid;gap:10px;margin-block:88px}
+@media (min-width:760px){.home-tiles{grid-template-columns:1fr 1fr}}
+.home-tiles a{position:relative;display:block;overflow:hidden}
+.home-tiles img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.home-tiles a:hover img{transform:scale(1.03)}
+.home-tiles a::before{content:"";position:absolute;inset:0 0 auto;height:140px;z-index:1;background:linear-gradient(rgba(20,10,8,.38),rgba(20,10,8,0));pointer-events:none}
+.home-tiles span{position:absolute;z-index:2;left:clamp(18px,2.4vw,36px);top:clamp(18px,2.2vw,32px);color:#fff;font-family:var(--f-kr);font-weight:500;font-size:clamp(15px,1.4vw,19px)}
 .grid.hol .card .art{background:#B9D3DD}
 .grid.hol .card[data-type="perfume"] .art,.grid.hol .card[data-type="discovery"] .art{background:#E9C6CB}
 .grid.hol .card[data-type="body"] .art,.grid.hol .card[data-type="hand"] .art{background:#BFCDB3}
@@ -620,32 +656,52 @@ const CATS={perfume:'오 드 퍼퓸',discovery:'디스커버리',body:'바디 �
 const SCENTS={citrus:['시트러스','막 자른 껍질의 맑음'],floral:['플로럴','살결에 닿은 꽃잎'],woody:['우디','오래된 나무 서랍'],green:['그린','비 온 뒤 잎사귀'],musk:['머스크','갓 빨아 말린 옷']};
 const EDP=[{l:'10ml',p:39000},{l:'50ml',p:128000},{l:'100ml',p:178000}];
 const P=[
- {id:'soft-linen',name:'Soft Linen',kr:'소프트 리넨',type:'perfume',scent:'musk',badge:'Best',best:1,a:'#ECEAE4',b:'#DCD7CE',juice:'#F1ECE1',cap:'#2A2825',sizes:EDP,def:1,
+ {id:'soft-linen',name:'Soft Linen',kr:'소프트 리넨',type:'perfume',scent:'musk',badge:'Best',best:1,img:['cat-perfume','home-holiday'],a:'#ECEAE4',b:'#DCD7CE',juice:'#F1ECE1',cap:'#2A2825',sizes:EDP,def:1,
   desc:'햇볕에 막 마른 흰 리넨처럼, 가까이 다가왔을 때만 느껴지는 깨끗한 살결의 향.',tags:['깨끗한','데일리','살냄새'],
   notes:[['알데하이드, 베르가못','첫 15분'],['코튼 플라워, 아이리스','30분 – 3시간'],['화이트 머스크, 캐시미어 우드','3시간 이후']],last:70,proj:40,rating:4.8,rc:1284},
- {id:'morning-fig',name:'Morning Fig',kr:'모닝 피그',type:'perfume',scent:'green',badge:'Best',best:1,a:'#E6E8DE',b:'#CFD3C2',juice:'#DCE2CB',cap:'#3A3F35',sizes:EDP,def:1,
+ {id:'morning-fig',img:['p-morning-fig'],name:'Morning Fig',kr:'모닝 피그',type:'perfume',scent:'green',badge:'Best',best:1,a:'#E6E8DE',b:'#CFD3C2',juice:'#DCE2CB',cap:'#3A3F35',sizes:EDP,def:1,
   desc:'이슬 맺힌 무화과 잎을 손으로 비볐을 때의 초록빛. 부드러운 밀크 노트가 끝을 감쌉니다.',tags:['싱그러운','중성적','봄 · 여름'],
   notes:[['무화과 잎, 블랙커런트','첫 15분'],['그린 티, 코코넛 밀크','30분 – 3시간'],['시더우드, 머스크','3시간 이후']],last:60,proj:55,rating:4.7,rc:862},
- {id:'quiet-wood',name:'Quiet Wood',kr:'콰이어트 우드',type:'perfume',scent:'woody',badge:'Best',best:1,a:'#E9E3DA',b:'#D2C6B6',juice:'#D9C3A5',cap:'#2B241E',sizes:EDP,def:1,
+ {id:'quiet-wood',img:['p-quiet-wood'],name:'Quiet Wood',kr:'콰이어트 우드',type:'perfume',scent:'woody',badge:'Best',best:1,a:'#E9E3DA',b:'#D2C6B6',juice:'#D9C3A5',cap:'#2B241E',sizes:EDP,def:1,
   desc:'불을 끈 서재, 오래된 나무 책장 사이의 고요. 차분하게 오래 머무는 우디 향.',tags:['차분한','가을 · 겨울','오래가는'],
   notes:[['핑크 페퍼, 카다멈','첫 15분'],['샌달우드, 블랙 티','30분 – 3시간'],['시더, 앰버, 베티버','3시간 이후']],last:85,proj:50,rating:4.9,rc:1057},
- {id:'bare-petal',name:'Bare Petal',kr:'베어 페탈',type:'perfume',scent:'floral',badge:'New',isNew:1,a:'#F0E7E4',b:'#DECFCA',juice:'#F2DCD6',cap:'#3A2F2D',sizes:EDP,def:1,
+ {id:'bare-petal',img:['p-bare-petal'],name:'Bare Petal',kr:'베어 페탈',type:'perfume',scent:'floral',badge:'New',isNew:1,a:'#F0E7E4',b:'#DECFCA',juice:'#F2DCD6',cap:'#3A2F2D',sizes:EDP,def:1,
   desc:'화장기 없는 얼굴처럼 투명한 작약. 달지 않고 담백하게 피어나는 플로럴.',tags:['투명한','플로럴','첫 향수로'],
   notes:[['라즈베리 잎, 만다린','첫 15분'],['작약, 로즈 워터','30분 – 3시간'],['화이트 머스크, 앰브레트','3시간 이후']],last:55,proj:45,rating:4.6,rc:214},
- {id:'clear-yuzu',name:'Clear Yuzu',kr:'클리어 유자',type:'perfume',scent:'citrus',a:'#F0EDDC',b:'#DCD6BB',juice:'#EEE3B4',cap:'#34322A',sizes:EDP,def:1,
+ {id:'clear-yuzu',img:['p-clear-yuzu'],name:'Clear Yuzu',kr:'클리어 유자',type:'perfume',scent:'citrus',a:'#F0EDDC',b:'#DCD6BB',juice:'#EEE3B4',cap:'#34322A',sizes:EDP,def:1,
   desc:'고흥 유자 껍질을 막 깠을 때 튀는 맑은 기름. 생강과 히노키가 산뜻하게 받쳐줍니다.',tags:['상큼한','출근길','여름'],
   notes:[['유자, 베르가못','첫 15분'],['생강, 네롤리','30분 – 3시간'],['히노키, 머스크','3시간 이후']],last:45,proj:65,rating:4.6,rc:498},
  {id:'warm-milk',name:'Warm Milk',kr:'웜 밀크',type:'perfume',scent:'musk',badge:'Limited',ltd:1,isNew:1,a:'#EFE6DA',b:'#D9C9B4',juice:'#EADBC4',cap:'#3B2E22',sizes:[{l:'50ml',p:138000}],def:0,
   desc:'겨울밤 머그잔에 데운 우유와 꿀 한 스푼. 2026 겨울에만 만나는 한정 향.',tags:['포근한','겨울 한정','선물'],
   notes:[['스팀 밀크, 배','첫 15분'],['쌀, 허니, 오렌지 블로섬','30분 – 3시간'],['통카빈, 캐시미어 머스크','3시간 이후']],last:75,proj:45,rating:4.9,rc:96},
- {id:'discovery',name:'Discovery Set',kr:'디스커버리 세트 · 2ml × 6',type:'discovery',badge:'Best',best:1,a:'#ECE9E3',b:'#D9D4CA',cap:'#2A2825',sizes:[{l:'2ml × 6',p:32000}],def:0,
+ {id:'discovery',img:['p-discovery'],pos:'58% 50%',name:'Discovery Set',kr:'디스커버리 세트 · 2ml × 6',type:'discovery',badge:'Best',best:1,a:'#ECE9E3',b:'#D9D4CA',cap:'#2A2825',sizes:[{l:'2ml × 6',p:32000}],def:0,
   desc:'여섯 가지 향을 2ml씩 먼저 경험해 보세요. 30일 안에 본품 구매 시 세트 금액을 차감해 드립니다.',tags:['처음이라면','6가지 향','본품 금액 차감'],rating:4.9,rc:2311},
- {id:'linen-hand',name:'Soft Linen Hand Cream',kr:'소프트 리넨 핸드크림',type:'hand',scent:'musk',a:'#EDEBE6',b:'#DCD8D0',juice:'#F3EFE7',cap:'#2A2825',sizes:[{l:'30ml',p:18000},{l:'75ml',p:32000}],def:1,
-  desc:'끈적임 없이 스며드는 시어버터 핸드크림. 손끝에 소프트 리넨이 은은하게 남습니다.',tags:['시어버터','빠른 흡수'],rating:4.8,rc:640},
- {id:'fig-body',name:'Morning Fig Body Lotion',kr:'모닝 피그 바디 로션',type:'body',scent:'green',a:'#E7E9E0',b:'#D2D6C6',juice:'#E4E8D6',cap:'#3A3F35',sizes:[{l:'300ml',p:48000}],def:0,
-  desc:'샤워 후 촉촉함을 오래 붙잡는 가벼운 로션. 하루 종일 무화과 잎의 초록이 피부에 머뭅니다.',tags:['가벼운 제형','레이어링'],rating:4.7,rc:318},
- {id:'wood-diffuser',name:'Quiet Wood Diffuser',kr:'콰이어트 우드 디퓨저',type:'home',scent:'woody',a:'#E8E2D8',b:'#CFC3B2',juice:'#D7BE9C',cap:'#2B241E',sizes:[{l:'200ml',p:68000}],def:0,
+ {id:'linen-hand',img:['p-hand-woody-musk'],name:'Woody × Musk Hand Cream',kr:'우디 × 머스크 핸드크림',type:'hand',scent:'woody',sizes:[{l:'50ml',p:26000}],def:0,
+  desc:'콰이어트 우드와 소프트 리넨을 겹친 핸드크림. 끈적임 없이 스며들고, 손끝에 마른 나무와 깨끗한 살결의 향이 남습니다.',tags:['콰이어트 우드 · 소프트 리넨','시어버터','빠른 흡수'],rating:4.8,rc:640},
+ {id:'hand-citrus-floral',img:['p-hand-citrus-floral'],name:'Citrus × Floral Hand Cream',kr:'시트러스 × 플로럴 핸드크림',type:'hand',scent:'citrus',sizes:[{l:'50ml',p:26000}],def:0,
+  desc:'클리어 유자의 맑음 위에 베어 페탈의 꽃잎을 얹었습니다. 손을 씻고 바를 때마다 상쾌하게 리셋되는 향.',tags:['클리어 유자 · 베어 페탈','시어버터','빠른 흡수'],rating:'NEW',rc:0},
+ {id:'hand-floral-musk',img:['p-hand-floral-musk'],name:'Floral × Musk Hand Cream',kr:'플로럴 × 머스크 핸드크림',type:'hand',scent:'floral',sizes:[{l:'50ml',p:26000}],def:0,
+  desc:'베어 페탈의 꽃잎과 웜 밀크의 부드러움. 살결 가까이 포근하게 머무는 핸드크림.',tags:['베어 페탈 · 웜 밀크','시어버터','보습'],rating:'NEW',rc:0},
+ {id:'hand-green-citrus',img:['p-hand-green-citrus'],name:'Green × Citrus Hand Cream',kr:'그린 × 시트러스 핸드크림',type:'hand',scent:'green',sizes:[{l:'50ml',p:26000}],def:0,
+  desc:'모닝 피그의 초록 잎과 클리어 유자의 껍질. 비 온 뒤 정원처럼 산뜻하게 남는 향.',tags:['모닝 피그 · 클리어 유자','시어버터','빠른 흡수'],rating:'NEW',rc:0},
+ {id:'fig-body',img:['cat-body'],name:'Green × Citrus Body Lotion',kr:'그린 × 시트러스 바디 로션',type:'body',scent:'green',sizes:[{l:'300ml',p:48000}],def:0,
+  desc:'샤워 후 촉촉함을 오래 붙잡는 가벼운 로션. 무화과 잎의 초록과 유자 껍질의 맑음이 피부에 머뭅니다.',tags:['모닝 피그 · 클리어 유자','가벼운 제형','레이어링'],rating:4.7,rc:318},
+ {id:'body-lotion-woody',img:['p-body-lotion-woody'],name:'Woody × Musk Body Lotion',kr:'우디 × 머스크 바디 로션',type:'body',scent:'woody',sizes:[{l:'300ml',p:48000}],def:0,
+  desc:'마른 나무와 깨끗한 머스크가 포근하게 감싸는 바디 로션. 잠들기 전 바르기 좋은 차분한 향.',tags:['콰이어트 우드 · 소프트 리넨','보습','레이어링'],rating:'NEW',rc:0},
+ {id:'body-wash-green',img:['p-body-wash-green'],name:'Green × Citrus Body Wash',kr:'그린 × 시트러스 바디 워시',type:'body',scent:'green',sizes:[{l:'500ml',p:38000}],def:0,
+  desc:'초록 잎과 유자 껍질의 산뜻함으로 하루를 여는 바디 워시. 씻고 난 뒤에도 피부가 당기지 않도록.',tags:['모닝 피그 · 클리어 유자','약산성','데일리'],rating:'NEW',rc:0},
+ {id:'body-wash-woody',img:['p-body-wash-woody'],name:'Woody × Musk Body Wash',kr:'우디 × 머스크 바디 워시',type:'body',scent:'woody',sizes:[{l:'500ml',p:38000}],def:0,
+  desc:'하루의 끝을 정리하는 차분한 나무 향 바디 워시. 따뜻한 물에 풀리는 머스크가 욕실에 낮게 머뭅니다.',tags:['콰이어트 우드 · 소프트 리넨','약산성','저녁 루틴'],rating:'NEW',rc:0},
+ {id:'wood-diffuser',img:['cat-home'],pos:'50% 42%',name:'Quiet Wood Diffuser',kr:'콰이어트 우드 디퓨저',type:'home',scent:'woody',a:'#E8E2D8',b:'#CFC3B2',juice:'#D7BE9C',cap:'#2B241E',sizes:[{l:'600ml',p:68000}],def:0,
   desc:'거실 한쪽을 조용한 서재로 바꾸는 디퓨저. 약 8주간 은은하게 확산됩니다.',tags:['8주 지속','리드 8개 포함'],rating:4.8,rc:402},
+ {id:'refill-citrus-floral',img:['p-refill-citrus-floral','p-refill-citrus-floral-2'],name:'Citrus × Floral Diffuser Refill',kr:'시트러스 × 플로럴 디퓨저 리필',type:'home',scent:'citrus',sizes:[{l:'600ml',p:42000}],def:0,
+  desc:'유자 껍질의 맑음과 흰 꽃잎이 공간을 가볍게 채우는 리필. 현관과 거실에 잘 어울립니다.',tags:['클리어 유자 · 베어 페탈','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
+ {id:'refill-floral-musk',img:['p-refill-floral-musk','p-refill-floral-musk-2'],name:'Floral × Musk Diffuser Refill',kr:'플로럴 × 머스크 디퓨저 리필',type:'home',scent:'floral',sizes:[{l:'600ml',p:42000}],def:0,
+  desc:'꽃잎과 데운 우유의 부드러움이 방 안에 포근하게 머무는 리필. 침실에 두기 좋은 향.',tags:['베어 페탈 · 웜 밀크','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
+ {id:'refill-green-citrus',img:['p-refill-green-citrus','p-refill-green-citrus-2'],name:'Green × Citrus Diffuser Refill',kr:'그린 × 시트러스 디퓨저 리필',type:'home',scent:'green',sizes:[{l:'600ml',p:42000}],def:0,
+  desc:'무화과 잎의 초록과 유자 껍질이 비 온 뒤 정원처럼 산뜻하게 퍼지는 리필.',tags:['모닝 피그 · 클리어 유자','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
+ {id:'refill-woody-musk',img:['p-refill-woody-musk','p-refill-woody-musk-2'],name:'Woody × Musk Diffuser Refill',kr:'우디 × 머스크 디퓨저 리필',type:'home',scent:'woody',sizes:[{l:'600ml',p:42000}],def:0,
+  desc:'마른 나무와 깨끗한 리넨이 낮게 깔리는 리필. 서재와 작업 공간에 차분함을 더합니다.',tags:['콰이어트 우드 · 소프트 리넨','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
  {id:'milk-candle',name:'Warm Milk Candle',kr:'웜 밀크 캔들',type:'home',scent:'musk',badge:'Limited',ltd:1,a:'#EEE6DB',b:'#D8C8B3',juice:'#F4ECE0',cap:'#3B2E22',sizes:[{l:'220g',p:58000}],def:0,
   desc:'소이 왁스와 면 심지로 그을음 없이 타는 캔들. 약 45시간 연소됩니다.',tags:['소이 왁스','45시간'],rating:4.9,rc:77},
  {id:'gift-duo',name:'Harmless Gift Duo',kr:'기프트 듀오 · 10ml × 2 + 핸드크림',type:'gift',badge:'Gift',a:'#EAE5DD',b:'#D3CABD',cap:'#34403A',sizes:[{l:'세트',p:79000}],def:0,
@@ -700,7 +756,7 @@ function svgObj(p){
 function art(id,mode=''){
   const p=byId[id]; if(!p) return '';
   if(p.img){
-    const im=(f,c='')=>`<img class="${c}" src="assets/${f}.jpg" alt="${p.kr}" loading="lazy" decoding="async">`;
+    const im=(f,c='')=>`<img class="${c}" src="assets/${f}.jpg" alt="${p.kr}" loading="lazy" decoding="async"${p.pos?` style="object-position:${p.pos}"`:''}>`;
     const n=/^i\d$/.test(mode)?+mode[1]:-1;
     return n>=0?`<div class="art ph">${im(p.img[n])}</div>`:`<div class="art ph">${im(p.img[0])}${p.img[1]?im(p.img[1],'alt'):''}</div>`;
   }
@@ -757,21 +813,50 @@ function vHome(){
   <section class="wrap">
     <div class="h-bar"><span>2026 Holiday</span><a href="#holiday">+ 홀리데이 컬렉션</a></div>
     <div class="benefits">
-      <span class="orn o1">${svgObj(byId['milk-candle'])}</span><span class="orn o2">${svgObj(byId['gift-duo'])}</span><span class="orn o3">${svgObj(byId['discovery'])}</span>
       <h2>HOLIDAY BENEFITS</h2>
       <p>따뜻한 기억과 감성을 담은 홀리데이 한정 패키지와 함께,<br>나를 위한 향과 선물의 순간을 위한 아이템을 만나보세요.</p>
       <ul><li>+ 홀리데이 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트 증정</li></ul>
     </div>
-    <div class="grid hol">${P.slice().sort((a,b)=>(b.hol||0)-(a.hol||0)||(b.ltd||0)-(a.ltd||0)||ORDER.indexOf(a.type)-ORDER.indexOf(b.type)).map(card).join('')}</div>
+    <div class="grid row4">${P.filter(p=>p.hol).slice(0,4).map(card).join('')}</div>
+    <div class="home-tiles">
+      <a href="#holiday"><img src="assets/home-holiday.jpg" width="1049" height="1499" alt="소프트 리넨 오 드 퍼퓸을 든 모델" decoding="async" style="object-position:50% 30%"><span>홀리데이 컬렉션 →</span></a>
+      <a href="#shop-best"><img src="assets/home-best.jpg" width="1536" height="1024" alt="디퓨저 기프트 세트" decoding="async" style="object-position:68% 50%"><span>베스트 셀러 →</span></a>
+    </div>
+    <div class="grid row4">${P.filter(p=>!p.hol).sort((a,b)=>(b.best||0)-(a.best||0)||!!b.img-!!a.img||b.rc-a.rc).slice(0,4).map(card).join('')}</div>
   </section>
 
-  <section class="news"><div class="wrap in">
-    <div><h3>Letters from the Village</h3><p style="margin:6px 0 0;color:var(--mute)">뉴스레터를 구독하면 첫 구매 15% 할인 코드를 보내드려요.</p></div>
-    <form id="newsForm"><input id="newsEmail" type="email" required placeholder="이메일 주소" aria-label="이메일 주소"><button class="txtlink" type="submit" style="border:0">구독하기</button></form>
-  </div></section>`;
+`;
 }
 function initHome(){
-  document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();toast('구독 완료 · WELCOME15 코드를 보내드렸어요 (시안)');e.target.reset()});
+  document.getElementById('newsForm')?.addEventListener('submit',e=>{e.preventDefault();toast('구독 완료 · WELCOME15 코드를 보내드렸어요 (시안)');e.target.reset()});
+}
+
+/* 로그인 — 화면·입력 검증까지. 실제 인증은 쇼핑몰 플랫폼(회원 DB) 연결 후 */
+function vLogin(){
+  const soon=m=>`data-act="soon" data-msg="${m}"`;
+  return `<section class="wrap login">
+    <h1>로그인</h1>
+    <form id="loginForm" novalidate>
+      <label class="sr" for="lg-id">아이디</label><input id="lg-id" name="id" autocomplete="username" placeholder="아이디">
+      <label class="sr" for="lg-pw">비밀번호</label><input id="lg-pw" name="pw" type="password" autocomplete="current-password" placeholder="비밀번호">
+      <p class="lg-err" id="lgErr" role="alert"></p>
+      <button class="btn solid full" type="submit">로그인</button>
+    </form>
+    <nav class="lg-links"><a href="#login" ${soon('아이디 찾기는 회원 시스템 연결 후 열려요')}>아이디 찾기</a><a href="#login" ${soon('비밀번호 찾기는 회원 시스템 연결 후 열려요')}>비밀번호 찾기</a><a href="#login" ${soon('비회원 주문조회는 주문 시스템 연결 후 열려요')}>비회원 주문조회</a></nav>
+    <button class="btn line full lg-kakao" ${soon('카카오 로그인은 카카오 개발자 앱 연결 후 열려요')}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4C7 4 3 7.1 3 11c0 2.4 1.6 4.6 4 5.8L6.3 20l3.7-2.4c.6.1 1.3.2 2 .2 5 0 9-3.1 9-7s-4-6.8-9-6.8z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>카카오 로그인</button>
+    <button class="btn line full" ${soon('회원가입은 회원 시스템 연결 후 열려요')}>회원가입</button>
+    <ul class="lg-perks"><li>+ 카카오톡 채널 추가 시 5% 할인 코드 제공</li><li>+ 회원가입 시 첫 구매 15% 할인 쿠폰 제공 (WELCOME15)</li></ul>
+  </section>`;
+}
+function initLogin(){
+  const f=document.getElementById('loginForm'), err=document.getElementById('lgErr');
+  f.addEventListener('submit',e=>{e.preventDefault();
+    const id=f.id.value.trim(), pw=f.pw.value;
+    f.id.classList.toggle('err',!id); f.pw.classList.toggle('err',!pw);
+    err.textContent=!id?'아이디를 입력해 주세요.':!pw?'비밀번호를 입력해 주세요.':'';
+    if(!id){f.id.focus();return} if(!pw){f.pw.focus();return}
+    toast('시안이라 실제 로그인은 회원 시스템 연결 후 동작해요');
+  });
 }
 
 /* 홀리데이 컬렉션 */
@@ -865,37 +950,44 @@ function vAbout(){
   </article>`;
 }
 
-let sortBy='rec';
+/* 상품 목록 — 메가메뉴와 같은 묶음으로 보여 줌 */
+const CAT_GROUP={perfume:['퍼퓸',['perfume','gift']],discovery:['디스커버리',['discovery']],body:['바디 케어',['body']],hand:['핸드 케어',['hand']],home:['방향제',['home']],gift:['기프트 세트',['gift']]};
+const SUB_NAME={perfume:'오 드 퍼퓸',gift:'기프트 세트',discovery:'디스커버리',body:'바디',hand:'핸드',home:'홈'};
+let sortBy='rec', subSel='all';
+function shopModel(filter){
+  const [kind,val]=filter;
+  if(kind==='cat'&&CAT_GROUP[val]){const [n,types]=CAT_GROUP[val];
+    return {sec:'By Category',name:n,list:P.filter(p=>types.includes(p.type)),tabs:types.length>1?[['all','전체'],...types.map(t=>[t,SUB_NAME[t]])]:null}}
+  if(kind==='cat'&&val==='best') return {sec:'Shop',name:'베스트 셀러',list:P.filter(p=>p.best),links:'shop'};
+  if(kind==='cat'&&val==='new') return {sec:'Shop',name:'신제품 · 한정',list:P.filter(p=>p.isNew||p.ltd||p.hol),links:'shop'};
+  if(kind==='scent'&&SCENTS[val]) return {sec:'By Scent',name:SCENTS[val][0],note:SCENTS[val][1],list:P.filter(p=>p.scent===val),links:'scent'};
+  return {sec:'Shop',name:'전체 상품',list:P.slice(),links:'shop'};
+}
+function shopGrid(m){
+  const list=m.tabs&&subSel!=='all'?m.list.filter(p=>p.type===subSel):m.list;
+  return list.slice().sort((a,b)=>sortBy==='low'?minP(a)-minP(b):sortBy==='high'?minP(b)-minP(a):sortBy==='new'?(b.hol||b.isNew||0)-(a.hol||a.isNew||0):(!!b.img-!!a.img)||(b.rc-a.rc)).map(card).join('');
+}
 function vShop(filter){
-  let list=P.slice(), title='All Products', kr='전체 상품', crumb='전체 상품', desc='HARMLESS의 모든 향과 케어 제품.';
-  let [kind,val]=filter;
-  if(kind==='cat'){
-    if(val==='best'){list=P.filter(p=>p.best);title='Best Sellers';kr=crumb='베스트셀러';desc='가장 많은 분들이 다시 찾는 향.'}
-    else if(val==='new'){list=P.filter(p=>p.isNew||p.ltd);title='New & Limited';kr=crumb='신제품 · 한정판';desc='새로 나온 향과 이번 겨울에만 만나는 한정판.'}
-    else if(CATS[val]){list=P.filter(p=>p.type===val);title={perfume:'Eau de Parfum',discovery:'Discovery',body:'Body Care',hand:'Hand Care',home:'Home Fragrance',gift:'Gift Sets'}[val];kr=crumb=CATS[val];
-      desc={perfume:'가까이 다가왔을 때 알 수 있는 오 드 퍼퓸. 10ml · 50ml · 100ml.',discovery:'본품 전에 먼저 경험하는 시향 세트.',body:'샤워 후 피부에 향을 한 겹 더.',hand:'손끝에 남는 은은한 향.',home:'머무는 공간을 위한 향.',gift:'포장과 메시지 카드까지 준비된 선물.'}[val]}
-  }
-  if(kind==='scent'&&SCENTS[val]){list=P.filter(p=>p.scent===val);title=SCENTS[val][0];kr=crumb=SCENTS[val][0]+' 계열';desc=SCENTS[val][1]+'. '+SCENTS[val][0]+' 계열의 향을 모았습니다.'}
-  const sorted=list.slice().sort((a,b)=>sortBy==='low'?minP(a)-minP(b):sortBy==='high'?minP(b)-minP(a):sortBy==='new'?(b.isNew||0)-(a.isNew||0):(b.rc-a.rc));
-  const tabs=[['shop','전체'],['shop-best','베스트'],['shop-new','신제품'],...Object.entries(CATS).map(([k,v])=>['shop-'+k,v])];
-  const curHash=location.hash.slice(1)||'shop';
-  return `<div class="wrap">
-    <div class="crumb"><a href="#home">홈</a><span>/</span><span>${crumb}</span></div>
-    <div class="shop-hd"><span class="lbl">${kr}</span><h1>${title}</h1><p>${desc}</p></div>
-  </div>
-  <div class="filters"><div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;width:100%">
-    <nav class="tabs" aria-label="카테고리">${tabs.map(([h,l])=>`<a href="#${h}" class="${curHash===h?'on':''}">${l}</a>`).join('')}</nav>
-    <select id="sort" aria-label="정렬"><option value="rec">추천순</option><option value="new">신상품순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option></select>
-  </div></div>
-  <div class="wrap">
-    <div class="scent-row" aria-label="향 계열">${Object.entries(SCENTS).map(([k,[n]])=>`<a href="#scent-${k}" class="${curHash==='scent-'+k?'on':''}">${n}</a>`).join('')}</div>
-    <div class="count">${sorted.length}개 상품</div>
-    <div class="grid">${sorted.map(card).join('')}</div>
-  </div><div style="height:96px"></div>`;
+  const m=shopModel(filter), cur=location.hash.slice(1)||'shop';
+  const links=m.links==='scent'?Object.entries(SCENTS).map(([k,[n]])=>[`scent-${k}`,n])
+    :m.links==='shop'?[['shop','전체'],['holiday','홀리데이'],['shop-best','베스트 셀러'],['shop-new','신제품 · 한정']]:null;
+  const tabs=m.tabs?m.tabs.map(([k,l])=>`<button data-sub="${k}" class="${subSel===k?'on':''}">${l}</button>`).join('')
+    :links?links.map(([h,l])=>`<a href="#${h}" class="${cur===h?'on':''}">${l}</a>`).join(''):'';
+  return `<div class="wrap lst">
+    <div class="lst-bar">
+      <nav class="lst-crumb" aria-label="현재 위치"><span>${m.sec}</span><i>›</i><b>${m.name}</b>${m.note?`<em>${m.note}</em>`:''}</nav>
+      <select id="sort" aria-label="정렬"><option value="rec">추천순</option><option value="new">신상품순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option></select>
+    </div>
+    ${tabs?`<div class="lst-tabs">${tabs}</div>`:''}
+    <div class="grid lst-grid" id="lgrid">${shopGrid(m)}</div>
+  </div><div style="height:112px"></div>`;
 }
 function initShop(filter){
   const s=document.getElementById('sort'); s.value=sortBy;
   s.addEventListener('change',()=>{sortBy=s.value;render()});
+  const m=shopModel(filter), g=document.getElementById('lgrid');
+  document.querySelectorAll('[data-sub]').forEach(b=>b.addEventListener('click',()=>{
+    subSel=b.dataset.sub; document.querySelectorAll('[data-sub]').forEach(x=>x.classList.toggle('on',x===b)); g.innerHTML=shopGrid(m)}));
 }
 
 let pdpState={s:0,q:1,wrap:false};
@@ -1122,7 +1214,8 @@ document.addEventListener('click',e=>{
   else if(a==='menu'){open(menuDr)}
   else if(a==='search'){open(search);doSearch('');setTimeout(()=>document.getElementById('q').focus(),300)}
   else if(a==='close'){closeAll()}
-  else if(a==='account'){toast('로그인은 시안에서 제외했어요')}
+  else if(a==='account'){closeAll();location.hash='login'}
+  else if(a==='soon'){e.preventDefault();toast(t.dataset.msg||'준비 중인 기능이에요')}
   else if(a==='review'){toast('리뷰 작성은 구매 후 가능해요')}
   else if(a==='zip'){document.getElementById('f-zip').value='04001';document.getElementById('f-addr').value='서울특별시 마포구 예시로 12';toast('예시 주소를 채웠어요 (실제 서비스에선 우편번호 검색 연동)')}
   else if(a==='coupon'){const v=document.getElementById('cpn').value.trim().toUpperCase();if(coupon){coupon=null;renderSummary()}else if(v==='WELCOME15'){coupon='WELCOME15';renderSummary();toast('15% 할인이 적용됐어요')}else toast('사용할 수 없는 쿠폰이에요')}
@@ -1137,14 +1230,17 @@ function render(){
   cleanup.forEach(f=>f());cleanup=[];clearInterval(heroTimer);mbar.classList.remove('on');mbar.innerHTML='';
   const h=(location.hash||'#home').slice(1), v=document.getElementById('view');
   if(h.startsWith('product-')&&byId[h.slice(8)]){const p=byId[h.slice(8)];v.innerHTML=vPdp(p);initPdp(p)}
-  else if(h==='shop'){v.innerHTML=vShop(['all']);initShop()}
-  else if(h.startsWith('shop-')){v.innerHTML=vShop(['cat',h.slice(5)]);initShop()}
-  else if(h.startsWith('scent-')){v.innerHTML=vShop(['scent',h.slice(6)]);initShop()}
+  subSel='all';
+  if(false){}
+  else if(h==='shop'){v.innerHTML=vShop(['all']);initShop(['all'])}
+  else if(h.startsWith('shop-')){v.innerHTML=vShop(['cat',h.slice(5)]);initShop(['cat',h.slice(5)])}
+  else if(h.startsWith('scent-')){v.innerHTML=vShop(['scent',h.slice(6)]);initShop(['scent',h.slice(6)])}
   else if(h==='checkout'){v.innerHTML=vCheckout();initCheckout()}
   else if(h==='complete'){v.innerHTML=vComplete()}
   else if(h==='reviews'){return}
   else if(h==='about'){v.innerHTML=vAbout()}
   else if(h==='holiday'){v.innerHTML=vHoliday()}
+  else if(h==='login'){v.innerHTML=vLogin();initLogin()}
   else {v.innerHTML=vHome();initHome()}
   document.body.classList.toggle('is-home',!v.querySelector('.shop-hd,.pdp,.summary,.done')&&!!v.querySelector('.hero.photo'));
   hydrateArt(document);
