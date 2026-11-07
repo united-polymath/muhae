@@ -668,7 +668,7 @@ footer.ft .logo .lm{height:22px}
 /* ================= DATA ================= */
 const CATS={perfume:'오 드 퍼퓸',discovery:'디스커버리',body:'바디 케어',hand:'핸드 케어',home:'홈 프래그런스',gift:'기프트 세트'};
 const SCENTS={citrus:['시트러스','막 자른 껍질의 맑음'],floral:['플로럴','살결에 닿은 꽃잎'],woody:['우디','오래된 나무 서랍'],green:['그린','비 온 뒤 잎사귀'],musk:['머스크','갓 빨아 말린 옷']};
-const EDP=[{l:'10ml',p:39000},{l:'50ml',p:128000},{l:'100ml',p:178000}];
+const EDP=[{l:'10ml',p:32000},{l:'50ml',p:118000},{l:'100ml',p:168000}];
 const P=[
  {id:'soft-linen',name:'Soft Linen',kr:'소프트 리넨',type:'perfume',scent:'musk',badge:'Best',best:1,img:['cat-perfume','home-holiday'],a:'#ECEAE4',b:'#DCD7CE',juice:'#F1ECE1',cap:'#2A2825',sizes:EDP,def:1,
   desc:'햇볕에 막 마른 흰 리넨처럼, 가까이 다가왔을 때만 느껴지는 깨끗한 살결의 향.',tags:['깨끗한','데일리','살냄새'],
@@ -685,11 +685,13 @@ const P=[
  {id:'clear-yuzu',img:['p-clear-yuzu'],name:'Clear Yuzu',kr:'클리어 유자',type:'perfume',scent:'citrus',a:'#F0EDDC',b:'#DCD6BB',juice:'#EEE3B4',cap:'#34322A',sizes:EDP,def:1,
   desc:'고흥 유자 껍질을 막 깠을 때 튀는 맑은 기름. 생강과 히노키가 산뜻하게 받쳐줍니다.',tags:['상큼한','출근길','여름'],
   notes:[['유자, 베르가못','첫 15분'],['생강, 네롤리','30분 – 3시간'],['히노키, 머스크','3시간 이후']],last:45,proj:65,rating:4.6,rc:498},
- {id:'warm-milk',name:'Warm Milk',kr:'웜 밀크',type:'perfume',scent:'musk',badge:'Limited',ltd:1,isNew:1,a:'#EFE6DA',b:'#D9C9B4',juice:'#EADBC4',cap:'#3B2E22',sizes:[{l:'50ml',p:138000}],def:0,
+ {id:'warm-milk',name:'Warm Milk',kr:'웜 밀크',type:'perfume',scent:'musk',badge:'Limited',ltd:1,isNew:1,a:'#EFE6DA',b:'#D9C9B4',juice:'#EADBC4',cap:'#3B2E22',sizes:[{l:'50ml',p:124000}],def:0,
   desc:'겨울밤 머그잔에 데운 우유와 꿀 한 스푼. 2026 겨울에만 만나는 한정 향.',tags:['포근한','겨울 한정','선물'],
   notes:[['스팀 밀크, 배','첫 15분'],['쌀, 허니, 오렌지 블로섬','30분 – 3시간'],['통카빈, 캐시미어 머스크','3시간 이후']],last:75,proj:45,rating:4.9,rc:96},
- {id:'discovery',img:['p-discovery-sig','p-discovery'],name:'Signature Discovery Set',kr:'시그니처 디스커버리 세트 · 10ml × 4',type:'discovery',badge:'Best',best:1,a:'#ECE9E3',b:'#D9D4CA',cap:'#2A2825',sizes:[{l:'10ml × 4',p:52000}],def:0,
+ {id:'discovery',img:['p-discovery-sig','p-discovery'],name:'Signature Discovery Set',kr:'시그니처 디스커버리 세트 · 10ml × 4',type:'discovery',badge:'Best',best:1,a:'#ECE9E3',b:'#D9D4CA',cap:'#2A2825',sizes:[{l:'10ml × 4',p:89000}],def:0,
   desc:'네 가지 시그니처 오 드 퍼퓸을 10ml씩 담았습니다. 본품을 고르기 전, 내 살결에 맞는 향을 먼저 찾아보세요.',tags:['처음이라면','10ml × 4','오 드 퍼퓸'],rating:4.9,rc:2311},
+ {id:'discovery-mini',img:['p-discovery-mini','p-discovery-mini-2'],pos:'56% 50%',name:'Discovery Set',kr:'디스커버리 세트 · 2ml × 4',type:'discovery',badge:'New',isNew:1,sizes:[{l:'2ml × 4',p:24000}],def:0,
+  desc:'시트러스 블룸, 블랑 코튼, 우드 브리즈, 로즈 벨벳. 네 가지 향을 2ml씩 담은 시향 세트입니다. 가볍게 먼저 맡아 보고 내 향을 고르세요.',tags:['첫 시향','2ml × 4','휴대용'],rating:'NEW',rc:0},
  {id:'linen-hand',img:['p-hand-woody-musk'],name:'Woody × Musk Hand Cream',kr:'우디 × 머스크 핸드크림',type:'hand',scent:'woody',sizes:[{l:'50ml',p:26000}],def:0,
   desc:'콰이어트 우드와 소프트 리넨을 겹친 핸드크림. 끈적임 없이 스며들고, 손끝에 마른 나무와 깨끗한 살결의 향이 남습니다.',tags:['콰이어트 우드 · 소프트 리넨','시어버터','빠른 흡수'],rating:4.8,rc:640},
  {id:'hand-citrus-floral',img:['p-hand-citrus-floral'],name:'Citrus × Floral Hand Cream',kr:'시트러스 × 플로럴 핸드크림',type:'hand',scent:'citrus',sizes:[{l:'50ml',p:26000}],def:0,
@@ -698,36 +700,36 @@ const P=[
   desc:'베어 페탈의 꽃잎과 웜 밀크의 부드러움. 살결 가까이 포근하게 머무는 핸드크림.',tags:['베어 페탈 · 웜 밀크','시어버터','보습'],rating:'NEW',rc:0},
  {id:'hand-green-citrus',img:['p-hand-green-citrus'],name:'Green × Citrus Hand Cream',kr:'그린 × 시트러스 핸드크림',type:'hand',scent:'green',sizes:[{l:'50ml',p:26000}],def:0,
   desc:'모닝 피그의 초록 잎과 클리어 유자의 껍질. 비 온 뒤 정원처럼 산뜻하게 남는 향.',tags:['모닝 피그 · 클리어 유자','시어버터','빠른 흡수'],rating:'NEW',rc:0},
- {id:'fig-body',img:['cat-body'],name:'Green × Citrus Body Lotion',kr:'그린 × 시트러스 바디 로션',type:'body',scent:'green',sizes:[{l:'300ml',p:48000}],def:0,
+ {id:'fig-body',img:['cat-body'],name:'Green × Citrus Body Lotion',kr:'그린 × 시트러스 바디 로션',type:'body',scent:'green',sizes:[{l:'300ml',p:39000}],def:0,
   desc:'샤워 후 촉촉함을 오래 붙잡는 가벼운 로션. 무화과 잎의 초록과 유자 껍질의 맑음이 피부에 머뭅니다.',tags:['모닝 피그 · 클리어 유자','가벼운 제형','레이어링'],rating:4.7,rc:318},
- {id:'body-lotion-woody',img:['p-body-lotion-woody'],name:'Woody × Musk Body Lotion',kr:'우디 × 머스크 바디 로션',type:'body',scent:'woody',sizes:[{l:'300ml',p:48000}],def:0,
+ {id:'body-lotion-woody',img:['p-body-lotion-woody'],name:'Woody × Musk Body Lotion',kr:'우디 × 머스크 바디 로션',type:'body',scent:'woody',sizes:[{l:'300ml',p:39000}],def:0,
   desc:'마른 나무와 깨끗한 머스크가 포근하게 감싸는 바디 로션. 잠들기 전 바르기 좋은 차분한 향.',tags:['콰이어트 우드 · 소프트 리넨','보습','레이어링'],rating:'NEW',rc:0},
- {id:'body-wash-green',img:['p-body-wash-green'],name:'Green × Citrus Body Wash',kr:'그린 × 시트러스 바디 워시',type:'body',scent:'green',sizes:[{l:'500ml',p:38000}],def:0,
+ {id:'body-wash-green',img:['p-body-wash-green'],name:'Green × Citrus Body Wash',kr:'그린 × 시트러스 바디 워시',type:'body',scent:'green',sizes:[{l:'500ml',p:36000}],def:0,
   desc:'초록 잎과 유자 껍질의 산뜻함으로 하루를 여는 바디 워시. 씻고 난 뒤에도 피부가 당기지 않도록.',tags:['모닝 피그 · 클리어 유자','약산성','데일리'],rating:'NEW',rc:0},
- {id:'body-wash-woody',img:['p-body-wash-woody'],name:'Woody × Musk Body Wash',kr:'우디 × 머스크 바디 워시',type:'body',scent:'woody',sizes:[{l:'500ml',p:38000}],def:0,
+ {id:'body-wash-woody',img:['p-body-wash-woody'],name:'Woody × Musk Body Wash',kr:'우디 × 머스크 바디 워시',type:'body',scent:'woody',sizes:[{l:'500ml',p:36000}],def:0,
   desc:'하루의 끝을 정리하는 차분한 나무 향 바디 워시. 따뜻한 물에 풀리는 머스크가 욕실에 낮게 머뭅니다.',tags:['콰이어트 우드 · 소프트 리넨','약산성','저녁 루틴'],rating:'NEW',rc:0},
- {id:'wood-diffuser',img:['cat-home'],pos:'50% 42%',name:'Quiet Wood Diffuser',kr:'콰이어트 우드 디퓨저',type:'home',scent:'woody',a:'#E8E2D8',b:'#CFC3B2',juice:'#D7BE9C',cap:'#2B241E',sizes:[{l:'600ml',p:68000}],def:0,
+ {id:'wood-diffuser',img:['cat-home'],pos:'50% 42%',name:'Quiet Wood Diffuser',kr:'콰이어트 우드 디퓨저',type:'home',scent:'woody',a:'#E8E2D8',b:'#CFC3B2',juice:'#D7BE9C',cap:'#2B241E',sizes:[{l:'600ml',p:79000}],def:0,
   desc:'거실 한쪽을 조용한 서재로 바꾸는 디퓨저. 약 8주간 은은하게 확산됩니다.',tags:['8주 지속','리드 8개 포함'],rating:4.8,rc:402},
- {id:'refill-citrus-floral',img:['p-refill-citrus-floral','p-refill-citrus-floral-2'],name:'Citrus × Floral Diffuser Refill',kr:'시트러스 × 플로럴 디퓨저 리필',type:'home',scent:'citrus',sizes:[{l:'600ml',p:42000}],def:0,
+ {id:'refill-citrus-floral',img:['p-refill-citrus-floral','p-refill-citrus-floral-2'],name:'Citrus × Floral Diffuser Refill',kr:'시트러스 × 플로럴 디퓨저 리필',type:'home',scent:'citrus',sizes:[{l:'600ml',p:39000}],def:0,
   desc:'유자 껍질의 맑음과 흰 꽃잎이 공간을 가볍게 채우는 리필. 현관과 거실에 잘 어울립니다.',tags:['클리어 유자 · 베어 페탈','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
- {id:'refill-floral-musk',img:['p-refill-floral-musk','p-refill-floral-musk-2'],name:'Floral × Musk Diffuser Refill',kr:'플로럴 × 머스크 디퓨저 리필',type:'home',scent:'floral',sizes:[{l:'600ml',p:42000}],def:0,
+ {id:'refill-floral-musk',img:['p-refill-floral-musk','p-refill-floral-musk-2'],name:'Floral × Musk Diffuser Refill',kr:'플로럴 × 머스크 디퓨저 리필',type:'home',scent:'floral',sizes:[{l:'600ml',p:39000}],def:0,
   desc:'꽃잎과 데운 우유의 부드러움이 방 안에 포근하게 머무는 리필. 침실에 두기 좋은 향.',tags:['베어 페탈 · 웜 밀크','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
- {id:'refill-green-citrus',img:['p-refill-green-citrus','p-refill-green-citrus-2'],name:'Green × Citrus Diffuser Refill',kr:'그린 × 시트러스 디퓨저 리필',type:'home',scent:'green',sizes:[{l:'600ml',p:42000}],def:0,
+ {id:'refill-green-citrus',img:['p-refill-green-citrus','p-refill-green-citrus-2'],name:'Green × Citrus Diffuser Refill',kr:'그린 × 시트러스 디퓨저 리필',type:'home',scent:'green',sizes:[{l:'600ml',p:39000}],def:0,
   desc:'무화과 잎의 초록과 유자 껍질이 비 온 뒤 정원처럼 산뜻하게 퍼지는 리필.',tags:['모닝 피그 · 클리어 유자','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
- {id:'refill-woody-musk',img:['p-refill-woody-musk','p-refill-woody-musk-2'],name:'Woody × Musk Diffuser Refill',kr:'우디 × 머스크 디퓨저 리필',type:'home',scent:'woody',sizes:[{l:'600ml',p:42000}],def:0,
+ {id:'refill-woody-musk',img:['p-refill-woody-musk','p-refill-woody-musk-2'],name:'Woody × Musk Diffuser Refill',kr:'우디 × 머스크 디퓨저 리필',type:'home',scent:'woody',sizes:[{l:'600ml',p:39000}],def:0,
   desc:'마른 나무와 깨끗한 리넨이 낮게 깔리는 리필. 서재와 작업 공간에 차분함을 더합니다.',tags:['콰이어트 우드 · 소프트 리넨','600ml 리필','디퓨저 본체용'],rating:'NEW',rc:0},
- {id:'milk-candle',name:'Warm Milk Candle',kr:'웜 밀크 캔들',type:'home',scent:'musk',badge:'Limited',ltd:1,a:'#EEE6DB',b:'#D8C8B3',juice:'#F4ECE0',cap:'#3B2E22',sizes:[{l:'220g',p:58000}],def:0,
+ {id:'milk-candle',name:'Warm Milk Candle',kr:'웜 밀크 캔들',type:'home',scent:'musk',badge:'Limited',ltd:1,a:'#EEE6DB',b:'#D8C8B3',juice:'#F4ECE0',cap:'#3B2E22',sizes:[{l:'220g',p:52000}],def:0,
   desc:'소이 왁스와 면 심지로 그을음 없이 타는 캔들. 약 45시간 연소됩니다.',tags:['소이 왁스','45시간'],rating:4.9,rc:77},
  {id:'gift-duo',name:'Harmless Gift Duo',kr:'기프트 듀오 · 10ml × 2 + 핸드크림',type:'gift',badge:'Gift',a:'#EAE5DD',b:'#D3CABD',cap:'#34403A',sizes:[{l:'세트',p:79000}],def:0,
-  desc:'오 드 퍼퓸 10ml 두 가지와 핸드크림 30ml. 리본 포장과 메시지 카드가 함께 갑니다.',tags:['선물 포장','메시지 카드'],rating:4.9,rc:530},
+  desc:'오 드 퍼퓸 10ml 두 가지와 핸드크림 50ml. 리본 포장과 메시지 카드가 함께 갑니다.',tags:['선물 포장','메시지 카드'],rating:4.9,rc:530},
  /* 2026 홀리데이 컬렉션 — 실사진(img) 상품 */
- {id:'hol-duo',name:'Holiday Duo',kr:'홀리데이 퍼퓸 & 핸드크림 세트',type:'gift',scent:'citrus',badge:'Holiday',hol:1,img:['hol-duo-2','hol-duo-1'],sizes:[{l:'오 드 퍼퓸 50ml + 핸드크림 50ml',p:148000}],def:0,
+ {id:'hol-duo',name:'Holiday Duo',kr:'홀리데이 퍼퓸 & 핸드크림 세트',type:'gift',scent:'citrus',badge:'Holiday',hol:1,img:['hol-duo-2','hol-duo-1'],sizes:[{l:'오 드 퍼퓸 50ml + 핸드크림 50ml',p:129000}],def:0,
   desc:'맑은 유자 껍질의 오 드 퍼퓸과 같은 향의 핸드크림을 버건디 상자에 담았습니다. 손목과 손끝에 같은 향을 겹쳐 두는 겨울 선물.',tags:['홀리데이 한정','리본 포장','시트러스'],rating:'NEW',rc:0},
- {id:'hol-body',name:'Holiday Body Set',kr:'홀리데이 바디 케어 세트',type:'body',scent:'citrus',badge:'Holiday',hol:1,img:['hol-body-2','hol-body-1'],sizes:[{l:'바디 워시 500ml + 바디 로션 300ml',p:76000}],def:0,
+ {id:'hol-body',name:'Holiday Body Set',kr:'홀리데이 바디 케어 세트',type:'body',scent:'citrus',badge:'Holiday',hol:1,img:['hol-body-2','hol-body-1'],sizes:[{l:'바디 워시 500ml + 바디 로션 300ml',p:68000}],def:0,
   desc:'시트러스와 플로럴이 포개지는 바디 워시와 바디 로션. 샤워 뒤 피부에 향을 한 겹 더 남기는, 깊은 초록 상자의 세트.',tags:['홀리데이 한정','리본 포장','시트러스 × 플로럴'],rating:'NEW',rc:0},
- {id:'hol-discovery',name:'Holiday Discovery Set',kr:'홀리데이 디스커버리 세트 · 10ml × 4',type:'discovery',badge:'Holiday',hol:1,img:['hol-disc-2','hol-disc-1'],sizes:[{l:'10ml × 4',p:59000}],def:0,
+ {id:'hol-discovery',name:'Holiday Discovery Set',kr:'홀리데이 디스커버리 세트 · 10ml × 4',type:'discovery',badge:'Holiday',hol:1,img:['hol-disc-2','hol-disc-1'],sizes:[{l:'10ml × 4',p:95000}],def:0,
   desc:'시트러스 블룸, 블랑 코튼, 우드 브리즈, 로즈 벨벳. 네 가지 홀리데이 향을 10ml씩 담았습니다. 받는 사람이 자기 향을 직접 고르는 선물.',tags:['홀리데이 한정','10ml × 4','첫 선물로'],rating:'NEW',rc:0},
- {id:'hol-home',name:'Holiday Home & Perfume Set',kr:'홀리데이 홈 & 퍼퓸 세트',type:'gift',scent:'woody',badge:'Holiday',hol:1,img:['hol-home-1','hol-home-2'],sizes:[{l:'디퓨저 200ml + 오 드 퍼퓸 50ml',p:189000}],def:0,
+ {id:'hol-home',name:'Holiday Home & Perfume Set',kr:'홀리데이 홈 & 퍼퓸 세트',type:'gift',scent:'woody',badge:'Holiday',hol:1,img:['hol-home-1','hol-home-2'],sizes:[{l:'디퓨저 200ml + 오 드 퍼퓸 50ml',p:159000}],def:0,
   desc:'트래버틴 질감의 디퓨저와 오 드 퍼퓸 50ml. 머무는 공간의 향과 지니는 향을 한 상자에 담았습니다.',tags:['홀리데이 한정','리본 포장','홈 & 퍼퓸'],rating:'NEW',rc:0},
 ];
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
@@ -829,7 +831,7 @@ function vHome(){
     <div class="benefits">
       <h2>HOLIDAY BENEFITS</h2>
       <p>따뜻한 기억과 감성을 담은 홀리데이 한정 패키지와 함께,<br>나를 위한 향과 선물의 순간을 위한 아이템을 만나보세요.</p>
-      <ul><li>+ 홀리데이 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트 증정</li></ul>
+      <ul><li>+ 홀리데이 시즌 한정 리본 포장 및 메시지 카드 증정</li><li>+ 7만 원 이상 구매 시, 웜 밀크 미니 캔들 증정</li><li>+ 15만 원 이상 구매 시, 디스커버리 세트(2ml × 4) 증정</li></ul>
     </div>
     <div class="grid row4">${P.filter(p=>p.hol).slice(0,4).map(card).join('')}</div>
     <div class="home-tiles">
